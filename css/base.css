@@ -4,9 +4,10 @@
 }
 
 html, body {
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 100;
   letter-spacing: 0.02rem;
-  font-family: "Calibri", Consolas, "Liberation Mono", Menlo, Monaco, "Source Han Sans CN", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif
+  font-family: Cambria, Consolas, "Source Han Sans CN", "PingFang SC", "Microsoft YaHei", sans-serif
 }
 
 body.hidden {
@@ -63,8 +64,8 @@ a:hover {
 }
 
 .container {
-  width: 100%;
-  max-width: 850px;
+  width: 85%;
+  max-width: 880px;
   margin: 0 auto;
 }
 
@@ -83,7 +84,8 @@ a:hover {
 
 @media (max-width: 850px) {
   .container {
-    width: 100%;
+    width: 90%;
+    margin: 0 30px 5px 20px;
   }
   .index .post-list,
   .index .intro,
