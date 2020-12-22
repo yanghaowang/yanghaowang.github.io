@@ -115,12 +115,13 @@ a:hover {
   }
 }
 
-@media (max-width: 1050px) {
+@media (max-width: 1100px) {
   /* # Remove back to top button*/
   .back-to-top {
     opacity: 0;
     z-index: -1;
     padding-right: 0px;
+    display: none;
   }
 }
 
