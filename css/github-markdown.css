@@ -13,7 +13,18 @@
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";*/
   font-size: 1.6rem;
   line-height: 2;
+
+  /* Word Break */
   word-wrap: break-word;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+
+  /* text alignment */
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 @media (max-width: 768px) {
@@ -659,10 +670,10 @@
 }
 
 .markdown-body code {
-  padding: 3px 5px;
-  margin: 0 2px;
+  /* padding: 3px 5px; */
+  /* margin: 0 2px; */
   font-size: 85%;
-  font-weight: 600;
+  /* font-weight: 600; */
   border-radius: 3px;
   background-color: #dfdfdf;
   color: #e96900;
