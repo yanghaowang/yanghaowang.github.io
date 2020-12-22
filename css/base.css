@@ -4,15 +4,24 @@
 }
 
 html, body {
+  color: rgb(50, 50, 50);
   font-size: 11px;
   font-weight: 300;
   letter-spacing: 0.02rem;
-  font-family: Cambria, Consolas, "Source Han Sans CN", "PingFang SC", "Microsoft YaHei", sans-serif
+  font-family: Cambria, Consolas, "Source Han Sans CN", "PingFang SC", "Microsoft YaHei", sans-serif;
+  transition: 1s;
 }
 
 body.hidden {
   overflow: hidden;
   padding-right: 6px;
+}
+
+body.darkmode {
+  background: rgb(40, 40, 40);
+  color: rgb(230, 230, 230);
+  /* color: rgb(256, 256, 256); */
+  transition: 1s;
 }
 
 #app {
@@ -40,10 +49,15 @@ body.hidden {
 }
 
 a {
-  color: #666;
+  /* color: #666; */
   text-decoration: none;
   background-color: transparent;
   transition: color 0.3s;
+}
+
+a:link {
+  color: inherit;
+  opacity: 1;
 }
 
 a:hover {
@@ -110,7 +124,7 @@ a:hover {
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1250px) {
   /* # Remove Float Content */
   .post-catalog {
     opacity: 0;
@@ -128,7 +142,7 @@ a:hover {
 .post-item .time-m-d {
   flex-shrink: 0;
   margin-right: 30px;
-  color: #666;
+  /* color: #666; */
   font-size: 1.5rem;
   /*font-family: 'Raleway', 'Helvetica Neue', 'Arial', sans-serif;*/
 }
@@ -140,13 +154,15 @@ a:hover {
   word-wrap: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-decoration: underline;
+  opacity: 0.8;
 }
 
 .post-item .title .post-top {
   font-weight: 600;
   font-size: 1.7rem;
   padding-right: 8px;
-  color: #535353;
+  /* color: #535353; */
 }
 
 .tag-details .time-m-d, .archives .time-m-d, .category-details .time-m-d {
@@ -168,7 +184,7 @@ a:hover {
 .avatar .nickname {
   font-size: 2rem;
   font-weight: 600;
-  color: #666;
+  /* color: #666; */
   padding-top: 10px;
 }
 
@@ -179,7 +195,8 @@ a:hover {
 
 .content-title {
   font-size: 1.6rem;
-  color: #666;
+  /* color: #666; */
+  opacity: 0.8;
   margin-bottom: 20px;
   /*font-family: 'Raleway', 'Helvetica Neue', 'Arial', sans-serif;*/
 }
@@ -211,13 +228,15 @@ a:hover {
   left: 0;
   height: 8px;
   opacity: 0.3;
-  background-color: gray;
+  background-color: orange;
+  /* background-color: gray; */
   width: 100%;
   border-radius: 3px;
 }
 
 .navbar ul li.active a {
-  color: black;
+  /* color: black; */
+  opacity: 1;
 }
 
 .navbar ul li.active a::after {
@@ -227,7 +246,8 @@ a:hover {
   left: 0;
   height: 8px;
   opacity: 0.5;
-  background-color: gray;
+  background-color: orange;
+  /* background-color: gray; */
   width: 100%;
   border-radius: 3px;
 }
@@ -236,7 +256,7 @@ a:hover {
   font-size: 1.5rem;
   padding: 20px 20px;
   text-align: right;
-  color: #666;
+  /* color: #666; */
 }
 
 .post-navigation i {
@@ -251,11 +271,11 @@ a:hover {
 .footer {
   padding-top: 30px;
   font-size: 1.2rem;
-  color: #aaa;
 }
 
 .social {
   padding-bottom: 5px;
+  opacity: 0.8;
 }
 
 .social ul {
@@ -270,6 +290,7 @@ a:hover {
 .footer-more {
   padding-bottom: 5px;
   text-align: center;
+  color: grey;
 }
 
 
@@ -339,7 +360,7 @@ a:hover {
   text-align: center;
   font-size: 2.4rem;
   font-weight: 600;
-  color: black; /*#666;*/
+  /* color: black; #666; */
   padding-bottom: 10px;
 }
 
@@ -347,7 +368,7 @@ a:hover {
   font-size: 1.4rem;
   text-align: center;
   padding-bottom: 30px;
-  color: #666;
+  /* color: #666; */
 }
 
 .post-content {
@@ -388,7 +409,7 @@ a:hover {
 }
 
 .post-catalog .title {
-  color: #666;
+  /* color: #666; */
   font-size: 1.65rem;
   font-weight: bold;
   padding: 5px 0;
@@ -413,13 +434,16 @@ a:hover {
 .toc-link {
   position: relative;
   padding: 3px 5px;
-  opacity: 0.8;
   border-left: 2px solid transparent;
 }
 
+.toc-link:link {
+  opacity: 0.5;
+}
+
 .toc-link.active {
-  color: black;
-  opacity: 1;
+  /* color: black; */
+  opacity: 0.9;
 }
 
 .toc-link:hover::after {
@@ -450,7 +474,9 @@ a:hover {
   position: fixed;
   right: 2.2rem;
   bottom: 5.2rem;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 12px;
+  opacity: 0.5;
 }
 
 .back-to-top.hidden {
@@ -568,8 +594,8 @@ a:hover {
 
 /* comment */
 .comment {
-  color: black;
-  /* opacity: 0.8; */
+  /* color: black; */
+  opacity: 0.8;
 }
 
 .comment:hover {

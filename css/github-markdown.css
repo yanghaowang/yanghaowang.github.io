@@ -8,7 +8,7 @@
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   line-height: 2;
-  color: #24292e;
+  /* color: #24292e; */
 /*  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";*/
   font-size: 1.6rem;
@@ -156,9 +156,14 @@
   background-color: transparent;
 }
 
+.markdown-body a:link {
+  color: rgb(120, 120, 120);
+}
+
 .markdown-body a:active,
 .markdown-body a:hover {
   outline-width: 0;
+  color: orange;
 }
 
 .markdown-body strong {
@@ -216,7 +221,7 @@
 }
 
 .markdown-body a {
-  color: #666;
+  /* color: #666; */
   text-decoration: none;
   border-bottom: 1px solid #666;
   font-size: 1em;
@@ -225,8 +230,8 @@
 
 .markdown-body a:hover {
   text-decoration: none;
-  color: black;
-  border-bottom: 1px solid black;
+  /* color: black; */
+  border-bottom: 1px solid;
 }
 
 .markdown-body strong {
@@ -439,9 +444,9 @@
   /*margin: 3rem 0;*/
   padding: 15px;
   color: #555;
-  border-left: 0.25em solid #555;
-  background: #EEEEEE;
-  border-radius: 3px;
+  border-left: 0.5em solid rgb(80, 200, 250);
+  background: #eeeeee;
+  border-radius: 5px;
 }
 
 .markdown-body blockquote > :first-child {
@@ -462,7 +467,7 @@
   background-color: #fafbfc;
   border: solid 1px #c6cbd1;
   border-bottom-color: #959da5;
-  border-radius: 3px;
+  border-radius: 5px;
   box-shadow: inset 0 -1px 0 #959da5;
 }
 
@@ -520,7 +525,7 @@
 .markdown-body h4 .octicon-link,
 .markdown-body h5 .octicon-link,
 .markdown-body h6 .octicon-link {
-  color: #1b1f23;
+  /* color: #1b1f23; */
   vertical-align: middle;
   visibility: hidden;
 }
@@ -567,7 +572,7 @@
 
 .markdown-body h6 {
   font-size: 0.85em;
-  color: #6a737d;
+  /* color: #6a737d; */
 }
 
 .markdown-body ul,
@@ -629,7 +634,7 @@
 }
 
 .markdown-body table tr {
-  background-color: #fff;
+  /* background-color: #fff; */
   border-top: 1px solid #c6cbd1;
 }
 
@@ -659,7 +664,7 @@
   font-size: 85%;
   font-weight: 600;
   border-radius: 3px;
-  background-color: #f8f8f8;
+  background-color: #dfdfdf;
   color: #e96900;
 }
 
