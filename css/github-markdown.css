@@ -156,7 +156,7 @@
   background-color: transparent;
 }
 
-.markdown-body a:link {
+.markdown-body a:link, a:visited{
   color: rgb(120, 120, 120);
 }
 
