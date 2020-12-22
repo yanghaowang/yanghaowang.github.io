@@ -55,7 +55,7 @@ a {
   transition: color 0.3s;
 }
 
-a:link {
+a:link, a:visited {
   color: inherit;
   opacity: 1;
 }
