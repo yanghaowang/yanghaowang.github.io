@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yanghaowang.github.io/research/</loc>
+    
+    <lastmod>2020-12-24</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yanghaowang.github.io/about/</loc>
     
     <lastmod>2020-12-21</lastmod>
@@ -10,13 +17,6 @@
   
   <url>
     <loc>http://yanghaowang.github.io/tags/</loc>
-    
-    <lastmod>2020-12-20</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yanghaowang.github.io/research/</loc>
     
     <lastmod>2020-12-20</lastmod>
     
