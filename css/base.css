@@ -9,7 +9,6 @@ html, body {
   font-weight: 300;
   letter-spacing: 0.02rem;
   font-family: Cambria, Consolas, "Source Han Sans CN", "PingFang SC", "Microsoft YaHei", sans-serif;
-  transition: 1s;
 }
 
 body.hidden {
@@ -20,8 +19,8 @@ body.hidden {
 body.darkmode {
   background: rgb(40, 40, 40);
   color: rgb(230, 230, 230);
-  transition: color 1s, background 1s;
-  transition-timing-function: linear;
+  /* transition: color 1s, background 1s;
+  transition-timing-function: linear; */
 }
 
 #app {
