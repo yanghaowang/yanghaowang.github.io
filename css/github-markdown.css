@@ -167,8 +167,8 @@
   background-color: transparent;
 }
 
-.markdown-body a:link, a:visited {
-  color: rgb(120, 120, 120);
+.markdown-body a:link, .markdown-body a:visited {
+  opacity: 0.8;
 }
 
 .markdown-body a:active,

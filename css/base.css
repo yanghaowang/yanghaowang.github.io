@@ -20,8 +20,8 @@ body.hidden {
 body.darkmode {
   background: rgb(40, 40, 40);
   color: rgb(230, 230, 230);
-  /* color: rgb(256, 256, 256); */
-  transition: 1s;
+  transition: color 1s, background 1s;
+  transition-timing-function: linear;
 }
 
 #app {
@@ -49,14 +49,14 @@ body.darkmode {
 }
 
 a {
-  /* color: #666; */
   text-decoration: none;
   background-color: transparent;
   transition: color 0.3s;
 }
 
 a:link, a:visited {
-  color: inherit;
+  /* Define the color; otherwise css will use #blue as default.*/
+  color: inherit; 
   opacity: 1;
 }
 
@@ -595,7 +595,7 @@ a:hover {
 
 /* comment */
 .comment {
-  /* color: black; */
+  color: inherit;
   opacity: 0.8;
 }
 
