@@ -31,9 +31,9 @@
     
     
     
-    <category term="A/B Testing" scheme="http://yanghaowang.github.io/tags/A-B-Testing/"/>
-    
     <category term="Hypothesis Testing" scheme="http://yanghaowang.github.io/tags/Hypothesis-Testing/"/>
+    
+    <category term="A/B Testing" scheme="http://yanghaowang.github.io/tags/A-B-Testing/"/>
     
   </entry>
   
@@ -52,11 +52,11 @@
     
     
     
-    <category term="Hypothesis Testing" scheme="http://yanghaowang.github.io/tags/Hypothesis-Testing/"/>
-    
     <category term="Error Types" scheme="http://yanghaowang.github.io/tags/Error-Types/"/>
     
     <category term="Confusion Matrix" scheme="http://yanghaowang.github.io/tags/Confusion-Matrix/"/>
+    
+    <category term="Hypothesis Testing" scheme="http://yanghaowang.github.io/tags/Hypothesis-Testing/"/>
     
   </entry>
   
