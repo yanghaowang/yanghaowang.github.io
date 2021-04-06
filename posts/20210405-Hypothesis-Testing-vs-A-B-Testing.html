@@ -210,7 +210,7 @@ MathJax = {
           
       </div>
       <div class="markdown-body">
-        <p>A/B testing is a popular term in Data Science. It is straightforward to me at the first glance but then arises an question, what is the difference between the A/B testing people are talking nowadays and the hypothesis testing I learnt in the statistics class. </p>
+        <p>A/B testing is a popular term in Data Science. It is fairly self-explanatory to me at the first glance but then arises an question, what is the difference between the A/B testing people are using nowadays and the hypothesis testing I learnt in the statistics class. </p>
 <p>In this post, I include some key points for understanding the hypothesis testing and the A/B testing, as well as some takeaways from other posts. In short, A/B testing is a version of a two-sample hypothesis testing for a randomized controlled experiment with two groups, control and treatment.</p>
 <h2 id="Hypothesis-Testing"><a href="#Hypothesis-Testing" class="headerlink" title="Hypothesis Testing"></a>Hypothesis Testing</h2><ul>
 <li>Specify the null ($H_0$) and alternative ($H_1$) Hypothesis</li>
@@ -218,7 +218,7 @@ MathJax = {
 <li>Reject or cannot reject the null hypothesis</li>
 </ul>
 <p>In the hypothesis testing, we have some knowledge of a population and observe a representative sample from the population. By computing the test statistics, we verify if our knowledge of the population can be supported by the observed sample.</p>
-<p><a target="_blank" rel="noopener" href="https://towardsdatascience.com/a-gentle-introduction-to-the-mathematics-behind-a-b-testing-3afe354bdce3">A post by Jérôme Spielmann</a> gives a gentle introduction about the mathematics behind the statistical testing and the transition from a generic testing to a A/B testing.</p>
+<p><a target="_blank" rel="noopener" href="https://towardsdatascience.com/a-gentle-introduction-to-the-mathematics-behind-a-b-testing-3afe354bdce3">A post by Jérôme Spielmann</a> gives a gentle introduction about the mathematics behind the statistical testing and the transition from the generic testing to the A/B testing.</p>
 <blockquote>
 <p>In this post, the author has an example of the results in a A/B test.</p>
 <table>
@@ -240,7 +240,7 @@ MathJax = {
 <td align="center">283</td>
 </tr>
 </tbody></table>
-<p>In a hypothesis testing, we focus on the results from one design and have<br>$$<br>H_0:p=0.05\quad\text{v.s.}\quad H_1:p\neq 0.05.<br>$$<br>In a A/B testing, we compare the results from two designs and have<br>$$<br>H_0:p_1=p_2=p\quad\text{v.s.}\quad H_1:p_1\neq p_2.<br>$$</p>
+<p>In the hypothesis testing, we focus on the results from one design and have<br>$$<br>H_0:p=0.05\quad\text{v.s.}\quad H_1:p\neq 0.05.<br>$$<br>In the A/B testing, we compare the results from two designs and have<br>$$<br>H_0:p_1=p_2=p\quad\text{v.s.}\quad H_1:p_1\neq p_2.<br>$$</p>
 </blockquote>
 <h2 id="A-B-Testing"><a href="#A-B-Testing" class="headerlink" title="A/B Testing"></a>A/B Testing</h2><ul>
 <li>Define a measure of interest (i.e., treatment) and a metric</li>
