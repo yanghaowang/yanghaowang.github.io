@@ -13,7 +13,7 @@
   
   
   
-  <title>Error Types and Measures  </title>
+  <title>SQL JOIN with the WHERE and the ON Clause  </title>
 
   
     <link rel="apple-touch-icon" href="/images/isle_icon.png">
@@ -21,22 +21,22 @@
   
 
   <!-- Info Feed for Search Engine -->
-  <meta property="og:url" content="http://yanghaowang.github.io/posts/20210327-Error-Types-and-Measures.html" />
+  <meta property="og:url" content="http://yanghaowang.github.io/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause.html" />
   <meta property="og:site_name" content="Home - Yanghao Wang" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Error Types and Measures" />
+  <meta property="og:title" content="SQL JOIN with the WHERE and the ON Clause" />
 
   
-    <meta name="description" content="type I error, type II error, measures built on errors, terms from a confusion matrix, ROC, AUC">
+    <meta name="description" content="Use JOIN with the WHERE and the ON clause in SQL">
   
 
 
   <!-- Info Feed for Twitter -->
-  <meta name="twitter:url" content="http://yanghaowang.github.io/posts/20210327-Error-Types-and-Measures.html" />
+  <meta name="twitter:url" content="http://yanghaowang.github.io/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause.html" />
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Error Types and Measures">
+  <meta name="twitter:title" content="SQL JOIN with the WHERE and the ON Clause">
   
-    <meta name="twitter:description" content="type I error, type II error, measures built on errors, terms from a confusion matrix, ROC, AUC">
+    <meta name="twitter:description" content="Use JOIN with the WHERE and the ON clause in SQL">
   
   
 
@@ -184,31 +184,19 @@ MathJax = {
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">Error Types and Measures</div>
+      <div class="post-title">SQL JOIN with the WHERE and the ON Clause</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="Update time"></i>
-          2021-03-27
+          2021-02-06
         </span>
         
               <span class="post-tags">
                 <i class="iconfont icon-tags" title="Tags"></i>
                 
                 <span class="span--tag">
-                  <a href="/tags/Error-Types/" title="Error Types">
-                    <b>#</b> Error Types
-                  </a>
-                </span>
-                
-                <span class="span--tag">
-                  <a href="/tags/Confusion-Matrix/" title="Confusion Matrix">
-                    <b>#</b> Confusion Matrix
-                  </a>
-                </span>
-                
-                <span class="span--tag">
-                  <a href="/tags/Hypothesis-Testing/" title="Hypothesis Testing">
-                    <b>#</b> Hypothesis Testing
+                  <a href="/tags/SQL/" title="SQL">
+                    <b>#</b> SQL
                   </a>
                 </span>
                 
@@ -216,71 +204,32 @@ MathJax = {
           
       </div>
       <div class="markdown-body">
-        <p>In the context of econometrics and the empirical analysis in microeconomics, we focus on the type I error and pay much attention on p-value evaluated at a given significance level ($\alpha$). I haven’t cared about the type II error and the statistical power of a test ($1-\beta$) quite a while since I worked on some homework problems related to type II error in the graduate school as taking the Mathematical Statistics course.</p>
-<p>When evaluating the results from a A/B testing and comparing the performances of alternative machine learning models, we inevitably encounter quite a few measures pertaining to type I and type II errors. In this post, I am going to review the error types and some relevant measures.</p>
-<h2 id="Error-Types"><a href="#Error-Types" class="headerlink" title="Error Types"></a>Error Types</h2><p>Errors arise in the process of the statistical testing. Let $H_0$ and $H_1$ denote the null and the alternative hypothesis for a test. By calculating a test statistic from an observed sample, we can reject $H_0$ or not. Because of the randomness, we sometimes might make a mistake as concluding with the value of a test statistic. Here is a table explicitly presenting the error types in a statistical test.</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th align="left">$H_0$ is true</th>
-<th align="left">$H_0$ is not true</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Reject $H_0$</td>
-<td align="left">Type I error <br>False Positive (FP)</td>
-<td align="left">Correct <br>True Positive (TP)</td>
-</tr>
-<tr>
-<td>Cannot reject $H_0$</td>
-<td align="left">Correct<br>True Negative (TN)</td>
-<td align="left">Type II error <br>False Negative (FN)</td>
-</tr>
-</tbody></table>
-<p>As follows, there are relevant measures build on this table:</p>
-<ul>
-<li><p>Recall, Sensitivity, or True Positive Rate (TPR):<br>$$<br>\frac{TP}{TP+FN}=1-\beta<br>$$<br>where $1-\beta$ represents the statistical power of the test.</p>
-</li>
-<li><p>False Positive Rate (FPR):<br>$$<br>\frac{FP}{FP+TN}=\alpha<br>$$<br>where $\alpha$ represents the significance level of the test.</p>
+        <p>When merging tables with selected rows in SQL, we often think of using the <code>JOIN</code> statement with the <code>WHERE</code> and the <code>ON</code> clause. The resulting table would depend on the inclusion of filters in the <code>WHERE</code> or the <code>ON</code> clause. To illustrate this difference, I employ the SQL examples from <a target="_blank" rel="noopener" href="https://mode.com/sql-tutorial/sql-joins-where-vs-on/">a MODE tutorial page</a>.</p>
+<h2 id="Filtering-in-The-ON-Clause"><a href="#Filtering-in-The-ON-Clause" class="headerlink" title="Filtering in The ON Clause"></a>Filtering in The <code>ON</code> Clause</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> companies.permalink            <span class="keyword">AS</span> companies_permalink,</span><br><span class="line">       companies.name                 <span class="keyword">AS</span> companies_name,</span><br><span class="line">       acquisitions.company_permalink <span class="keyword">AS</span> acquisitions_permalink,</span><br><span class="line">       acquisitions.acquired_at       <span class="keyword">AS</span> acquired_date</span><br><span class="line">  <span class="keyword">FROM</span> tutorial.crunchbase_companies         companies</span><br><span class="line">  <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> tutorial.crunchbase_acquisitions acquisitions</span><br><span class="line">    <span class="keyword">ON</span> companies.permalink = acquisitions.company_permalink</span><br><span class="line">   <span class="keyword">AND</span> acquisitions.company_permalink != <span class="string">&#x27;/company/1000memories&#x27;</span></span><br><span class="line"> <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>In a binary classification problem, the TPR and the FPR will vary accordingly as we change the determination threshold in a model (e.g., the cut-off point for a logit model in predicting the credit default).</p>
-<img src="/posts/20210327-Error-Types-and-Measures/AUC.png" class="">
-
-<p>A <strong>receiver (or relative) operating characteristic curve</strong>, or <strong>ROC curve</strong>, is a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Graph_of_a_function">graphical plot</a> that illustrates the diagnostic ability of a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Binary_classifier">binary classifier</a> system <u>as its discrimination threshold is varied</u>. The method was originally developed for operators of military radar receivers, which is why it is so named.</p>
-<p>The optimal cut-off point on ROC can be determined by one of the three criteria (<a target="_blank" rel="noopener" href="http://www.medicalbiostatistics.com/roccurve.pdf">Reference Link</a>):</p>
-<ul>
-<li>The farthest point from the random classifier, that is, max(TPR+FPR), the Youden index</li>
-<li>The closest point to the perfect classifier (0, 1)</li>
-<li>The point minimizing the cost.</li>
-</ul>
+<p><code>ORDER BY 1</code> is equivalent to <code>ORDER BY companies.permalink</code> </p>
 </blockquote>
-</li>
-<li><p>Precision, or Positive Predictive Value (PPV):<br>$$<br>\frac{TP}{TP+FP}<br>$$</p>
-</li>
-<li><p>Specificity, Selectivity, or True Negative Rate (TNR):<br>$$<br>\frac{TN}{TN+FP}=1-\alpha<br>$$</p>
-</li>
-<li><p>Accuracy:<br>$$<br>\frac{TP+TN}{TP+TN+FP+FN}<br>$$</p>
-</li>
-<li><p>F1 Score (Harmonic mean of precision and recall):<br>$$<br>\frac{1}{\frac{1}{2}\frac{1}{\text{Precision}}+\frac{1}{2}\frac{1}{\text{ Recall}}}=2\times\frac{\text{Precision}\times\text{Recall}}{\text{Precision}+\text{Recall}}<br>$$</p>
+<p>The conditional statement <code>AND...</code> is evaluated <strong>before</strong> the join occurs. Particularly, the <code>AND</code> statement is evaluated on the joining  table (i.e., <code>acquisitions</code>) rather than the target table (i.e., <code>companies</code>). Hence, the 1000memories permalink is still displayed in the column that pulls from the target table (i.e., <code>companies</code>).</p>
+<img src="/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause/UsingWhereOrON_1.png" class="">
+
+
+
+<h2 id="Filtering-in-The-WHERE-Clause"><a href="#Filtering-in-The-WHERE-Clause" class="headerlink" title="Filtering in The WHERE Clause"></a>Filtering in The WHERE Clause</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> companies.permalink            <span class="keyword">AS</span> companies_permalink,</span><br><span class="line">       companies.name                 <span class="keyword">AS</span> companies_name,</span><br><span class="line">       acquisitions.company_permalink <span class="keyword">AS</span> acquisitions_permalink,</span><br><span class="line">       acquisitions.acquired_at       <span class="keyword">AS</span> acquired_date</span><br><span class="line">  <span class="keyword">FROM</span> tutorial.crunchbase_companies         companies</span><br><span class="line">  <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> tutorial.crunchbase_acquisitions acquisitions</span><br><span class="line">    <span class="keyword">ON</span> companies.permalink = acquisitions.company_permalink</span><br><span class="line"> <span class="keyword">WHERE</span> acquisitions.company_permalink != <span class="string">&#x27;/company/1000memories&#x27;</span></span><br><span class="line">    <span class="keyword">OR</span> acquisitions.company_permalink <span class="keyword">IS</span> <span class="literal">NULL</span></span><br><span class="line"> <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>If you move the same filter to the <code>WHERE</code> clause, you will notice that the filter happens <strong>after</strong> the tables are joined. The result is that the 1000 memories row is joined onto the original table, but then it is filtered out entirely (in both tables) in the <code>WHERE</code> clause before displaying results (it would have been between the two highlighted lines in the resulting table below).</p>
+<img src="/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause/UsingWhereOrON_2.png" class="">
+
+<p>Note <em>that filtering in the</em> <code>WHERE</code> <em>clause can also filter null values</em>, so we added an extra line to make sure to include the nulls.</p>
 <blockquote>
-<p>The harmonic mean is best used for fractions such as rates.</p>
-<p>For example, Joe drives a car at 10 mph for the half of the journey and 40 mph for the second half. What’s his average speed? The naïve answer is to calculate the total mileage of the journey and then divide it by the total drive time. Denote the total mileage of the journey as $x$ and the total drive time is $\frac{0.5x}{10}+\frac{0.5x}{40}$. Therefore, the average speed is $x/\left(\frac{0.5x}{10}+\frac{0.5x}{40}\right)=16$ mph.</p>
+<p>The null values will not be evaluated using comparison operators.</p>
+<img src="/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause/UsingWhereOrON_3.png" class="">
 </blockquote>
-</li>
-</ul>
-<h2 id="Trade-off-between-Errors"><a href="#Trade-off-between-Errors" class="headerlink" title="Trade-off between Errors"></a>Trade-off between Errors</h2><p>We cannot reduce the type I error (false positive) and the type II error (false negative) at the same time, once a testing environment is fixed and the observed results are given. Usually, we set the expected result as the alternative hypothesis $H_1$ and prefer minimizing $\alpha$ in a statistical test, the probability that we incorrectly reject $H_0$.</p>
-<p>The figure below presents the change in $\alpha$ and $\beta$ as the cut-off point is altered in a given test. By construction, we would like to differentiate the distributions under $H_0$ and $H_1$ as much as possible.</p>
-<img src="/posts/20210327-Error-Types-and-Measures/PPV_NPV_Sensitivity_and_Specificity.png" class="">
-
-<p>In this figure, it is easy to see the specificity ($=1-\alpha$, also known as the confidence level) and the sensitivity ($=1-\beta$, also known as the statistical power of the test) representing the “true” portion of the $H_0$ distribution and the $H_1$ distribution, respectively.</p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause" target="_self">
+              <a href="/posts/20201201-Git-Quick-Start" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -289,27 +238,15 @@ MathJax = {
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime" title="Update time"></i>
-              2021-03-27
+              2021-02-06
             </span>
             
                   <span class="post-tags">
                     <i class="iconfont icon-tags" title="Tags"></i>
                     
                     <span class="span--tag">
-                      <a href="/tags/Error-Types/" title="Error Types">
-                        <b>#</b> Error Types
-                      </a>
-                    </span>
-                    
-                    <span class="span--tag">
-                      <a href="/tags/Confusion-Matrix/" title="Confusion Matrix">
-                        <b>#</b> Confusion Matrix
-                      </a>
-                    </span>
-                    
-                    <span class="span--tag">
-                      <a href="/tags/Hypothesis-Testing/" title="Hypothesis Testing">
-                        <b>#</b> Hypothesis Testing
+                      <a href="/tags/SQL/" title="SQL">
+                        <b>#</b> SQL
                       </a>
                     </span>
                     
@@ -318,7 +255,7 @@ MathJax = {
           </div>
           <div class="post-foot-prev">
             
-              <a href="/posts/20210405-Hypothesis-Testing-vs-A-B-Testing" target="_self">
+              <a href="/posts/20210327-Error-Types-and-Measures" target="_self">
                 <span>Next</span>
                 <i class="iconfont icon-chevronright"></i>
               </a>
@@ -331,7 +268,7 @@ MathJax = {
   <div class="post-catalog" id="catalog">
     <div class="title">Contents</div>
     <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Error-Types"><span class="toc-text">Error Types</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Trade-off-between-Errors"><span class="toc-text">Trade-off between Errors</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Filtering-in-The-ON-Clause"><span class="toc-text">Filtering in The ON Clause</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Filtering-in-The-WHERE-Clause"><span class="toc-text">Filtering in The WHERE Clause</span></a></li></ol>
     </div>
   </div>
 
@@ -352,9 +289,9 @@ MathJax = {
 
   <script>
     var disqus_config = function() {
-      this.page.url = 'http://yanghaowang.github.io/posts/20210327-Error-Types-and-Measures.html';
-      this.page.identifier = 'posts/20210327-Error-Types-and-Measures.html';
-      this.page.title = 'Error Types and Measures';
+      this.page.url = 'http://yanghaowang.github.io/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause.html';
+      this.page.identifier = 'posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause.html';
+      this.page.title = 'SQL JOIN with the WHERE and the ON Clause';
     };
 
     var is_disqus_loaded = false;

@@ -61,6 +61,25 @@
   </entry>
   
   <entry>
+    <title>SQL JOIN with the WHERE and the ON Clause</title>
+    <link href="http://yanghaowang.github.io/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause"/>
+    <id>http://yanghaowang.github.io/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause</id>
+    <published>2021-02-07T00:53:06.000Z</published>
+    <updated>2021-04-06T02:23:39.393Z</updated>
+    
+    <content type="html"><![CDATA[<p>When merging tables with selected rows in SQL, we often think of using the <code>JOIN</code> statement with the <code>WHERE</code> and the <code>ON</code> clause. The resulting table would depend on the inclusion of filters in the <code>WHERE</code> or the <code>ON</code> clause. To illustrate this difference, I employ the SQL examples from <a href="https://mode.com/sql-tutorial/sql-joins-where-vs-on/">a MODE tutorial page</a>.</p><h2 id="Filtering-in-The-ON-Clause"><a href="#Filtering-in-The-ON-Clause" class="headerlink" title="Filtering in The ON Clause"></a>Filtering in The <code>ON</code> Clause</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> companies.permalink            <span class="keyword">AS</span> companies_permalink,</span><br><span class="line">       companies.name                 <span class="keyword">AS</span> companies_name,</span><br><span class="line">       acquisitions.company_permalink <span class="keyword">AS</span> acquisitions_permalink,</span><br><span class="line">       acquisitions.acquired_at       <span class="keyword">AS</span> acquired_date</span><br><span class="line">  <span class="keyword">FROM</span> tutorial.crunchbase_companies         companies</span><br><span class="line">  <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> tutorial.crunchbase_acquisitions acquisitions</span><br><span class="line">    <span class="keyword">ON</span> companies.permalink = acquisitions.company_permalink</span><br><span class="line">   <span class="keyword">AND</span> acquisitions.company_permalink != <span class="string">&#x27;/company/1000memories&#x27;</span></span><br><span class="line"> <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="number">1</span></span><br></pre></td></tr></table></figure><blockquote><p><code>ORDER BY 1</code> is equivalent to <code>ORDER BY companies.permalink</code> </p></blockquote><p>The conditional statement <code>AND...</code> is evaluated <strong>before</strong> the join occurs. Particularly, the <code>AND</code> statement is evaluated on the joining  table (i.e., <code>acquisitions</code>) rather than the target table (i.e., <code>companies</code>). Hence, the 1000memories permalink is still displayed in the column that pulls from the target table (i.e., <code>companies</code>).</p><img src="/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause/UsingWhereOrON_1.png" class=""><h2 id="Filtering-in-The-WHERE-Clause"><a href="#Filtering-in-The-WHERE-Clause" class="headerlink" title="Filtering in The WHERE Clause"></a>Filtering in The WHERE Clause</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> companies.permalink            <span class="keyword">AS</span> companies_permalink,</span><br><span class="line">       companies.name                 <span class="keyword">AS</span> companies_name,</span><br><span class="line">       acquisitions.company_permalink <span class="keyword">AS</span> acquisitions_permalink,</span><br><span class="line">       acquisitions.acquired_at       <span class="keyword">AS</span> acquired_date</span><br><span class="line">  <span class="keyword">FROM</span> tutorial.crunchbase_companies         companies</span><br><span class="line">  <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> tutorial.crunchbase_acquisitions acquisitions</span><br><span class="line">    <span class="keyword">ON</span> companies.permalink = acquisitions.company_permalink</span><br><span class="line"> <span class="keyword">WHERE</span> acquisitions.company_permalink != <span class="string">&#x27;/company/1000memories&#x27;</span></span><br><span class="line">    <span class="keyword">OR</span> acquisitions.company_permalink <span class="keyword">IS</span> <span class="literal">NULL</span></span><br><span class="line"> <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="number">1</span></span><br></pre></td></tr></table></figure><p>If you move the same filter to the <code>WHERE</code> clause, you will notice that the filter happens <strong>after</strong> the tables are joined. The result is that the 1000 memories row is joined onto the original table, but then it is filtered out entirely (in both tables) in the <code>WHERE</code> clause before displaying results (it would have been between the two highlighted lines in the resulting table below).</p><img src="/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause/UsingWhereOrON_2.png" class=""><p>Note <em>that filtering in the</em> <code>WHERE</code> <em>clause can also filter null values</em>, so we added an extra line to make sure to include the nulls.</p><blockquote><p>The null values will not be evaluated using comparison operators.</p><img src="/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause/UsingWhereOrON_3.png" class=""></blockquote>]]></content>
+    
+    
+    <summary type="html">Use JOIN with the WHERE and the ON clause in SQL</summary>
+    
+    
+    
+    
+    <category term="SQL" scheme="http://yanghaowang.github.io/tags/SQL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Git Quick Start</title>
     <link href="http://yanghaowang.github.io/posts/20201201-Git-Quick-Start"/>
     <id>http://yanghaowang.github.io/posts/20201201-Git-Quick-Start</id>
@@ -75,9 +94,9 @@
     
     
     
-    <category term="Git" scheme="http://yanghaowang.github.io/tags/Git/"/>
-    
     <category term="Github" scheme="http://yanghaowang.github.io/tags/Github/"/>
+    
+    <category term="Git" scheme="http://yanghaowang.github.io/tags/Git/"/>
     
   </entry>
   
@@ -96,9 +115,9 @@
     
     
     
-    <category term="Git" scheme="http://yanghaowang.github.io/tags/Git/"/>
-    
     <category term="Github" scheme="http://yanghaowang.github.io/tags/Github/"/>
+    
+    <category term="Git" scheme="http://yanghaowang.github.io/tags/Git/"/>
     
   </entry>
   
@@ -138,9 +157,9 @@
     
     
     
-    <category term="Github" scheme="http://yanghaowang.github.io/tags/Github/"/>
-    
     <category term="Hexo" scheme="http://yanghaowang.github.io/tags/Hexo/"/>
+    
+    <category term="Github" scheme="http://yanghaowang.github.io/tags/Github/"/>
     
   </entry>
   
