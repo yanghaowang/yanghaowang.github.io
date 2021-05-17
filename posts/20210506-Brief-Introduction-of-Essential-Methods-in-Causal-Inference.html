@@ -13,7 +13,7 @@
   
   
   
-  <title>archive_a: 2020/11  </title>
+  <title>Brief Introduction of Essential Methods in Causal Inference  </title>
 
   
     <link rel="apple-touch-icon" href="/images/isle_icon.png">
@@ -21,22 +21,22 @@
   
 
   <!-- Info Feed for Search Engine -->
-  <meta property="og:url" content="http://yanghaowang.github.io/archives/2020/11/index.html" />
+  <meta property="og:url" content="http://yanghaowang.github.io/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference.html" />
   <meta property="og:site_name" content="Home - Yanghao Wang" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="archive_a: 2020/11" />
+  <meta property="og:title" content="Brief Introduction of Essential Methods in Causal Inference" />
 
   
-    <meta name="description" content="This is Yanghao&#39;s homepage, sharing his notes on economics, machine learning, and business analytics.">
+    <meta name="description" content="">
   
 
 
   <!-- Info Feed for Twitter -->
-  <meta name="twitter:url" content="http://yanghaowang.github.io/archives/2020/11/index.html" />
+  <meta name="twitter:url" content="http://yanghaowang.github.io/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference.html" />
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="archive_a: 2020/11">
+  <meta name="twitter:title" content="Brief Introduction of Essential Methods in Causal Inference">
   
-    <meta name="twitter:description" content="This is Yanghao&#39;s homepage, sharing his notes on economics, machine learning, and business analytics.">
+    <meta name="twitter:description" content="">
   
   
 
@@ -156,131 +156,345 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
 
-<div class="container archives">
-  <div class="post-list">
-    
-    
-      
-        <!-- 第一篇文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2021</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="Brief Introduction of Essential Methods in Causal Inference">
-        <div class="time-m-d">05-06</div>
-        <div class="title">
-          <a href="/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference">
-            <span>Brief Introduction of Essential Methods in Causal Inference</span>
-          </a>
-        </div>
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Brief Introduction of Essential Methods in Causal Inference</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2021-05-06
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Causal-Inference/" title="Causal Inference">
+                    <b>#</b> Causal Inference
+                  </a>
+                </span>
+                
+                <span class="span--tag">
+                  <a href="/tags/Machine-Learning/" title="Machine Learning">
+                    <b>#</b> Machine Learning
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
-    
-      
-      <div class="post-item" title="Aggregate Data in SQL Using GROUP BY or Window Functions">
-        <div class="time-m-d">04-10</div>
-        <div class="title">
-          <a href="/posts/20210410-Aggregate-Data-in-SQL-Using-GROUP-BY-or-Window-Functions">
-            <span>Aggregate Data in SQL Using GROUP BY or Window Functions</span>
-          </a>
-        </div>
+      <div class="markdown-body">
+        <p>Running an AB test becomes a generic solution when we are interested in the causal impacts of a new feature on the product sales or performance. What if we cannot set up the environment of an experiment because of market regulation?</p>
+<p>In this post, we turn back to some essential methods in causal inference. These methods are briefly covered by the Coursera Project, titled “<a target="_blank" rel="noopener" href="https://www.coursera.org/projects/essential-causal-inference-for-data-science">Essential Causal Inference Techniques for Data Science</a>.”</p>
+<h2 id="Idea-behind-Causal-Inference"><a href="#Idea-behind-Causal-Inference" class="headerlink" title="Idea behind Causal Inference"></a>Idea behind Causal Inference</h2><p>Try to control for all possible confounders and <strong>look for “natural sources” of variation that can split our data into quasi random groups</strong> and mimic the randomization we would get from an AB test.</p>
+<p>In other words, removing the effects of all the potential confounders, we believe that testing groups are randomly split and comparable.</p>
+<h2 id="Essential-Methods"><a href="#Essential-Methods" class="headerlink" title="Essential Methods"></a>Essential Methods</h2><h3 id="Controlled-Regression"><a href="#Controlled-Regression" class="headerlink" title="Controlled Regression"></a>Controlled Regression</h3><ul>
+<li><p>We have Y =&gt; usage as measured by completing the 2nd week of a course</p>
+</li>
+<li><p>and X =&gt; First Week NPS (net promoter score) which is a satisfaction rating on a 1-10 scale</p>
+</li>
+<li><p>Univariate regression of Y (usage) on X (product quality)</p>
+</li>
+<li><p>Multiple regression of Y (usage) on X (product quality) and a set of controls</p>
+</li>
+</ul>
+<p>If </p>
+<ol>
+<li><p>the R squared in the multiple regression increases “a lot” from that in the univariate regression</p>
+</li>
+<li><p>coefficient on X is similar in the two models</p>
+</li>
+</ol>
+<p>then by the theory of controlled regression, we can use it as the causal impact.</p>
+<blockquote>
+<p>Sources of Error</p>
+<ul>
+<li><p>Omitted Variable Bias</p>
+<p>Look at the R squared in the multiple regression with controls and how large it is (if R^2^ is not close to 100% we know there are a lot of omitted variables in our regression)</p>
+</li>
+<li><p>Included Variable Bias</p>
+<p>This is the opposite of omitted variable bias and involves the inclusion of too many controls. No direct way to identify this problem but generally can leave out controls that are not determined at time observe X. In the ML context, it is the information leakage (e.g., target encoding), that is, using future to predict the past.</p>
+</li>
+</ul>
+</blockquote>
+<p>Controlled regression can be a bit of art form and a bit of random. People nowadays prefer the other causal inference techniques that are considered to be more rigorous and reliable.</p>
+<h3 id="Regression-Discontinuity"><a href="#Regression-Discontinuity" class="headerlink" title="Regression Discontinuity"></a>Regression Discontinuity</h3><p>Focus on cut-off point that can be thought of as local randomized experiment.</p>
+<img src="/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference/RD.png" class="">
+
+<blockquote>
+<p>Arbitrarily assigned cutoff point randomly splits the sample into two comparable groups around the cutoff point. </p>
+</blockquote>
+<ul>
+<li><p>Y: Revenue or course enrollment</p>
+</li>
+<li><p>X: Advertisement (advertised, e.g., via email, if the percentage of subtitled materials in a course is greater than 80%)</p>
+</li>
+<li><p>Assumption</p>
+<ol>
+<li><p>Courses below and above the 80% subtitle threshold are similar to one another, so the discontinuity point effectively randomizes the sample.</p>
+<blockquote>
+<p>Check:</p>
+<ol>
+<li>Sample size similar below and above cutoff (i.e., roughly balanced)</li>
+<li>Sample below and above cutoff are similar on observable/confounders</li>
+</ol>
+</blockquote>
+</li>
+<li><p>Advertising available or not is assumed to be the only differentiator between courses at the 70% subtitle value and the 90% subtitle value.</p>
+<blockquote>
+<p>Check:</p>
+<p>Conduct placebo tests, that is, run regression discontinuity at points other than the cutoff and check for no effect (e.g., run regression discontinuity at 20%, 30%, and 40% and we shouldn’t find any significant difference at these levels)</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<p>Using regression discontinuity design (RDD), we estimate a linear regression with a term of the X variable with the discontinuity, an indicator for the discontinuity (which is a function of the X variable being above or below the cutoff point), and the interaction of the X variable and the discontinuity indicator.<br>$$<br>y=\beta_0+\beta_1 \cdot x+\beta_2 \cdot I(x\ge c)+\beta_3\cdot x \cdot I(x\ge c),<br>$$<br>where $x$ is the variable with the discontinuity, $I(\cdot)$ is an indicator function, and $c$ is the randomly assigned cutoff point.</p>
+<blockquote>
+<p>Note this regression fits two linear models (with different coefficients) below and above the cutoff point. When $x&lt;c$, the intercept and the coefficient of the X variable are $\beta_0$ and $\beta_1$. In contrast, when $x\ge c$, the intercept and the coefficient become $\beta_0+\beta_2$ and $\beta_1+\beta_3$.</p>
+<p>This change in the model structure is analog to the formulation of the Chow test for examining the structural break.</p>
+</blockquote>
+<p>Comparing pre and post the discontinuity, we obtain the causal effect given by<br>$$<br>\beta_2 + \beta_3\times c.<br>$$</p>
+<h3 id="Difference-in-Difference"><a href="#Difference-in-Difference" class="headerlink" title="Difference-in-Difference"></a>Difference-in-Difference</h3><img src="/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference/DID.png" class="">
+
+<ul>
+<li><p>Y: Revenue</p>
+</li>
+<li><p>X: Price change</p>
+</li>
+<li><p>Assumption: Parallel Trends</p>
+<p>Check revenue in control country with no price change was similar and highly correlated with revenue in treatment country with price change (ensure control can serve as counterfactual)</p>
+<ol>
+<li>Graph control and treatment groups in the pre period and see if highly correlated</li>
+<li>Build a regression model to check whether trends are identical (hypotheses testing if there is no difference in slopes between two groups)</li>
+</ol>
+</li>
+<li><p>Extension: <strong>Synthetic Control</strong></p>
+<ul>
+<li>Problem with regular DID: Picking a single control group that satisfies parallel trends can be arbitrary</li>
+<li>Synthetic control creates a synthetic control group that is a weighted average of many control groups<ol>
+<li>Choose weights to minimize tracking error with treatment group pre intervention (parallel trends)</li>
+<li>Causal estimate is difference post intervention between treatment and “synthetic control” </li>
+</ol>
+</li>
+<li>R packages: <a target="_blank" rel="noopener" href="https://cran.r-project.org/web/packages/Synth/index.html"><code>Synth</code></a>; <a target="_blank" rel="noopener" href="https://cran.r-project.org/web/packages/CausalImpact/"><code>CausalImpact</code></a> (Bayesian Version)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Instrumental-Variables"><a href="#Instrumental-Variables" class="headerlink" title="Instrumental Variables"></a>Instrumental Variables</h3><ul>
+<li><p>Assumptions</p>
+<ol>
+<li><p>Strong First Stage: Instruments are strong predictors for the X variable</p>
+<p>Hypothesis tests for weak instruments</p>
+</li>
+<li><p>Exclusion Restriction: Instruments have an impact on the Y variable only through their impact on the X variable</p>
+<p>There is no test for this assumption. We need to use logic to strengthen the validity of this assumption. In a <strong>randomized encouragement trial</strong> (i.e., a RCT used for product promotion campaign; think of email notification) where we create the instrument as a randomly assigned nudge that prompts the X variable, we can ensure exclusion restriction through random assignment.</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="Machine-Learning-ML-Causal-Inference"><a href="#Machine-Learning-ML-Causal-Inference" class="headerlink" title="Machine Learning (ML) + Causal Inference"></a>Machine Learning (ML) + Causal Inference</h3><ul>
+<li><p>Weakness of classic causal approaches</p>
+<ul>
+<li>Fail with many covariates</li>
+<li>Model selection unprincipled</li>
+<li>Linear relationships and no interactions</li>
+</ul>
+</li>
+<li><p>Benefits of ML</p>
+<ul>
+<li>Handle high dimensionality</li>
+<li>Principled ways to choose model</li>
+<li>Nonlinear model using higher order features</li>
+</ul>
+</li>
+<li><p>ML form controlled regression</p>
+<ul>
+<li><p>Use ML models to control for many potential confounders and/or nonlinear effects. </p>
+<blockquote>
+<p>Standard controlled regression steps</p>
+<ul>
+<li>Regress Y on X and a set of controls C to identify coefficient of interest on X</li>
+<li>Be wary of omitted and included variable biases</li>
+</ul>
+</blockquote>
+</li>
+<li><p>There are two types of ML form controlled regressions:</p>
+<ul>
+<li>Double Selection (LASSO)</li>
+<li>Double Debiased (Generic ML models)</li>
+</ul>
+<blockquote>
+<p>Double Selection on AB test data:</p>
+<ul>
+<li>Reduce the noises and increase statistical power (give smaller confidence intervals in a shorter experiment period)</li>
+<li>Good for small samples and small effect sizes (i.e., small expected difference between A and B groups)</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Steps</p>
+<ul>
+<li><p>Define outcome Y, treatment indicator X, and high dimensional set of controls C</p>
+</li>
+<li><p>Split data into two sets: Training and Testing (this can be generalized to k-folds)</p>
+</li>
+<li><p><strong>Fit</strong> two Lassos of X~C and Y~C <strong>on the training</strong> data set</p>
+<blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://stats.stackexchange.com/questions/138569/why-is-lambda-within-one-standard-error-from-the-minimum-is-a-recommended-valu">the one standard error rule</a> to choose the optimal $\lambda$ (i.e., the shrinkage parameter) for the LASSO regression</p>
+<p>The final set of controls is a union of controls from the LASSO regression X~C and Y~C</p>
+</blockquote>
+</li>
+<li><p>Take fitted models and <strong>apply to the testing</strong> data set</p>
+</li>
+<li><p>Get all nonzero variables in C and use as controls in controlled regression of Y on X</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Causal Trees/Forests</p>
+<ul>
+<li><p>Previous models assume homogeneous treatment effects. However, <strong>causal trees/forests estimates heterogeneous treatment effects</strong> where impact differs on observed criteria</p>
+<ul>
+<li>Use trees (or forests) to identify partition of the demographic space that maximizes observed difference of Y between treatment and control while balancing overfitting</li>
+</ul>
+</li>
+<li><p>Steps</p>
+<ul>
+<li>Split data into two halves</li>
+<li>Fit trees/forests on one half (i.e., the splitting subsample) and apply to second half (i.e., the estimating subsample) to estimate treatment effects</li>
+<li>Heterogeneous treatment effects from difference in Y in leaf nodes (i.e., the treatment effect conditioned on C attributes in leaf nodes) </li>
+<li>Optimization criteria set up to find the best fit given the splitting subsample</li>
+<li>Forest is an average of a collection of trees with sampling</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
       </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/posts/20210410-Aggregate-Data-in-SQL-Using-GROUP-BY-or-Window-Functions" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2021-05-06
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Causal-Inference/" title="Causal Inference">
+                        <b>#</b> Causal Inference
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Machine-Learning/" title="Machine Learning">
+                        <b>#</b> Machine Learning
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
     
-      
-      <div class="post-item" title="Aggregating and Filtering at One Time in SQL">
-        <div class="time-m-d">04-06</div>
-        <div class="title">
-          <a href="/posts/20210406-Aggregating-and-Filtering-at-One-Time-in-SQL">
-            <span>Aggregating and Filtering at One Time in SQL</span>
-          </a>
-        </div>
-      </div>
+  <div class="post-catalog" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Idea-behind-Causal-Inference"><span class="toc-text">Idea behind Causal Inference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Essential-Methods"><span class="toc-text">Essential Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Controlled-Regression"><span class="toc-text">Controlled Regression</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Regression-Discontinuity"><span class="toc-text">Regression Discontinuity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Difference-in-Difference"><span class="toc-text">Difference-in-Difference</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Instrumental-Variables"><span class="toc-text">Instrumental Variables</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Machine-Learning-ML-Causal-Inference"><span class="toc-text">Machine Learning (ML) + Causal Inference</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      
-      <div class="post-item" title="Hypothesis Testing vs. A/B Testing">
-        <div class="time-m-d">04-05</div>
-        <div class="title">
-          <a href="/posts/20210405-Hypothesis-Testing-vs-A-B-Testing">
-            <span>Hypothesis Testing vs. A/B Testing</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Error Types and Measures">
-        <div class="time-m-d">03-27</div>
-        <div class="title">
-          <a href="/posts/20210327-Error-Types-and-Measures">
-            <span>Error Types and Measures</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="SQL JOIN with the WHERE and the ON Clause">
-        <div class="time-m-d">02-06</div>
-        <div class="title">
-          <a href="/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause">
-            <span>SQL JOIN with the WHERE and the ON Clause</span>
-          </a>
-        </div>
-      </div>
-    
-      
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2020</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="Git Quick Start">
-        <div class="time-m-d">12-01</div>
-        <div class="title">
-          <a href="/posts/20201201-Git-Quick-Start">
-            <span>Git Quick Start</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Google Drive plus Git">
-        <div class="time-m-d">12-01</div>
-        <div class="title">
-          <a href="/posts/20201201-Google-Drive-plus-Git">
-            <span>Google Drive plus Git</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="LaTex Display in Hexo">
-        <div class="time-m-d">11-25</div>
-        <div class="title">
-          <a href="/posts/20201125-LaTex-Display-in-Hexo">
-            <span>LaTex Display in Hexo</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Hello World and Thank You Hexo">
-        <div class="time-m-d">11-23</div>
-        <div class="title">
-          <a href="/posts/20201123-Hello-World-and-Thank-You-Hexo">
-            <span>Hello World and Thank You Hexo</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+  <div id="disqus_thread">
+    <h2>
+      <a href="#" class="comment" onclick="loadDisqus();return false;">View / Make Comments</a>
+    </h2>
+  </div>
+
+  <script>
+    var disqus_config = function() {
+      this.page.url = 'http://yanghaowang.github.io/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference.html';
+      this.page.identifier = 'posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference.html';
+      this.page.title = 'Brief Introduction of Essential Methods in Causal Inference';
+    };
+
+    var is_disqus_loaded = false;
+
+    function loadDisqus() {
+      if (!is_disqus_loaded) {
+        is_disqus_loaded = true;
+
+        var d = document,
+          s = d.createElement('script');
+        s.src = 'https://https-yanghaowang-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+    }
+
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         <div class="footer">
   <div class="social">
