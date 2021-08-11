@@ -13,7 +13,7 @@
   
   
   
-  <title>Brief Introduction of Essential Methods in Causal Inference  </title>
+  <title>How to Use Class Objects in Python  </title>
 
   
     <link rel="apple-touch-icon" href="/images/isle_icon.png">
@@ -21,22 +21,22 @@
   
 
   <!-- Info Feed for Search Engine -->
-  <meta property="og:url" content="http://yanghaowang.github.io/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference.html" />
+  <meta property="og:url" content="http://yanghaowang.github.io/posts/20210810-How-to-Use-Class-Objects-in-Python.html" />
   <meta property="og:site_name" content="Home - Yanghao Wang" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Brief Introduction of Essential Methods in Causal Inference" />
+  <meta property="og:title" content="How to Use Class Objects in Python" />
 
   
-    <meta name="description" content="">
+    <meta name="description" content="A class is a prototype for an object, from which new instances can be created.">
   
 
 
   <!-- Info Feed for Twitter -->
-  <meta name="twitter:url" content="http://yanghaowang.github.io/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference.html" />
+  <meta name="twitter:url" content="http://yanghaowang.github.io/posts/20210810-How-to-Use-Class-Objects-in-Python.html" />
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Brief Introduction of Essential Methods in Causal Inference">
+  <meta name="twitter:title" content="How to Use Class Objects in Python">
   
-    <meta name="twitter:description" content="">
+    <meta name="twitter:description" content="A class is a prototype for an object, from which new instances can be created.">
   
   
 
@@ -184,25 +184,19 @@ MathJax = {
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">Brief Introduction of Essential Methods in Causal Inference</div>
+      <div class="post-title">How to Use Class Objects in Python</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="Update time"></i>
-          2021-05-06
+          2021-08-10
         </span>
         
               <span class="post-tags">
                 <i class="iconfont icon-tags" title="Tags"></i>
                 
                 <span class="span--tag">
-                  <a href="/tags/Causal-Inference/" title="Causal Inference">
-                    <b>#</b> Causal Inference
-                  </a>
-                </span>
-                
-                <span class="span--tag">
-                  <a href="/tags/Machine-Learning/" title="Machine Learning">
-                    <b>#</b> Machine Learning
+                  <a href="/tags/Python/" title="Python">
+                    <b>#</b> Python
                   </a>
                 </span>
                 
@@ -210,200 +204,50 @@ MathJax = {
           
       </div>
       <div class="markdown-body">
-        <p>Running an AB test becomes a generic solution when we are interested in the causal impacts of a new feature on the product sales or performance. What if we cannot set up the environment of an experiment because of market regulation?</p>
-<p>In this post, we turn back to some essential methods in causal inference. These methods are briefly covered by the Coursera Project, titled “<a target="_blank" rel="noopener" href="https://www.coursera.org/projects/essential-causal-inference-for-data-science">Essential Causal Inference Techniques for Data Science</a>.”</p>
-<h2 id="Idea-behind-Causal-Inference"><a href="#Idea-behind-Causal-Inference" class="headerlink" title="Idea behind Causal Inference"></a>Idea behind Causal Inference</h2><p>Try to control for all possible confounders and <strong>look for “natural sources” of variation that can split our data into quasi random groups</strong> and mimic the randomization we would get from an AB test.</p>
-<p>In other words, removing the effects of all the potential confounders, we believe that testing groups are randomly split and comparable.</p>
-<h2 id="Essential-Methods"><a href="#Essential-Methods" class="headerlink" title="Essential Methods"></a>Essential Methods</h2><h3 id="Controlled-Regression"><a href="#Controlled-Regression" class="headerlink" title="Controlled Regression"></a>Controlled Regression</h3><ul>
-<li><p>We have Y =&gt; usage as measured by completing the 2nd week of a course</p>
-</li>
-<li><p>and X =&gt; First Week NPS (net promoter score) which is a satisfaction rating on a 1-10 scale</p>
-</li>
-<li><p>Univariate regression of Y (usage) on X (product quality)</p>
-</li>
-<li><p>Multiple regression of Y (usage) on X (product quality) and a set of controls</p>
-</li>
+        <p>I am used to statistical programming and use self-defined functions a lot in R. In my research work, a self-defined function works well in most cases since the scalability and flexibility of codes are less of concern. However, as using more Python and reading more source codes of Python packages, I find <code>class</code> is an important object and deserves a brief study on it.</p>
+<p>A class is a prototype for an object, from which new instances can be created. An instance is a copy of the class with actual values.</p>
+<h2 id="Class-Object"><a href="#Class-Object" class="headerlink" title="Class Object"></a>Class Object</h2><p>A given class object consists of two components:</p>
+<ul>
+<li>State: Attributes/properties of an object</li>
+<li>Behavior: Methods of an object</li>
 </ul>
-<p>If </p>
-<ol>
-<li><p>the R squared in the multiple regression increases “a lot” from that in the univariate regression</p>
-</li>
-<li><p>coefficient on X is similar in the two models</p>
-</li>
-</ol>
-<p>then by the theory of controlled regression, we can use it as the causal impact.</p>
+<p>All the instances share the attributes and the methods of the class. But the values of attributes are unique for each instance. Let’s see an example as follows.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define a python class named &#x27;makecake&#x27;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">makecake</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Define class variables</span></span><br><span class="line">    cook = <span class="string">&#x27;Sharon&#x27;</span></span><br><span class="line">    price_lb = <span class="number">5</span>    <span class="comment"># unit price; dollars per lb</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Initialize</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, weight</span>):</span></span><br><span class="line">        <span class="comment"># Define instance variables</span></span><br><span class="line">        self.weight = weight</span><br><span class="line">       </span><br><span class="line">    <span class="comment"># Define a method for an instance</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">price</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.weight*self.price_lb</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>Sources of Error</p>
-<ul>
-<li><p>Omitted Variable Bias</p>
-<p>Look at the R squared in the multiple regression with controls and how large it is (if R^2^ is not close to 100% we know there are a lot of omitted variables in our regression)</p>
-</li>
-<li><p>Included Variable Bias</p>
-<p>This is the opposite of omitted variable bias and involves the inclusion of too many controls. No direct way to identify this problem but generally can leave out controls that are not determined at time observe X. In the ML context, it is the information leakage (e.g., target encoding), that is, using future to predict the past.</p>
-</li>
-</ul>
+<p><code>makecake</code> is the class name.</p>
+<p><code>cook</code> and <code>price_lb</code> are the class attributes, representing the cook and the unit price of a cake.</p>
+<p><code>price()</code> is the class method used to calculate the cake price.</p>
+<p><code>__init__</code> method is a preserved method for a class object, used to initializing its state. The <code>__init__</code> method is executed at the time the class is instantiated (i.e., the creation of an instance).</p>
+<p><code>self</code> is a must-have parameter in each class method, though it might take no arguments. When we call a method of an object as <code>myobject.method(arg1, arg2)</code>, it is equivalent to the command that <code>MyClass.method(myobject, arg1, arg2)</code>.</p>
 </blockquote>
-<p>Controlled regression can be a bit of art form and a bit of random. People nowadays prefer the other causal inference techniques that are considered to be more rigorous and reliable.</p>
-<h3 id="Regression-Discontinuity"><a href="#Regression-Discontinuity" class="headerlink" title="Regression Discontinuity"></a>Regression Discontinuity</h3><p>Focus on cut-off point that can be thought of as local randomized experiment.</p>
-<img src="/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference/RD.png" class="">
-
-<blockquote>
-<p>Arbitrarily assigned cutoff point randomly splits the sample into two comparable groups around the cutoff point. </p>
-</blockquote>
-<ul>
-<li><p>Y: Revenue or course enrollment</p>
-</li>
-<li><p>X: Advertisement (advertised, e.g., via email, if the percentage of subtitled materials in a course is greater than 80%)</p>
-</li>
-<li><p>Assumption</p>
-<ol>
-<li><p>Courses below and above the 80% subtitle threshold are similar to one another, so the discontinuity point effectively randomizes the sample.</p>
-<blockquote>
-<p>Check:</p>
-<ol>
-<li>Sample size similar below and above cutoff (i.e., roughly balanced)</li>
-<li>Sample below and above cutoff are similar on observable/confounders</li>
-</ol>
-</blockquote>
-</li>
-<li><p>Advertising available or not is assumed to be the only differentiator between courses at the 70% subtitle value and the 90% subtitle value.</p>
-<blockquote>
-<p>Check:</p>
-<p>Conduct placebo tests, that is, run regression discontinuity at points other than the cutoff and check for no effect (e.g., run regression discontinuity at 20%, 30%, and 40% and we shouldn’t find any significant difference at these levels)</p>
-</blockquote>
-</li>
-</ol>
-</li>
-</ul>
-<p>Using regression discontinuity design (RDD), we estimate a linear regression with a term of the X variable with the discontinuity, an indicator for the discontinuity (which is a function of the X variable being above or below the cutoff point), and the interaction of the X variable and the discontinuity indicator.<br>$$<br>y=\beta_0+\beta_1 \cdot x+\beta_2 \cdot I(x\ge c)+\beta_3\cdot x \cdot I(x\ge c),<br>$$<br>where $x$ is the variable with the discontinuity, $I(\cdot)$ is an indicator function, and $c$ is the randomly assigned cutoff point.</p>
-<blockquote>
-<p>Note this regression fits two linear models (with different coefficients) below and above the cutoff point. When $x&lt;c$, the intercept and the coefficient of the X variable are $\beta_0$ and $\beta_1$. In contrast, when $x\ge c$, the intercept and the coefficient become $\beta_0+\beta_2$ and $\beta_1+\beta_3$.</p>
-<p>This change in the model structure is analog to the formulation of the Chow test for examining the structural break.</p>
-</blockquote>
-<p>Comparing pre and post the discontinuity, we obtain the causal effect given by<br>$$<br>\beta_2 + \beta_3\times c.<br>$$</p>
-<h3 id="Difference-in-Difference"><a href="#Difference-in-Difference" class="headerlink" title="Difference-in-Difference"></a>Difference-in-Difference</h3><img src="/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference/DID.png" class="">
-
-<ul>
-<li><p>Y: Revenue</p>
-</li>
-<li><p>X: Price change</p>
-</li>
-<li><p>Assumption: Parallel Trends</p>
-<p>Check revenue in control country with no price change was similar and highly correlated with revenue in treatment country with price change (ensure control can serve as counterfactual)</p>
-<ol>
-<li>Graph control and treatment groups in the pre period and see if highly correlated</li>
-<li>Build a regression model to check whether trends are identical (hypotheses testing if there is no difference in slopes between two groups)</li>
-</ol>
-</li>
-<li><p>Extension: <strong>Synthetic Control</strong></p>
-<ul>
-<li>Problem with regular DID: Picking a single control group that satisfies parallel trends can be arbitrary</li>
-<li>Synthetic control creates a synthetic control group that is a weighted average of many control groups<ol>
-<li>Choose weights to minimize tracking error with treatment group pre intervention (parallel trends)</li>
-<li>Causal estimate is difference post intervention between treatment and “synthetic control” </li>
-</ol>
-</li>
-<li>R packages: <a target="_blank" rel="noopener" href="https://cran.r-project.org/web/packages/Synth/index.html"><code>Synth</code></a>; <a target="_blank" rel="noopener" href="https://cran.r-project.org/web/packages/CausalImpact/"><code>CausalImpact</code></a> (Bayesian Version)</li>
-</ul>
-</li>
-</ul>
-<h3 id="Instrumental-Variables"><a href="#Instrumental-Variables" class="headerlink" title="Instrumental Variables"></a>Instrumental Variables</h3><ul>
-<li><p>Assumptions</p>
-<ol>
-<li><p>Strong First Stage: Instruments are strong predictors for the X variable</p>
-<p>Hypothesis tests for weak instruments</p>
-</li>
-<li><p>Exclusion Restriction: Instruments have an impact on the Y variable only through their impact on the X variable</p>
-<p>There is no test for this assumption. We need to use logic to strengthen the validity of this assumption. In a <strong>randomized encouragement trial</strong> (i.e., a RCT used for product promotion campaign; think of email notification) where we create the instrument as a randomly assigned nudge that prompts the X variable, we can ensure exclusion restriction through random assignment.</p>
-</li>
-</ol>
-</li>
-</ul>
-<h3 id="Machine-Learning-ML-Causal-Inference"><a href="#Machine-Learning-ML-Causal-Inference" class="headerlink" title="Machine Learning (ML) + Causal Inference"></a>Machine Learning (ML) + Causal Inference</h3><ul>
-<li><p>Weakness of classic causal approaches</p>
-<ul>
-<li>Fail with many covariates</li>
-<li>Model selection unprincipled</li>
-<li>Linear relationships and no interactions</li>
-</ul>
-</li>
-<li><p>Benefits of ML</p>
-<ul>
-<li>Handle high dimensionality</li>
-<li>Principled ways to choose model</li>
-<li>Nonlinear model using higher order features</li>
-</ul>
-</li>
-<li><p>ML form controlled regression</p>
-<ul>
-<li><p>Use ML models to control for many potential confounders and/or nonlinear effects. </p>
-<blockquote>
-<p>Standard controlled regression steps</p>
-<ul>
-<li>Regress Y on X and a set of controls C to identify coefficient of interest on X</li>
-<li>Be wary of omitted and included variable biases</li>
-</ul>
-</blockquote>
-</li>
-<li><p>There are two types of ML form controlled regressions:</p>
-<ul>
-<li>Double Selection (LASSO)</li>
-<li>Double Debiased (Generic ML models)</li>
-</ul>
-<blockquote>
-<p>Double Selection on AB test data:</p>
-<ul>
-<li>Reduce the noises and increase statistical power (give smaller confidence intervals in a shorter experiment period)</li>
-<li>Good for small samples and small effect sizes (i.e., small expected difference between A and B groups)</li>
-</ul>
-</blockquote>
-</li>
-<li><p>Steps</p>
-<ul>
-<li><p>Define outcome Y, treatment indicator X, and high dimensional set of controls C</p>
-</li>
-<li><p>Split data into two sets: Training and Testing (this can be generalized to k-folds)</p>
-</li>
-<li><p><strong>Fit</strong> two Lassos of X~C and Y~C <strong>on the training</strong> data set</p>
-<blockquote>
-<p>Use <a target="_blank" rel="noopener" href="https://stats.stackexchange.com/questions/138569/why-is-lambda-within-one-standard-error-from-the-minimum-is-a-recommended-valu">the one standard error rule</a> to choose the optimal $\lambda$ (i.e., the shrinkage parameter) for the LASSO regression</p>
-<p>The final set of controls is a union of controls from the LASSO regression X~C and Y~C</p>
-</blockquote>
-</li>
-<li><p>Take fitted models and <strong>apply to the testing</strong> data set</p>
-</li>
-<li><p>Get all nonzero variables in C and use as controls in controlled regression of Y on X</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Causal Trees/Forests</p>
-<ul>
-<li><p>Previous models assume homogeneous treatment effects. However, <strong>causal trees/forests estimates heterogeneous treatment effects</strong> where impact differs on observed criteria</p>
-<ul>
-<li>Use trees (or forests) to identify partition of the demographic space that maximizes observed difference of Y between treatment and control while balancing overfitting</li>
-</ul>
-</li>
-<li><p>Steps</p>
-<ul>
-<li>Split data into two halves</li>
-<li>Fit trees/forests on one half (i.e., the splitting subsample) and apply to second half (i.e., the estimating subsample) to estimate treatment effects</li>
-<li>Heterogeneous treatment effects from difference in Y in leaf nodes (i.e., the treatment effect conditioned on C attributes in leaf nodes) </li>
-<li>Optimization criteria set up to find the best fit given the splitting subsample</li>
-<li>Forest is an average of a collection of trees with sampling</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<p>Also, note that <code>weight</code> is a variable <em>unique to each instance</em>, while <code>cook</code>, <code>price_lb</code>, <code>price()</code> are <em>class variables</em> shared by all instances of the class.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cake = makecake(weight=<span class="number">2</span>)</span><br><span class="line">print(cake.cook)</span><br><span class="line">print(cake.price_lb)</span><br><span class="line">cake.price()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Sharon</span><br><span class="line">5</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+<h2 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a>Inheritance</h2><p>Inheritance allows us to define a class that inherits all the methods and properties from another class. For example, inherited from <code>makecake</code>, I declare a new class <code>ordercake</code> as follows.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define a python class based on &#x27;makecake&#x27;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ordercake</span>(<span class="params">makecake</span>):</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Initialize</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, weight, tax_rate=<span class="literal">None</span></span>):</span></span><br><span class="line">        <span class="comment"># Define instance variables</span></span><br><span class="line">        self.weight = weight</span><br><span class="line">        self.tax_rate = tax_rate <span class="keyword">if</span> tax_rate <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="number">0.06</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">checkout</span>(<span class="params">self, tip=<span class="literal">None</span></span>):</span></span><br><span class="line">        <span class="keyword">if</span> tip <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            tip = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># self.price() is inherited from &#x27;makecake&#x27;</span></span><br><span class="line">        print(<span class="string">&#x27;Receipt&#x27;</span>, <span class="string">&#x27;\n--------------------&#x27;</span></span><br><span class="line">              <span class="string">&#x27;\nCake Price:&#x27;</span>, <span class="built_in">round</span>(self.price(), <span class="number">2</span>),</span><br><span class="line">              <span class="string">&#x27;\nTax:&#x27;</span>, <span class="built_in">round</span>(self.price()*self.tax_rate, <span class="number">2</span>),</span><br><span class="line">              <span class="string">&#x27;\nTips:&#x27;</span>, tip, <span class="string">&#x27;\n--------------------&#x27;</span>,</span><br><span class="line">              <span class="string">&#x27;\nTotal:&#x27;</span>, <span class="built_in">round</span>(self.price()*(<span class="number">1</span>+self.tax_rate)+tip, <span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myorder0 = ordercake(weight=<span class="number">2</span>)</span><br><span class="line">myorder0.checkout()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Receipt </span><br><span class="line">--------------------</span><br><span class="line">Cake Price: 10 </span><br><span class="line">Tax: 0.6 </span><br><span class="line">Tips: 0 </span><br><span class="line">-------------------- </span><br><span class="line">Total: 10.6</span><br></pre></td></tr></table></figure>
+<p>In addtion to the inherited attributes, I add another attribute <code>tax_rate</code> in the <code>ordercake</code> class to calculate the cake price after tax such that<br>$$<br>\text{Cake Price after Tax}=\text{Cake Price before Tax}\times(1+\text{Tax Rate}).<br>$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myorder1 = ordercake(weight=<span class="number">2</span>, tax_rate = <span class="number">0.08</span>)</span><br><span class="line">myorder1.checkout()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Receipt </span><br><span class="line">--------------------</span><br><span class="line">Cake Price: 10 </span><br><span class="line">Tax: 0.8 </span><br><span class="line">Tips: 0 </span><br><span class="line">-------------------- </span><br><span class="line">Total: 10.8</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myorder1.checkout(tip&#x3D;2)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Receipt </span><br><span class="line">--------------------</span><br><span class="line">Cake Price: 10 </span><br><span class="line">Tax: 0.8 </span><br><span class="line">Tips: 2 </span><br><span class="line">-------------------- </span><br><span class="line">Total: 12.8</span><br></pre></td></tr></table></figure>
+<h2 id="Use-Self-defined-Function-in-Class"><a href="#Use-Self-defined-Function-in-Class" class="headerlink" title="Use Self-defined Function in Class"></a>Use Self-defined Function in Class</h2><p>To enhance the <code>ordercake</code> class, I add an additional function to determine the delivery fee as follows.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define a free-delivery function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">free_delivery</span>(<span class="params">order_price</span>):</span></span><br><span class="line">    <span class="comment"># Define the delivery fee</span></span><br><span class="line">    delivery_fee = <span class="number">5</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Waive delivery fee if order price &gt;= 15 dollars</span></span><br><span class="line">    <span class="keyword">if</span> order_price &gt;= <span class="number">15</span>:</span><br><span class="line">        delivery_fee = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> delivery_fee</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define a python class based on &#x27;makecake&#x27;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ordercake_delivery</span>(<span class="params">makecake</span>):</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, weight, delivery, tax_rate=<span class="literal">None</span></span>):</span></span><br><span class="line">        <span class="comment"># Define instance variables</span></span><br><span class="line">        self.weight = weight</span><br><span class="line">        self.delivery_fcn = delivery</span><br><span class="line">        self.tax_rate = tax_rate <span class="keyword">if</span> tax_rate <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="number">0.06</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">checkout</span>(<span class="params">self, tip=<span class="literal">None</span></span>):</span></span><br><span class="line">        d_fee = self.delivery_fcn(self.price())</span><br><span class="line">        <span class="keyword">if</span> tip <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            tip = <span class="number">0</span></span><br><span class="line">            </span><br><span class="line">        print(<span class="string">&#x27;Receipt&#x27;</span>, <span class="string">&#x27;\n--------------------&#x27;</span></span><br><span class="line">              <span class="string">&#x27;\nCake Price:&#x27;</span>, <span class="built_in">round</span>(self.price(), <span class="number">2</span>),</span><br><span class="line">              <span class="string">&#x27;\nTax:&#x27;</span>, <span class="built_in">round</span>(self.price()*self.tax_rate, <span class="number">2</span>),</span><br><span class="line">              <span class="string">&#x27;\nTips:&#x27;</span>, tip,</span><br><span class="line">              <span class="string">&#x27;\nDelivery:&#x27;</span>, d_fee, <span class="string">&#x27;\n--------------------&#x27;</span>,</span><br><span class="line">              <span class="string">&#x27;\nTotal:&#x27;</span>, <span class="built_in">round</span>(self.price()*(<span class="number">1</span>+self.tax_rate)+tip+d_fee, <span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<p>A delivery fee of 5 dollars is added to the receipt if the cake price is less than 15 dollars.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myorder2 = ordercake_delivery(weight=<span class="number">2</span>, delivery=free_delivery)</span><br><span class="line">myorder2.checkout()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Receipt </span><br><span class="line">--------------------</span><br><span class="line">Cake Price: 10 </span><br><span class="line">Tax: 0.6 </span><br><span class="line">Tips: 0 </span><br><span class="line">Delivery: 5 </span><br><span class="line">-------------------- </span><br><span class="line">Total: 15.6</span><br></pre></td></tr></table></figure>
+<p>In contrast, the delivery fee is waived if the cake price is 15 dollars or above.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myorder3 = ordercake_delivery(weight=<span class="number">3</span>, delivery=free_delivery)</span><br><span class="line">myorder3.checkout(tip=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Receipt </span><br><span class="line">--------------------</span><br><span class="line">Cake Price: 15 </span><br><span class="line">Tax: 0.9 </span><br><span class="line">Tips: 2 </span><br><span class="line">Delivery: 0 </span><br><span class="line">-------------------- </span><br><span class="line">Total: 17.9</span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>Python Classes and Objects at GeeksforGeeks: <a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/python-classes-and-objects/">https://www.geeksforgeeks.org/python-classes-and-objects/</a></p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/posts/20210410-Aggregate-Data-in-SQL-Using-GROUP-BY-or-Window-Functions" target="_self">
+              <a href="/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -412,21 +256,15 @@ MathJax = {
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime" title="Update time"></i>
-              2021-05-06
+              2021-08-10
             </span>
             
                   <span class="post-tags">
                     <i class="iconfont icon-tags" title="Tags"></i>
                     
                     <span class="span--tag">
-                      <a href="/tags/Causal-Inference/" title="Causal Inference">
-                        <b>#</b> Causal Inference
-                      </a>
-                    </span>
-                    
-                    <span class="span--tag">
-                      <a href="/tags/Machine-Learning/" title="Machine Learning">
-                        <b>#</b> Machine Learning
+                      <a href="/tags/Python/" title="Python">
+                        <b>#</b> Python
                       </a>
                     </span>
                     
@@ -434,11 +272,6 @@ MathJax = {
               
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/posts/20210810-How-to-Use-Class-Objects-in-Python" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
@@ -448,7 +281,7 @@ MathJax = {
   <div class="post-catalog" id="catalog">
     <div class="title">Contents</div>
     <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Idea-behind-Causal-Inference"><span class="toc-text">Idea behind Causal Inference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Essential-Methods"><span class="toc-text">Essential Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Controlled-Regression"><span class="toc-text">Controlled Regression</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Regression-Discontinuity"><span class="toc-text">Regression Discontinuity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Difference-in-Difference"><span class="toc-text">Difference-in-Difference</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Instrumental-Variables"><span class="toc-text">Instrumental Variables</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Machine-Learning-ML-Causal-Inference"><span class="toc-text">Machine Learning (ML) + Causal Inference</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Class-Object"><span class="toc-text">Class Object</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Inheritance"><span class="toc-text">Inheritance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Use-Self-defined-Function-in-Class"><span class="toc-text">Use Self-defined Function in Class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
     </div>
   </div>
 
@@ -469,9 +302,9 @@ MathJax = {
 
   <script>
     var disqus_config = function() {
-      this.page.url = 'http://yanghaowang.github.io/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference.html';
-      this.page.identifier = 'posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference.html';
-      this.page.title = 'Brief Introduction of Essential Methods in Causal Inference';
+      this.page.url = 'http://yanghaowang.github.io/posts/20210810-How-to-Use-Class-Objects-in-Python.html';
+      this.page.identifier = 'posts/20210810-How-to-Use-Class-Objects-in-Python.html';
+      this.page.title = 'How to Use Class Objects in Python';
     };
 
     var is_disqus_loaded = false;
