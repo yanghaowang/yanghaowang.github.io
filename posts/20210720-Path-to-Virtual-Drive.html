@@ -13,7 +13,7 @@
   
   
   
-  <title>archive_a: 2021/8  </title>
+  <title>Path to Virtual Drive  </title>
 
   
     <link rel="apple-touch-icon" href="/images/isle_icon.png">
@@ -21,22 +21,22 @@
   
 
   <!-- Info Feed for Search Engine -->
-  <meta property="og:url" content="http://yanghaowang.github.io/archives/2021/08/index.html" />
+  <meta property="og:url" content="http://yanghaowang.github.io/posts/20210720-Path-to-Virtual-Drive.html" />
   <meta property="og:site_name" content="Home - Yanghao Wang" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="archive_a: 2021/8" />
+  <meta property="og:title" content="Path to Virtual Drive" />
 
   
-    <meta name="description" content="This is Yanghao&#39;s homepage, sharing his notes on economics, machine learning, and business analytics.">
+    <meta name="description" content="Windows CMD, Command Prompt, Navigation, Virtual Drive, Google Drive, GoogleDriveFS.exe">
   
 
 
   <!-- Info Feed for Twitter -->
-  <meta name="twitter:url" content="http://yanghaowang.github.io/archives/2021/08/index.html" />
+  <meta name="twitter:url" content="http://yanghaowang.github.io/posts/20210720-Path-to-Virtual-Drive.html" />
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="archive_a: 2021/8">
+  <meta name="twitter:title" content="Path to Virtual Drive">
   
-    <meta name="twitter:description" content="This is Yanghao&#39;s homepage, sharing his notes on economics, machine learning, and business analytics.">
+    <meta name="twitter:description" content="Windows CMD, Command Prompt, Navigation, Virtual Drive, Google Drive, GoogleDriveFS.exe">
   
   
 
@@ -156,171 +156,193 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
 
-<div class="container archives">
-  <div class="post-list">
-    
-    
-      
-        <!-- 第一篇文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2021</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="Short Notes on A/B Testing">
-        <div class="time-m-d">09-16</div>
-        <div class="title">
-          <a href="/posts/20210916-Short-Notes-on-A-B-Testing">
-            <span>Short Notes on A/B Testing</span>
-          </a>
-        </div>
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Path to Virtual Drive</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2021-07-20
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Work-Efficiency/" title="Work Efficiency">
+                    <b>#</b> Work Efficiency
+                  </a>
+                </span>
+                
+                <span class="span--tag">
+                  <a href="/tags/CMD/" title="CMD">
+                    <b>#</b> CMD
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
-    
-      
-      <div class="post-item" title="How to Use Class Objects in Python">
-        <div class="time-m-d">08-10</div>
-        <div class="title">
-          <a href="/posts/20210810-How-to-Use-Class-Objects-in-Python">
-            <span>How to Use Class Objects in Python</span>
-          </a>
-        </div>
+      <div class="markdown-body">
+        <p class='twelve columns' style="text-align: center;">
+    <img src="/posts/20210720-Path-to-Virtual-Drive/SyncingGoogleDrive.png" class="">
+</p>
+
+<p>This July, Google released a new Google Drive desktop app to replace old versions. The biggest change is that I cannot find a local path for files that are selected to be synced to the corresponding files in Google Drive.</p>
+<h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><p>It bothered me since I mapped a virtual drive <code>W:</code> to the local Google Drive folder using a <code>.bat</code> file with a Windows command <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst"><code>subst</code></a> executed when I log into Windows. I learned this trick from my professor at UTK. It allowed me to keep a consistent working directory in my coding scripts. At the beginning of a script, I usually define a working directory at <code>W:</code> which is synced to my Google Drive. Using this trick, I no longer need to change the existing directory when switching my working computer from the desktop in my office to the laptop at home.</p>
+<p>Now, the new Google Drive desktop app does not maintain a local path. Instead, it creates a drive, named “Google Drive,” after it starts as I am logging into Windows. The computer executes the selected software in the Windows Startup list. However, the new Google Drive app takes a little longer to fully start than my <code>.bat</code>. Therefore, when the <code>.bat</code> starts, it cannot find the corresponding path to be mapped to <code>W:</code>.</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>I turn off “Google Drive” in the Windows Startup list, while use the <code>.bat</code> file to start it before executing the <code>subst</code> command.</p>
+<p>Here is an example of my <code>.bat</code> file, say <code>vdrive.bat</code>.</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">subst M: <span class="string">&quot;C:\Users\&lt;username&gt;\OneDrive - azureford&quot;</span></span><br><span class="line"><span class="built_in">start</span> C:\<span class="string">&quot;Program Files&quot;</span>\Google\<span class="string">&quot;Drive File Stream&quot;</span>\<span class="number">51.0</span>.<span class="number">16.0</span>\GoogleDriveFS.exe</span><br><span class="line">timeout /t <span class="number">8</span> /nobreak &gt; nul</span><br><span class="line">subst W: <span class="string">&quot;G:\My Drive&quot;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Notes: Please replace <code>&lt;username&gt;</code> with your username. If interested, feel free to check the references for windows commands, <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/echo"><code>echo</code></a>, <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/start"><code>start</code></a>, and <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/timeout"><code>timeout</code></a>.</p>
+</blockquote>
+<p><code>vdrive.bat</code> will be started as I log into Windows if it is added to Windows Registry as a string value in <code>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]</code>. I need define a value name and the value data for this string value, where the value name is a string displayed in the Windows Startup list and the value data is a path with double quotation marks at both ends, e.g., <code>&quot;C:\vdrive.bat&quot;</code>.</p>
+<p>Every time, when <code>vdrive.bat</code> starts, a Command Prompt window appears. I don’t want to see that as I log into Windows. So I create a shortcut for <code>vdrive.bat</code>, that is, <code>vdrive.bat.lnk</code>. Right click the shortcut file, choose “Minimized” in Run, and save the change. Then I update the value data to <code>&quot;C:\vdrive.bat.lnk&quot;</code> in Windows Registry. Awesome, it works perfectly!</p>
+<p>Don’t want to work in Windows Registry for the Startup list. No problem. You can put the shortcut in the following directory:</p>
+<blockquote>
+<p>Startup folder for user:<br><code>C:\Users\&lt;username&gt;\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code></p>
+<p>Startup folder for all users:<br><code>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup</code></p>
+</blockquote>
+<h3 id="Navigating-in-Command-Prompt"><a href="#Navigating-in-Command-Prompt" class="headerlink" title="Navigating in Command Prompt"></a>Navigating in Command Prompt</h3><p>In Command Prompt, the default <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd"><code>cd</code></a> command allows us to change the working directory within the same drive. When changing to a directory in another drive,</p>
+<ol>
+<li>we need switch to the target drive first by typing the letter of the drive and then direct us to the target directory using <code>cd</code>, or</li>
+<li>we can add a parameter in the <code>cd</code> command, i.e., <code>cd /d &quot;&lt;path in another drive&gt;&quot;</code>.</li>
+</ol>
+<p class='twelve columns' style="text-align: center;">
+    <img src="/posts/20210720-Path-to-Virtual-Drive/cd_command.png" class="">
+</p>
+
+
+
       </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/posts/20210615-GitHub-Authentication-and-Basic-Functionalities" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2021-07-20
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Work-Efficiency/" title="Work Efficiency">
+                        <b>#</b> Work Efficiency
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/CMD/" title="CMD">
+                        <b>#</b> CMD
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/posts/20210810-How-to-Use-Class-Objects-in-Python" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
     
-      
-      <div class="post-item" title="Path to Virtual Drive">
-        <div class="time-m-d">07-20</div>
-        <div class="title">
-          <a href="/posts/20210720-Path-to-Virtual-Drive">
-            <span>Path to Virtual Drive</span>
-          </a>
-        </div>
-      </div>
+  <div class="post-catalog" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem"><span class="toc-text">Problem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Navigating-in-Command-Prompt"><span class="toc-text">Navigating in Command Prompt</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      
-      <div class="post-item" title="GitHub Authentication and Basic Functionalities">
-        <div class="time-m-d">06-15</div>
-        <div class="title">
-          <a href="/posts/20210615-GitHub-Authentication-and-Basic-Functionalities">
-            <span>GitHub Authentication and Basic Functionalities</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Brief Introduction of Essential Methods in Causal Inference">
-        <div class="time-m-d">05-06</div>
-        <div class="title">
-          <a href="/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference">
-            <span>Brief Introduction of Essential Methods in Causal Inference</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Aggregate Data in SQL Using GROUP BY or Window Functions">
-        <div class="time-m-d">04-10</div>
-        <div class="title">
-          <a href="/posts/20210410-Aggregate-Data-in-SQL-Using-GROUP-BY-or-Window-Functions">
-            <span>Aggregate Data in SQL Using GROUP BY or Window Functions</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Aggregating and Filtering at One Time in SQL">
-        <div class="time-m-d">04-06</div>
-        <div class="title">
-          <a href="/posts/20210406-Aggregating-and-Filtering-at-One-Time-in-SQL">
-            <span>Aggregating and Filtering at One Time in SQL</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Hypothesis Testing vs. A/B Testing">
-        <div class="time-m-d">04-05</div>
-        <div class="title">
-          <a href="/posts/20210405-Hypothesis-Testing-vs-A-B-Testing">
-            <span>Hypothesis Testing vs. A/B Testing</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Error Types and Measures">
-        <div class="time-m-d">03-27</div>
-        <div class="title">
-          <a href="/posts/20210327-Error-Types-and-Measures">
-            <span>Error Types and Measures</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="SQL JOIN with the WHERE and the ON Clause">
-        <div class="time-m-d">02-06</div>
-        <div class="title">
-          <a href="/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause">
-            <span>SQL JOIN with the WHERE and the ON Clause</span>
-          </a>
-        </div>
-      </div>
-    
-      
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2020</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="Git Quick Start">
-        <div class="time-m-d">12-01</div>
-        <div class="title">
-          <a href="/posts/20201201-Git-Quick-Start">
-            <span>Git Quick Start</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Google Drive plus Git">
-        <div class="time-m-d">12-01</div>
-        <div class="title">
-          <a href="/posts/20201201-Google-Drive-plus-Git">
-            <span>Google Drive plus Git</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="LaTex Display in Hexo">
-        <div class="time-m-d">11-25</div>
-        <div class="title">
-          <a href="/posts/20201125-LaTex-Display-in-Hexo">
-            <span>LaTex Display in Hexo</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Hello World and Thank You Hexo">
-        <div class="time-m-d">11-23</div>
-        <div class="title">
-          <a href="/posts/20201123-Hello-World-and-Thank-You-Hexo">
-            <span>Hello World and Thank You Hexo</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+  <div id="disqus_thread">
+    <h2>
+      <a href="#" class="comment" onclick="loadDisqus();return false;">View / Make Comments</a>
+    </h2>
+  </div>
+
+  <script>
+    var disqus_config = function() {
+      this.page.url = 'http://yanghaowang.github.io/posts/20210720-Path-to-Virtual-Drive.html';
+      this.page.identifier = 'posts/20210720-Path-to-Virtual-Drive.html';
+      this.page.title = 'Path to Virtual Drive';
+    };
+
+    var is_disqus_loaded = false;
+
+    function loadDisqus() {
+      if (!is_disqus_loaded) {
+        is_disqus_loaded = true;
+
+        var d = document,
+          s = d.createElement('script');
+        s.src = 'https://https-yanghaowang-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+    }
+
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         <div class="footer">
   <div class="social">

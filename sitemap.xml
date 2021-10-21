@@ -2,6 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yanghaowang.github.io/posts/20210916-Short-Notes-on-A-B-Testing</loc>
+    
+    <lastmod>2021-10-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yanghaowang.github.io/posts/20201201-Git-Quick-Start</loc>
+    
+    <lastmod>2021-10-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yanghaowang.github.io/posts/20210615-GitHub-Authentication-and-Basic-Functionalities</loc>
+    
+    <lastmod>2021-10-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yanghaowang.github.io/posts/20210720-Path-to-Virtual-Drive</loc>
+    
+    <lastmod>2021-10-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yanghaowang.github.io/posts/20210327-Error-Types-and-Measures</loc>
+    
+    <lastmod>2021-10-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yanghaowang.github.io/posts/20201201-Google-Drive-plus-Git</loc>
+    
+    <lastmod>2021-10-21</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yanghaowang.github.io/research/</loc>
     
     <lastmod>2021-10-08</lastmod>
@@ -51,13 +93,6 @@
   </url>
   
   <url>
-    <loc>http://yanghaowang.github.io/posts/20210327-Error-Types-and-Measures</loc>
-    
-    <lastmod>2021-04-06</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yanghaowang.github.io/about/</loc>
     
     <lastmod>2020-12-21</lastmod>
@@ -66,13 +101,6 @@
   
   <url>
     <loc>http://yanghaowang.github.io/tags/</loc>
-    
-    <lastmod>2020-12-20</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yanghaowang.github.io/posts/20201201-Git-Quick-Start</loc>
     
     <lastmod>2020-12-20</lastmod>
     
@@ -92,17 +120,10 @@
     
   </url>
   
-  <url>
-    <loc>http://yanghaowang.github.io/posts/20201201-Google-Drive-plus-Git</loc>
-    
-    <lastmod>2020-12-03</lastmod>
-    
-  </url>
-  
 
   <url>
     <loc>http://yanghaowang.github.io/</loc>
-    <lastmod>2021-10-08</lastmod>
+    <lastmod>2021-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>

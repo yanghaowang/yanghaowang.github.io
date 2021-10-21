@@ -13,7 +13,7 @@
   
   
   
-  <title>archive_a: 2021/8  </title>
+  <title>Short Notes on A/B Testing  </title>
 
   
     <link rel="apple-touch-icon" href="/images/isle_icon.png">
@@ -21,22 +21,22 @@
   
 
   <!-- Info Feed for Search Engine -->
-  <meta property="og:url" content="http://yanghaowang.github.io/archives/2021/08/index.html" />
+  <meta property="og:url" content="http://yanghaowang.github.io/posts/20210916-Short-Notes-on-A-B-Testing.html" />
   <meta property="og:site_name" content="Home - Yanghao Wang" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="archive_a: 2021/8" />
+  <meta property="og:title" content="Short Notes on A/B Testing" />
 
   
-    <meta name="description" content="This is Yanghao&#39;s homepage, sharing his notes on economics, machine learning, and business analytics.">
+    <meta name="description" content="This is a brief note on A/B Testing, including the motivation, prerequisites, and practice steps. Some details and challenges in developing an A/B testing are also covered.">
   
 
 
   <!-- Info Feed for Twitter -->
-  <meta name="twitter:url" content="http://yanghaowang.github.io/archives/2021/08/index.html" />
+  <meta name="twitter:url" content="http://yanghaowang.github.io/posts/20210916-Short-Notes-on-A-B-Testing.html" />
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="archive_a: 2021/8">
+  <meta name="twitter:title" content="Short Notes on A/B Testing">
   
-    <meta name="twitter:description" content="This is Yanghao&#39;s homepage, sharing his notes on economics, machine learning, and business analytics.">
+    <meta name="twitter:description" content="This is a brief note on A/B Testing, including the motivation, prerequisites, and practice steps. Some details and challenges in developing an A/B testing are also covered.">
   
   
 
@@ -156,171 +156,317 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
 
-<div class="container archives">
-  <div class="post-list">
-    
-    
-      
-        <!-- 第一篇文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2021</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="Short Notes on A/B Testing">
-        <div class="time-m-d">09-16</div>
-        <div class="title">
-          <a href="/posts/20210916-Short-Notes-on-A-B-Testing">
-            <span>Short Notes on A/B Testing</span>
-          </a>
-        </div>
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Short Notes on A/B Testing</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2021-09-16
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/A-B-Testing/" title="A/B Testing">
+                    <b>#</b> A/B Testing
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
-    
-      
-      <div class="post-item" title="How to Use Class Objects in Python">
-        <div class="time-m-d">08-10</div>
-        <div class="title">
-          <a href="/posts/20210810-How-to-Use-Class-Objects-in-Python">
-            <span>How to Use Class Objects in Python</span>
-          </a>
-        </div>
+      <div class="markdown-body">
+        <p class='twelve columns' style="text-align: center;">
+<img src="/posts/20210916-Short-Notes-on-A-B-Testing/ABTesting.jpg" class="">
+</p>
+
+<h2 id="Short-Notes-on-A-B-Testing"><a href="#Short-Notes-on-A-B-Testing" class="headerlink" title="Short Notes on A/B Testing"></a>Short Notes on A/B Testing</h2><h3 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h3><ul>
+<li>Understand what drives your business and provide insights for business decisions  </li>
+<li>Understand causal relationship</li>
+</ul>
+<h3 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h3><ul>
+<li>The control and testing groups can be clearly defined</li>
+<li>Metrics of interest can be quantified</li>
+<li>Data can be collected in a timely manner</li>
+</ul>
+<h3 id="Five-Stages-in-Practice"><a href="#Five-Stages-in-Practice" class="headerlink" title="Five Stages in Practice"></a>Five Stages in Practice</h3><ul>
+<li>Define a study question</li>
+<li>Make hypotheses (variations) and identify metrics</li>
+<li>Identify variables<ul>
+<li>Determine the data to be collected</li>
+</ul>
+</li>
+<li>Run experiments and collect data<ul>
+<li>Determine a detectable difference (i.e., how small of a difference you would like to detect, for example, 10% increase in your metric of interest)</li>
+<li>Calculate the proper sample size using power analysis</li>
+<li>Determine what fraction of traffic can be used in the treatment</li>
+<li>Conduct a prior A/A test to check unfavorable impacts on business and a simultaneous A/A test to track seasonality and systematic biases/trend if any</li>
+</ul>
+</li>
+<li>Measure results</li>
+</ul>
+<p class='twelve columns' style="text-align: center;">
+<img src="/posts/20210916-Short-Notes-on-A-B-Testing/ABTestingSteps.png" class="">
+</p>
+
+<h3 id="Some-Details-in-A-B-Testing"><a href="#Some-Details-in-A-B-Testing" class="headerlink" title="Some Details in A/B Testing"></a>Some Details in A/B Testing</h3><h4 id="Common-Web-Analytics-Metrics"><a href="#Common-Web-Analytics-Metrics" class="headerlink" title="Common Web Analytics Metrics"></a>Common Web Analytics Metrics</h4><table>
+<thead>
+<tr>
+<th>Count</th>
+<th>Conversion</th>
+<th>Time</th>
+<th>Business</th>
+<th>ADs Analytics</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Page View <br>Visits / Return Visits<br/>Click <br/>Visitor / Unique Visitor <br/>(Daily / Monthly) Active Users</td>
+<td>Click Thru Rate <br/>Click Thru Probability <br/>User Click Probability  <br/>Bounce Rate</td>
+<td>Active Time <br>Page View Duration</td>
+<td>Revenue <br>Member <br>Order</td>
+<td>Impression <br>Click</td>
+</tr>
+</tbody></table>
+<p>In addition, we can also consider a composite metric.</p>
+<h4 id="Examples-of-Changes-for-Testing"><a href="#Examples-of-Changes-for-Testing" class="headerlink" title="Examples of Changes for Testing"></a>Examples of Changes for Testing</h4><ul>
+<li>Page Contents<ul>
+<li>Headlines, Sub Headlines, Font Size</li>
+<li>Background Image, Background Color</li>
+<li>Paragraph Text</li>
+<li>Page Layout</li>
+</ul>
+</li>
+<li>Call-to-Action<ul>
+<li>Button Place, Button Color, Button Size</li>
+<li>Text</li>
+</ul>
+</li>
+</ul>
+<p>Notes: <em>Only one thing can be changed in a pair of the control and treatment group.</em></p>
+<h4 id="Experiment-Settings"><a href="#Experiment-Settings" class="headerlink" title="Experiment Settings"></a>Experiment Settings</h4><ul>
+<li><p>Target Audience</p>
+<ul>
+<li>Country, Region</li>
+<li>Demographics</li>
+</ul>
+</li>
+<li><p>Sample Size</p>
+</li>
+<li><p>Experiment Period (Time)</p>
+</li>
+<li><p>Percentage of Traffic for A/B Testing</p>
+</li>
+<li><p>Split for Control and Treatment</p>
+<p>Notes: Users visiting the page at different time or using different devices might see different features in the test. These are users in the mixed group, neither in A or B. To solve this problem, we might need to evenly split users in the control and treatment group. Theoretically, the percentages of the mixed group users in A and B should be similar.</p>
+</li>
+<li><p>A/A Test </p>
+<ul>
+<li><p>Run a small A/A test in a short time prior to the A/B test to check the change in metrics of interest and whether there are any unfavorable impacts on business</p>
+</li>
+<li><p>Run an A/A test simultaneously to track the systematic trend during the A/B test period</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Power-Analysis"><a href="#Power-Analysis" class="headerlink" title="Power Analysis"></a>Power Analysis</h4><ul>
+<li><p><strong>False Positive</strong> (Type I Error): Falsely reject the null hypothesis</p>
+<ul>
+<li>False positive rate ($\alpha$, e.g., 5%) is the significant level of a statistic test</li>
+</ul>
+</li>
+<li><p><strong>False Negative</strong> (Type II Error): Fail to reject (i.e., we should reject but we did not)</p>
+<ul>
+<li>False negative rate ($\beta$, e.g., 20%) is used in calculating the power of a test, i.e., $1-\beta$</li>
+</ul>
+</li>
+</ul>
+<p>Discuss the values of $\alpha$ and $\beta$ with business partners.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Here is a function in R</span></span><br><span class="line"><span class="comment"># https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/power.prop.test</span></span><br><span class="line"><span class="comment"># power.prop.test(n = NULL, p1 = NULL, p2 = NULL, </span></span><br><span class="line"><span class="comment">#                 power = NULL, sig.level = 0.05,</span></span><br><span class="line"><span class="comment">#                 alternative = c(&quot;two.sided&quot;, &quot;one.sided&quot;),</span></span><br><span class="line"><span class="comment">#                 strict = FALSE, tol = .Machine$double.eps^0.25)</span></span><br><span class="line"><span class="comment"># Examples</span></span><br><span class="line">power.prop.test(p1 = <span class="number">0.5</span>, p2 = <span class="number">0.75</span>, power = <span class="number">0.90</span>) <span class="comment">## =&gt;     n = 76.7 in each group</span></span><br><span class="line">power.prop.test(p1 = <span class="number">0.5</span>, p2 = <span class="number">0.501</span>, </span><br><span class="line">                power = <span class="number">0.90</span>, sig.level=<span class="number">.001</span>)      <span class="comment">## =&gt;     n = 10451937 in each group</span></span><br><span class="line">power.prop.test(n = <span class="number">50</span>, p1 = <span class="number">0.5</span>, p2 = <span class="number">0.75</span>)       <span class="comment">## =&gt; power = 0.740</span></span><br><span class="line">power.prop.test(n = <span class="number">50</span>, p1 = <span class="number">0.5</span>, power = <span class="number">0.90</span>)    <span class="comment">## =&gt;    p2 = 0.8026</span></span><br><span class="line">power.prop.test(n = <span class="number">50</span>, p1 = <span class="number">0.5</span>, p2 = <span class="number">0.9</span>,</span><br><span class="line">                power = <span class="number">0.90</span>, sig.level=<span class="literal">NULL</span>)      <span class="comment">## =&gt; sig.l = 0.00131</span></span><br></pre></td></tr></table></figure>
+<h4 id="Result-Evaluation"><a href="#Result-Evaluation" class="headerlink" title="Result Evaluation"></a>Result Evaluation</h4><table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Control - A</th>
+<th>Variation - B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Unique Visitor</td>
+<td>500</td>
+<td>500</td>
+</tr>
+<tr>
+<td>Unique Click</td>
+<td>50</td>
+<td>60</td>
+</tr>
+<tr>
+<td>Conversion Rate</td>
+<td>10%</td>
+<td>12%</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>$H_0:\space d=0$</p>
+</li>
+<li><p>$d \sim N(0,SE)$</p>
+<ul>
+<li>$p_{\text{pool}}=\frac{50+60}{500+500}=0.11$</li>
+<li>$SE=\sqrt{p_{\text{pool}}\times(1-p_{\text{pool}})\times(\frac{1}{N_A}+\frac{1}{N_B})}=0.019789$</li>
+</ul>
+</li>
+<li><p>Calculate 95% confidence interval ($\alpha=5%$)</p>
+<ul>
+<li>$\pm z_{\alpha/2}\times SE\implies (-1.96\times SE, 1.96\times SE)=(-0.0388, 0.0388)$</li>
+<li>$d = 12% - 10% =0.02 &lt; 0.0388$</li>
+<li>Cannot reject $H_0$</li>
+</ul>
+</li>
+<li><p>Suppose $N_A$ and $N_B$ become 10 times larger</p>
+<ul>
+<li>$SE=0.00003916$</li>
+<li>$\pm z_{\alpha/2}\times SE = \pm 0.0000767536$</li>
+<li>$d=0.02&gt;0.0000767536$</li>
+<li>Reject $H_0$</li>
+</ul>
+</li>
+</ul>
+<h3 id="Some-Challenges-in-A-B-Testing"><a href="#Some-Challenges-in-A-B-Testing" class="headerlink" title="Some Challenges in A/B Testing"></a>Some Challenges in A/B Testing</h3><h4 id="Tradeoff-between-alpha-and-beta"><a href="#Tradeoff-between-alpha-and-beta" class="headerlink" title="Tradeoff between $\alpha$ and $\beta$"></a>Tradeoff between $\alpha$ and $\beta$</h4><ul>
+<li><p>By definition, $\alpha$ is the false positive rate, representing the chance that we falsely reject $H_0$. In contrast, $\beta$ is the false negative rate, representing the chance that we should reject but didn’t.</p>
+</li>
+<li><p>Since resources and time are limited, we need put the effect on the project that improves the business most significantly and has the largest favorable business impact.</p>
+</li>
+<li><p>As a result, we might emphasize $\alpha$ at expense of $\beta$. Also, remember to reach an agreement with business before the test.</p>
+</li>
+</ul>
+<h4 id="Insignificant-Treatment-Effect"><a href="#Insignificant-Treatment-Effect" class="headerlink" title="Insignificant Treatment Effect"></a>Insignificant Treatment Effect</h4><ul>
+<li>It is worth noting that the difference between control and treatment is <em>insignificant in statistics</em>. The testing feature can be helpful in the long run.</li>
+<li>Generate a line plot to visualize the difference and check if one is above the other in most of the time, though the difference could be statistically insignificant. Such a line plot can also provide some insights.</li>
+</ul>
+<h4 id="Multi-armed-Bandit-Approach"><a href="#Multi-armed-Bandit-Approach" class="headerlink" title="Multi-armed Bandit Approach"></a>Multi-armed Bandit Approach</h4><p>We want to achieve two goals at a time: (1) find the best variant in a longer time of experiment and (2) maximize the revenue during the experiment period as well.</p>
+<ul>
+<li>Solution: Adjust fraction of (new) users in treatment/control according to which group seems to be doing better.</li>
+</ul>
+
       </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/posts/20210810-How-to-Use-Class-Objects-in-Python" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2021-09-16
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/A-B-Testing/" title="A/B Testing">
+                        <b>#</b> A/B Testing
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
     
-      
-      <div class="post-item" title="Path to Virtual Drive">
-        <div class="time-m-d">07-20</div>
-        <div class="title">
-          <a href="/posts/20210720-Path-to-Virtual-Drive">
-            <span>Path to Virtual Drive</span>
-          </a>
-        </div>
-      </div>
+  <div class="post-catalog" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Short-Notes-on-A-B-Testing"><span class="toc-text">Short Notes on A&#x2F;B Testing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Motivation"><span class="toc-text">Motivation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Prerequisites"><span class="toc-text">Prerequisites</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Five-Stages-in-Practice"><span class="toc-text">Five Stages in Practice</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Some-Details-in-A-B-Testing"><span class="toc-text">Some Details in A&#x2F;B Testing</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Common-Web-Analytics-Metrics"><span class="toc-text">Common Web Analytics Metrics</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Examples-of-Changes-for-Testing"><span class="toc-text">Examples of Changes for Testing</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Experiment-Settings"><span class="toc-text">Experiment Settings</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Power-Analysis"><span class="toc-text">Power Analysis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Result-Evaluation"><span class="toc-text">Result Evaluation</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Some-Challenges-in-A-B-Testing"><span class="toc-text">Some Challenges in A&#x2F;B Testing</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Tradeoff-between-alpha-and-beta"><span class="toc-text">Tradeoff between $\alpha$ and $\beta$</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Insignificant-Treatment-Effect"><span class="toc-text">Insignificant Treatment Effect</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Multi-armed-Bandit-Approach"><span class="toc-text">Multi-armed Bandit Approach</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      
-      <div class="post-item" title="GitHub Authentication and Basic Functionalities">
-        <div class="time-m-d">06-15</div>
-        <div class="title">
-          <a href="/posts/20210615-GitHub-Authentication-and-Basic-Functionalities">
-            <span>GitHub Authentication and Basic Functionalities</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Brief Introduction of Essential Methods in Causal Inference">
-        <div class="time-m-d">05-06</div>
-        <div class="title">
-          <a href="/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference">
-            <span>Brief Introduction of Essential Methods in Causal Inference</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Aggregate Data in SQL Using GROUP BY or Window Functions">
-        <div class="time-m-d">04-10</div>
-        <div class="title">
-          <a href="/posts/20210410-Aggregate-Data-in-SQL-Using-GROUP-BY-or-Window-Functions">
-            <span>Aggregate Data in SQL Using GROUP BY or Window Functions</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Aggregating and Filtering at One Time in SQL">
-        <div class="time-m-d">04-06</div>
-        <div class="title">
-          <a href="/posts/20210406-Aggregating-and-Filtering-at-One-Time-in-SQL">
-            <span>Aggregating and Filtering at One Time in SQL</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Hypothesis Testing vs. A/B Testing">
-        <div class="time-m-d">04-05</div>
-        <div class="title">
-          <a href="/posts/20210405-Hypothesis-Testing-vs-A-B-Testing">
-            <span>Hypothesis Testing vs. A/B Testing</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Error Types and Measures">
-        <div class="time-m-d">03-27</div>
-        <div class="title">
-          <a href="/posts/20210327-Error-Types-and-Measures">
-            <span>Error Types and Measures</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="SQL JOIN with the WHERE and the ON Clause">
-        <div class="time-m-d">02-06</div>
-        <div class="title">
-          <a href="/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause">
-            <span>SQL JOIN with the WHERE and the ON Clause</span>
-          </a>
-        </div>
-      </div>
-    
-      
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2020</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="Git Quick Start">
-        <div class="time-m-d">12-01</div>
-        <div class="title">
-          <a href="/posts/20201201-Git-Quick-Start">
-            <span>Git Quick Start</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Google Drive plus Git">
-        <div class="time-m-d">12-01</div>
-        <div class="title">
-          <a href="/posts/20201201-Google-Drive-plus-Git">
-            <span>Google Drive plus Git</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="LaTex Display in Hexo">
-        <div class="time-m-d">11-25</div>
-        <div class="title">
-          <a href="/posts/20201125-LaTex-Display-in-Hexo">
-            <span>LaTex Display in Hexo</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Hello World and Thank You Hexo">
-        <div class="time-m-d">11-23</div>
-        <div class="title">
-          <a href="/posts/20201123-Hello-World-and-Thank-You-Hexo">
-            <span>Hello World and Thank You Hexo</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+  <div id="disqus_thread">
+    <h2>
+      <a href="#" class="comment" onclick="loadDisqus();return false;">View / Make Comments</a>
+    </h2>
+  </div>
+
+  <script>
+    var disqus_config = function() {
+      this.page.url = 'http://yanghaowang.github.io/posts/20210916-Short-Notes-on-A-B-Testing.html';
+      this.page.identifier = 'posts/20210916-Short-Notes-on-A-B-Testing.html';
+      this.page.title = 'Short Notes on A/B Testing';
+    };
+
+    var is_disqus_loaded = false;
+
+    function loadDisqus() {
+      if (!is_disqus_loaded) {
+        is_disqus_loaded = true;
+
+        var d = document,
+          s = d.createElement('script');
+        s.src = 'https://https-yanghaowang-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+    }
+
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         <div class="footer">
   <div class="social">

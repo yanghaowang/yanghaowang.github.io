@@ -13,7 +13,7 @@
   
   
   
-  <title>archive_a: 2021/8  </title>
+  <title>GitHub Authentication and Basic Functionalities  </title>
 
   
     <link rel="apple-touch-icon" href="/images/isle_icon.png">
@@ -21,22 +21,22 @@
   
 
   <!-- Info Feed for Search Engine -->
-  <meta property="og:url" content="http://yanghaowang.github.io/archives/2021/08/index.html" />
+  <meta property="og:url" content="http://yanghaowang.github.io/posts/20210615-GitHub-Authentication-and-Basic-Functionalities.html" />
   <meta property="og:site_name" content="Home - Yanghao Wang" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="archive_a: 2021/8" />
+  <meta property="og:title" content="GitHub Authentication and Basic Functionalities" />
 
   
-    <meta name="description" content="This is Yanghao&#39;s homepage, sharing his notes on economics, machine learning, and business analytics.">
+    <meta name="description" content="Git, GitHub, Git Basics, GitHub Authentication">
   
 
 
   <!-- Info Feed for Twitter -->
-  <meta name="twitter:url" content="http://yanghaowang.github.io/archives/2021/08/index.html" />
+  <meta name="twitter:url" content="http://yanghaowang.github.io/posts/20210615-GitHub-Authentication-and-Basic-Functionalities.html" />
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="archive_a: 2021/8">
+  <meta name="twitter:title" content="GitHub Authentication and Basic Functionalities">
   
-    <meta name="twitter:description" content="This is Yanghao&#39;s homepage, sharing his notes on economics, machine learning, and business analytics.">
+    <meta name="twitter:description" content="Git, GitHub, Git Basics, GitHub Authentication">
   
   
 
@@ -156,171 +156,243 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
 
-<div class="container archives">
-  <div class="post-list">
-    
-    
-      
-        <!-- 第一篇文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2021</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="Short Notes on A/B Testing">
-        <div class="time-m-d">09-16</div>
-        <div class="title">
-          <a href="/posts/20210916-Short-Notes-on-A-B-Testing">
-            <span>Short Notes on A/B Testing</span>
-          </a>
-        </div>
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">GitHub Authentication and Basic Functionalities</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2021-06-15
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Git/" title="Git">
+                    <b>#</b> Git
+                  </a>
+                </span>
+                
+                <span class="span--tag">
+                  <a href="/tags/Github/" title="Github">
+                    <b>#</b> Github
+                  </a>
+                </span>
+                
+                <span class="span--tag">
+                  <a href="/tags/Work-Efficiency/" title="Work Efficiency">
+                    <b>#</b> Work Efficiency
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
-    
-      
-      <div class="post-item" title="How to Use Class Objects in Python">
-        <div class="time-m-d">08-10</div>
-        <div class="title">
-          <a href="/posts/20210810-How-to-Use-Class-Objects-in-Python">
-            <span>How to Use Class Objects in Python</span>
-          </a>
-        </div>
+      <div class="markdown-body">
+        <p>Recently, I share with colleagues my knowledge of Git/GitHub. I gave a presentation in a team meeting, which covers the authentication and the basic functionalities of GitHub. </p>
+<p class='twelve columns' style="text-align: center;">
+    <img src="/posts/20210615-GitHub-Authentication-and-Basic-Functionalities/Git_GitHub.png" class="">
+</p>
+
+<p>The authentication setting of GitHub in Git is not as easy as that in the GitHub Desktop App. Most beginners are overwhelmed by large numbers of relevant posts. Therefore, I list the <em>only necessary official</em> references that you can follow step by step to set up the authentication. Moreover, from my perspectives, I list the basic functionalities of GitHub as well as the corresponding daily Git commands. Lastly, I share some rules of thumb for collaboration in GitHub.</p>
+<h2 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h2><p><em>You must authenticate before you can access certain resources on GitHub</em>. When you authenticate to GitHub, you supply or confirm credentials that are unique to you to prove that you are exactly who you declare to be. The most two popular ways to authenticate to GitHub are </p>
+<ol>
+<li>A Combination of Username and Personal Access Token, and</li>
+<li>The SSH Protocol</li>
+</ol>
+<h3 id="Username-and-Token"><a href="#Username-and-Token" class="headerlink" title="Username and Token"></a>Username and Token</h3><ol>
+<li><p>Creating a personal access token: <a target="_blank" rel="noopener" href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token">https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token</a></p>
+</li>
+<li><p>Using a token on the command line: <a target="_blank" rel="noopener" href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token#using-a-token-on-the-command-line">https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token#using-a-token-on-the-command-line</a></p>
+</li>
+</ol>
+<h3 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h3><ol>
+<li>Checking for existing SSH keys: <a target="_blank" rel="noopener" href="https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/checking-for-existing-ssh-keys">https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/checking-for-existing-ssh-keys</a></li>
+<li>Generating a new SSH key and adding it to the ssh-agent: <a target="_blank" rel="noopener" href="https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent</a></li>
+<li>Adding a new SSH key to your GitHub account: <a target="_blank" rel="noopener" href="https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account</a></li>
+</ol>
+<p>With SSH keys, you can connect to GitHub without supplying your username and personal access token at each visit.</p>
+<p class='twelve columns' style="text-align: center;">
+    <img src="/posts/20210615-GitHub-Authentication-and-Basic-Functionalities/GitHubAuthentication.png" class="">
+</p>
+
+<h2 id="Basic-Functionalities"><a href="#Basic-Functionalities" class="headerlink" title="Basic Functionalities"></a>Basic Functionalities</h2><h3 id="Adding-an-existing-project-to-GitHub"><a href="#Adding-an-existing-project-to-GitHub" class="headerlink" title="Adding an existing project to GitHub"></a>Adding an existing project to GitHub</h3><p><a target="_blank" rel="noopener" href="https://docs.github.com/en/github/importing-your-projects-to-github/importing-source-code-to-github/adding-an-existing-project-to-github-using-the-command-line">https://docs.github.com/en/github/importing-your-projects-to-github/importing-source-code-to-github/adding-an-existing-project-to-github-using-the-command-line</a></p>
+<h3 id="Cloning-a-repository"><a href="#Cloning-a-repository" class="headerlink" title="Cloning a repository"></a>Cloning a repository</h3><p><a target="_blank" rel="noopener" href="https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository">https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository</a></p>
+<h3 id="Branch-Checkout-Branch"><a href="#Branch-Checkout-Branch" class="headerlink" title="Branch: Checkout/Branch"></a>Branch: Checkout/Branch</h3><ol>
+<li>Create a new branch using <code>git branch &lt;branch_name&gt;</code>.</li>
+<li>Switch to the new branch using <code>git checkout &lt;branch_name&gt;</code>.</li>
+</ol>
+<p>Execute two command lines in one: <code>git checkout -b &lt;branch_name&gt;</code></p>
+<h3 id="Adding-a-file-to-a-repository"><a href="#Adding-a-file-to-a-repository" class="headerlink" title="Adding a file to a repository"></a>Adding a file to a repository</h3><p><a target="_blank" rel="noopener" href="https://docs.github.com/en/github/managing-files-in-a-repository/managing-files-using-the-command-line/adding-a-file-to-a-repository-using-the-command-line">https://docs.github.com/en/github/managing-files-in-a-repository/managing-files-using-the-command-line/adding-a-file-to-a-repository-using-the-command-line</a></p>
+<h3 id="Remove-files-from-the-working-directory"><a href="#Remove-files-from-the-working-directory" class="headerlink" title="Remove files from the working directory"></a>Remove files from the working directory</h3><ol>
+<li>Remove files (e.g. trash.txt) from local directory manually.</li>
+<li><code>git rm trash.txt</code> in Git Bash.</li>
+<li>Commit the change using <code>git commit -m &quot;Remove trash.txt&quot;</code>.</li>
+</ol>
+<h3 id="Pull-and-Push"><a href="#Pull-and-Push" class="headerlink" title="Pull and Push"></a>Pull and Push</h3><ol>
+<li>Check the target remote repository on GitHub using <code>git remote -v</code>.</li>
+<li>Pull the latest changes from GitHub with <code>git pull</code>.</li>
+<li>Push your work to GitHub with <code>git push origin &lt;branch_name&gt;&quot;</code> where <code>origin</code> is referred to as the target remote repository.</li>
+</ol>
+<h3 id="Merge"><a href="#Merge" class="headerlink" title="Merge"></a>Merge</h3><p>Merge code changes in two different branches (target branch and to be merged branch)</p>
+<ol>
+<li>Checkout the target branch using <code>git checkout &lt;target_bread&gt;</code>.</li>
+<li>Merge the changes from to-be-merged-branch into the target branch using <code>git merge &lt;to_be_merged_branch&gt;</code>.</li>
+</ol>
+<h3 id="Revert-and-Reset"><a href="#Revert-and-Reset" class="headerlink" title="Revert and Reset"></a>Revert and Reset</h3><p><code>git revert &lt;commit_ID&gt;</code> will undo the changes in a particular commit.</p>
+<ul>
+<li><code>git reset </code></li>
+</ul>
+<ul>
+<li><code>git commit --amend</code></li>
+</ul>
+<h2 id="Best-Practices-for-Collaboration"><a href="#Best-Practices-for-Collaboration" class="headerlink" title="Best Practices for Collaboration"></a>Best Practices for Collaboration</h2><ol>
+<li>Always synchronize your branches before starting any work on your own.</li>
+<li>Make changes that are self-contained.</li>
+<li>Avoid having very large changes that modify a lot of different things. (Try to make changes as small as possible as long as they’re self-contained.)</li>
+<li>When working on a big change, it makes sense to have a separate feature branch.</li>
+<li>Regularly merge changes made on the master branch back onto the feature branch.</li>
+<li>Have the latest version of the project in the master branch, and the stable version of the project on a separate branch.</li>
+<li>You shouldn’t rebase changes that have been pushed to remote repos.</li>
+<li>Write commit messages.</li>
+<li>Only edit the same branch when necessary after submitting a pull request.</li>
+</ol>
+
       </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2021-06-15
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Git/" title="Git">
+                        <b>#</b> Git
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Github/" title="Github">
+                        <b>#</b> Github
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Work-Efficiency/" title="Work Efficiency">
+                        <b>#</b> Work Efficiency
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/posts/20210720-Path-to-Virtual-Drive" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
     
-      
-      <div class="post-item" title="Path to Virtual Drive">
-        <div class="time-m-d">07-20</div>
-        <div class="title">
-          <a href="/posts/20210720-Path-to-Virtual-Drive">
-            <span>Path to Virtual Drive</span>
-          </a>
-        </div>
-      </div>
+  <div class="post-catalog" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Authentication"><span class="toc-text">Authentication</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Username-and-Token"><span class="toc-text">Username and Token</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSH"><span class="toc-text">SSH</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic-Functionalities"><span class="toc-text">Basic Functionalities</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Adding-an-existing-project-to-GitHub"><span class="toc-text">Adding an existing project to GitHub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cloning-a-repository"><span class="toc-text">Cloning a repository</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Branch-Checkout-Branch"><span class="toc-text">Branch: Checkout&#x2F;Branch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Adding-a-file-to-a-repository"><span class="toc-text">Adding a file to a repository</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Remove-files-from-the-working-directory"><span class="toc-text">Remove files from the working directory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pull-and-Push"><span class="toc-text">Pull and Push</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Merge"><span class="toc-text">Merge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Revert-and-Reset"><span class="toc-text">Revert and Reset</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Best-Practices-for-Collaboration"><span class="toc-text">Best Practices for Collaboration</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      
-      <div class="post-item" title="GitHub Authentication and Basic Functionalities">
-        <div class="time-m-d">06-15</div>
-        <div class="title">
-          <a href="/posts/20210615-GitHub-Authentication-and-Basic-Functionalities">
-            <span>GitHub Authentication and Basic Functionalities</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Brief Introduction of Essential Methods in Causal Inference">
-        <div class="time-m-d">05-06</div>
-        <div class="title">
-          <a href="/posts/20210506-Brief-Introduction-of-Essential-Methods-in-Causal-Inference">
-            <span>Brief Introduction of Essential Methods in Causal Inference</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Aggregate Data in SQL Using GROUP BY or Window Functions">
-        <div class="time-m-d">04-10</div>
-        <div class="title">
-          <a href="/posts/20210410-Aggregate-Data-in-SQL-Using-GROUP-BY-or-Window-Functions">
-            <span>Aggregate Data in SQL Using GROUP BY or Window Functions</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Aggregating and Filtering at One Time in SQL">
-        <div class="time-m-d">04-06</div>
-        <div class="title">
-          <a href="/posts/20210406-Aggregating-and-Filtering-at-One-Time-in-SQL">
-            <span>Aggregating and Filtering at One Time in SQL</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Hypothesis Testing vs. A/B Testing">
-        <div class="time-m-d">04-05</div>
-        <div class="title">
-          <a href="/posts/20210405-Hypothesis-Testing-vs-A-B-Testing">
-            <span>Hypothesis Testing vs. A/B Testing</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Error Types and Measures">
-        <div class="time-m-d">03-27</div>
-        <div class="title">
-          <a href="/posts/20210327-Error-Types-and-Measures">
-            <span>Error Types and Measures</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="SQL JOIN with the WHERE and the ON Clause">
-        <div class="time-m-d">02-06</div>
-        <div class="title">
-          <a href="/posts/20210206-SQL-JOIN-with-the-WHERE-and-the-ON-Clause">
-            <span>SQL JOIN with the WHERE and the ON Clause</span>
-          </a>
-        </div>
-      </div>
-    
-      
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2020</span>
-          </h2>
-        </div>
-      
-      <div class="post-item" title="Git Quick Start">
-        <div class="time-m-d">12-01</div>
-        <div class="title">
-          <a href="/posts/20201201-Git-Quick-Start">
-            <span>Git Quick Start</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Google Drive plus Git">
-        <div class="time-m-d">12-01</div>
-        <div class="title">
-          <a href="/posts/20201201-Google-Drive-plus-Git">
-            <span>Google Drive plus Git</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="LaTex Display in Hexo">
-        <div class="time-m-d">11-25</div>
-        <div class="title">
-          <a href="/posts/20201125-LaTex-Display-in-Hexo">
-            <span>LaTex Display in Hexo</span>
-          </a>
-        </div>
-      </div>
-    
-      
-      <div class="post-item" title="Hello World and Thank You Hexo">
-        <div class="time-m-d">11-23</div>
-        <div class="title">
-          <a href="/posts/20201123-Hello-World-and-Thank-You-Hexo">
-            <span>Hello World and Thank You Hexo</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+  <div id="disqus_thread">
+    <h2>
+      <a href="#" class="comment" onclick="loadDisqus();return false;">View / Make Comments</a>
+    </h2>
+  </div>
+
+  <script>
+    var disqus_config = function() {
+      this.page.url = 'http://yanghaowang.github.io/posts/20210615-GitHub-Authentication-and-Basic-Functionalities.html';
+      this.page.identifier = 'posts/20210615-GitHub-Authentication-and-Basic-Functionalities.html';
+      this.page.title = 'GitHub Authentication and Basic Functionalities';
+    };
+
+    var is_disqus_loaded = false;
+
+    function loadDisqus() {
+      if (!is_disqus_loaded) {
+        is_disqus_loaded = true;
+
+        var d = document,
+          s = d.createElement('script');
+        s.src = 'https://https-yanghaowang-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+    }
+
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         <div class="footer">
   <div class="social">
