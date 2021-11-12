@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yanghaowang.github.io/research/</loc>
+    
+    <lastmod>2021-11-12</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yanghaowang.github.io/posts/20210916-Short-Notes-on-A-B-Testing</loc>
     
     <lastmod>2021-10-23</lastmod>
@@ -40,13 +47,6 @@
     <loc>http://yanghaowang.github.io/posts/20201201-Google-Drive-plus-Git</loc>
     
     <lastmod>2021-10-21</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yanghaowang.github.io/research/</loc>
-    
-    <lastmod>2021-10-08</lastmod>
     
   </url>
   
@@ -123,7 +123,7 @@
 
   <url>
     <loc>http://yanghaowang.github.io/</loc>
-    <lastmod>2021-10-23</lastmod>
+    <lastmod>2021-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
