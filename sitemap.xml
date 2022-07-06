@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yanghaowang.github.io/research/</loc>
+    
+    <lastmod>2022-07-06</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yanghaowang.github.io/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3</loc>
     
     <lastmod>2022-07-06</lastmod>
@@ -40,13 +47,6 @@
     <loc>http://yanghaowang.github.io/posts/20201125-LaTex-Display-in-Hexo</loc>
     
     <lastmod>2022-04-05</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yanghaowang.github.io/research/</loc>
-    
-    <lastmod>2021-11-12</lastmod>
     
   </url>
   
