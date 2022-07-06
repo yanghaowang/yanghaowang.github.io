@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  <head>
+  <meta charset="utf-8">
+  <!-- Template is created by "zchengsite"<1451426471@qq.com> -->
+  <meta name="author" content="Yanghao Wang" />
+
+  <!-- Mobile Specific Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  
+  
+  
+  
+  <title>Review in Causal Inference (Part 2)  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/isle_icon.png">
+    <link rel="icon" href="/images/isle_icon.png">
+  
+
+  <!-- Info Feed for Search Engine -->
+  <meta property="og:url" content="http://yanghaowang.github.io/posts/20220212-Review-in-Causal-Inference-Part-2.html" />
+  <meta property="og:site_name" content="Home - Yanghao Wang" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Review in Causal Inference (Part 2)" />
+
+  
+    <meta name="description" content="This is the second post in a series of reviews on Causal Inference in Economics, covering the instrumental variable method and the estimation of the complier average causal effect (CACE), also known as the local average treatment effect (LATE).">
+  
+
+
+  <!-- Info Feed for Twitter -->
+  <meta name="twitter:url" content="http://yanghaowang.github.io/posts/20220212-Review-in-Causal-Inference-Part-2.html" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Review in Causal Inference (Part 2)">
+  
+    <meta name="twitter:description" content="This is the second post in a series of reviews on Causal Inference in Economics, covering the instrumental variable method and the estimation of the complier average causal effect (CACE), also known as the local average treatment effect (LATE).">
+  
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQF7RSRVHX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-HQF7RSRVHX');
+    </script>
+  
+
+  <!-- Site Verification (Begin) -->
+  <meta name="google-site-verification" content="JjXbgMsnj0fxvl9a8Srz8H3mqG7a5WH302GAZAceyHw" />
+  <meta name="msvalidate.01" content="83FCCA6F2323CE633A05D6A4C1D2116A" />
+  <!-- Site Verification (End) -->
+  
+  <!-- Microsoft Clarity (Begin) -->
+  <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "906d8r2odq");
+  </script>
+  <!-- Microsoft Clarity (Begin) -->
+
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Home - Yanghao Wang" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="container" align="right">
+    <div style="width: 40px; height: 40px;">
+      <div onclick=setDarkMode(true) id="darkBtn" style="font-size: 20px; cursor: pointer;">
+        <!-- 🌞 On -->
+        <svg t="1608934765001" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2784" width="40px" height="40px"><path d="M195.327541 505.553631a337.969888 337.409408 0 1 0 675.939777 0 337.969888 337.409408 0 1 0-675.939777 0Z" fill="#FAD700" p-id="2785"></path><path d="M306.302729 256.700181a337.409408 337.409408 0 1 1 378.884982 550.952571 337.409408 337.409408 0 0 0-378.884982-550.952571z" fill="#FFBE34" p-id="2786"></path><path d="M350.020227 223.071336a337.409408 337.409408 0 1 1 326.760273 588.504781 337.409408 337.409408 0 0 0-326.760273-588.504781z" fill="#FF9019" p-id="2787"></path><path d="M374.120899 463.517575a25.221633 25.221633 0 1 0 50.443267 0 25.221633 25.221633 0 1 0-50.443267 0Z" fill="" p-id="2788"></path><path d="M581.498774 463.517575a25.221633 25.221633 0 1 0 50.443267 0 25.221633 25.221633 0 1 0-50.443267 0Z" fill="" p-id="2789"></path><path d="M446.422915 563.283147h128.910571a64.455286 64.455286 0 0 1-128.910571 0z" fill="#FF8472" p-id="2790"></path><path d="M510.8782 636.145644a75.6649 75.6649 0 0 1-75.6649-72.302016 11.209615 11.209615 0 0 1 11.209615-11.770096h128.910571a11.209615 11.209615 0 0 1 11.209614 11.770096 75.6649 75.6649 0 0 1-75.6649 72.302016z m-51.564228-61.652882a53.245671 53.245671 0 0 0 103.128457 0z" fill="" p-id="2791"></path><path d="M643.712136 568.327474a29.144999 29.144999 0 1 0 58.289998 0 29.144999 29.144999 0 1 0-58.289998 0Z" fill="#FF9218" p-id="2792"></path><path d="M485.096086 879.954767A360.389118 360.389118 0 0 1 124.706968 520.12613a356.465753 356.465753 0 0 1 33.068364-150.76932 22.564955 22.564955 0 1 1 40.915094 19.056345A312.187774 312.187774 0 0 0 169.545427 520.12613a315.550659 315.550659 0 0 0 543.105841 218.027009 22.41923 22.41923 0 0 1 32.507883 30.826441A357.026234 357.026234 0 0 1 485.096086 879.954767z m284.163737-155.813646a22.41923 22.41923 0 0 1-19.056345-34.749806 313.308736 313.308736 0 0 0 34.189325-71.741536 22.41923 22.41923 0 0 1 42.596536 14.012019 358.707676 358.707676 0 0 1-38.673171 81.830189 22.41923 22.41923 0 0 1-19.056345 10.649134z m53.245671-182.156242a22.41923 22.41923 0 0 1-22.41923-22.41923 315.550659 315.550659 0 0 0-314.990178-314.429697l-30.26596 1.681442a22.531326 22.531326 0 1 1-4.483846-44.838459l34.749806-1.681442a360.389118 360.389118 0 0 1 360.389118 359.828637 22.41923 22.41923 0 0 1-22.97971 22.41923zM227.274944 323.95787a22.41923 22.41923 0 0 1-16.814422-36.991729 362.631041 362.631041 0 0 1 65.015766-59.97144 22.475278 22.475278 0 0 1 26.342595 36.431248 317.232101 317.232101 0 0 0-57.169036 52.68519 22.41923 22.41923 0 0 1-17.374903 7.846731z m121.06384-90.2374a22.41923 22.41923 0 0 1-8.967691-43.157017l30.82644-11.209615a22.508907 22.508907 0 0 1 14.5725 42.596536l-27.463557 10.088654a22.41923 22.41923 0 0 1-8.967692 1.681442z" fill="" p-id="2793"></path><path d="M272.673884 568.327474a29.144999 29.144999 0 1 0 58.289997 0 29.144999 29.144999 0 1 0-58.289997 0Z" fill="#FF9218" p-id="2794"></path><path d="M555.156179 1023.998319a16.814422 16.814422 0 0 1-16.814422-14.012019l-8.967692-50.443267a16.814422 16.814422 0 0 1 33.068364-5.604807l8.967691 50.443267a16.814422 16.814422 0 0 1-13.451537 19.616826z m-334.607004-83.511631a16.814422 16.814422 0 0 1-14.572499-25.221634l25.782114-44.838459a16.825632 16.825632 0 1 1 29.144998 16.814422l-25.782114 44.83846a16.814422 16.814422 0 0 1-14.572499 8.407211z m644.552855-67.257689a16.814422 16.814422 0 0 1-10.649134-3.923366l-39.233652-33.068364a16.898494 16.898494 0 1 1 21.858749-25.782114l39.233652 33.068364a16.814422 16.814422 0 0 1-10.649134 29.70548zM18.215626 661.367277a16.814422 16.814422 0 0 1-5.604807-32.507883l48.201344-17.374903a16.814422 16.814422 0 0 1 11.770096 31.386922L23.820434 660.246316z m936.002842-103.128456a16.814422 16.814422 0 0 1 0-33.628845h51.564229a16.814422 16.814422 0 0 1 0 33.628845H954.218468zM91.078123 334.607004l-5.604807-1.120962-48.761825-17.374903a16.814422 16.814422 0 0 1 11.209615-31.386921l48.761825 17.374903a16.814422 16.814422 0 0 1-5.604808 32.507883z m780.189195-75.10442a16.814422 16.814422 0 0 1-10.649134-29.705479l39.233652-33.068364a16.898494 16.898494 0 0 1 21.858749 25.782114l-39.233652 33.068364a16.814422 16.814422 0 0 1-11.209615 3.923365z m-563.283147-145.724993a16.814422 16.814422 0 0 1-14.572499-8.407211l-25.782115-44.277979a16.825632 16.825632 0 1 1 29.144999-16.814422l25.782114 44.277978a16.814422 16.814422 0 0 1-14.572499 25.221634z m308.264409-29.705479h-2.802404a16.814422 16.814422 0 0 1-13.451538-19.616826l8.967692-50.443267a16.814422 16.814422 0 0 1 33.068364 5.604807l-8.967692 50.443267a16.814422 16.814422 0 0 1-16.814422 14.012019z" fill="" p-id="2795"></path></svg>
+        <br>
+        <svg t="1608937543125" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5577" width="40px" height="40px"><path d="M768 699.733333H256c-51.694933 0-96.529067-18.619733-133.239467-55.3472C86.596267 608.221867 68.266667 563.677867 68.266667 512c0-51.6096 18.295467-96.4096 54.391466-133.137067C159.5904 342.562133 204.3904 324.266667 256 324.266667h512c51.694933 0 96.238933 18.3296 132.386133 54.493866C937.1136 415.470933 955.733333 460.305067 955.733333 512c0 51.746133-18.653867 96.341333-55.4496 132.488533C864.3584 681.0624 819.7632 699.733333 768 699.733333z m-3.8912-34.133333H768c42.871467 0 78.2336-14.7968 108.1344-45.243733C906.8032 590.2336 921.6 554.8544 921.6 512c0-42.9056-14.830933-78.592-45.346133-109.1072C846.318933 372.957867 810.922667 358.4 768 358.4h-4.0448c-41.3184 1.0752-75.7248 15.6672-105.147733 44.5952C628.974933 433.322667 614.4 469.0432 614.4 512c0 42.9056 14.557867 78.301867 44.4928 108.253867 29.457067 29.474133 63.880533 44.305067 105.216 45.346133zM256 358.4c-42.9568 0-78.677333 14.592-109.2096 44.5952C116.992 433.322667 102.4 469.0432 102.4 512c0 42.9056 14.557867 78.301867 44.4928 108.253867C177.408 650.769067 213.0944 665.6 256 665.6h403.626667a199.936 199.936 0 0 1-24.866134-21.213867C598.596267 608.221867 580.266667 563.677867 580.266667 512c0-51.626667 18.295467-96.4096 54.408533-133.137067 7.7312-7.611733 15.837867-14.4384 24.285867-20.462933H256z m256.853333 256c-6.331733 0-12.288-3.5328-15.240533-9.3696L443.733333 498.3296V597.333333a17.066667 17.066667 0 1 1-34.133333 0V426.666667a17.066667 17.066667 0 0 1 32.3072-7.697067L495.786667 525.653333V426.666667a17.066667 17.066667 0 0 1 34.133333 0v170.666666a17.066667 17.066667 0 0 1-17.066667 17.066667zM298.666667 614.4a58.5728 58.5728 0 0 1-42.786134-17.800533C244.6336 585.3696 238.933333 571.255467 238.933333 554.666667v-85.333334c0-16.366933 5.563733-30.6176 16.554667-42.359466 12.561067-11.810133 26.811733-17.373867 43.178667-17.373867 16.5888 0 30.702933 5.700267 41.9328 16.9472A58.641067 58.641067 0 0 1 358.4 469.333333v85.333334c0 16.571733-6.2976 31.214933-18.210133 42.3424-10.308267 11.093333-24.951467 17.390933-41.5232 17.390933z m0-170.666667c-7.645867 0-13.704533 2.338133-19.063467 7.355734-4.1984 4.539733-6.536533 10.5984-6.536533 18.244266v85.333334c0 7.406933 2.2016 13.073067 6.946133 17.800533 5.3248 5.307733 11.246933 7.799467 18.653867 7.799467 7.2704 0 12.629333-2.286933 17.390933-7.389867 5.9392-5.5808 8.209067-10.939733 8.209067-18.210133v-85.333334a24.917333 24.917333 0 0 0-7.799467-18.653866c-4.744533-4.744533-10.3936-6.946133-17.800533-6.946134z" p-id="5578"></path></svg>
+      </div>
+      <div onclick=setDarkMode(false) id="lightBtn" style="font-size: 20px; cursor: pointer; display: none;">
+        <!-- 🌙 Off  -->
+        <svg t="1608934974290" viewBox="0 0 1052 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2939" width="40px" height="40px"><path d="M475.216752 26.735953a461.193207 461.193207 0 0 0 434.025216 610.948473 458.542671 458.542671 0 0 0 115.960936-14.577946 459.205305 459.205305 0 1 1-549.986152-596.370527z" fill="#FACD00" p-id="2940"></path><path d="M591.840321 959.061876A487.03593 487.03593 0 0 1 468.590413 0.893231a26.505357 26.505357 0 0 1 31.806428 34.456963 434.68785 434.68785 0 0 0 408.845127 575.828875 432.699948 432.699948 0 0 0 109.334597-13.915312 26.505357 26.505357 0 0 1 31.806428 34.456964 485.710662 485.710662 0 0 1-458.542672 327.341155zM436.121351 67.156622a434.025216 434.025216 0 1 0 546.010348 591.732089 489.023832 489.023832 0 0 1-72.889731 5.301071 487.698564 487.698564 0 0 1-473.120617-597.03316z" fill="#FACD00" p-id="2941"></path><path d="M425.519208 79.746667a441.314189 441.314189 0 0 0 416.1341 585.105749 439.326288 439.326288 0 0 0 111.322499-14.577946A439.988922 439.988922 0 1 1 425.519208 79.746667z" fill="#FAF400" p-id="2942"></path><path d="M536.841706 974.302456A467.819546 467.819546 0 0 1 418.892869 53.903944a26.505357 26.505357 0 0 1 31.806428 34.456964 414.146199 414.146199 0 0 0 494.987537 536.733473 26.505357 26.505357 0 0 1 31.806428 34.456964A466.494278 466.494278 0 0 1 536.841706 974.302456zM386.423807 120.167336a414.146199 414.146199 0 1 0 522.818161 565.889366 467.819546 467.819546 0 0 1-522.818161-565.889366z" fill="#FAF400" p-id="2943"></path><path d="M497.746305 762.259602s33.131696-26.505357 43.733839-56.323883 7.288973-45.059106 7.288973-45.059106 100.057722 92.106115-51.022812 101.382989z" fill="#FF8472" p-id="2944"></path><path d="M497.746305 772.199111a9.939509 9.939509 0 0 1-5.963705-17.891116s31.143794-25.180089 40.420669-52.348079 7.288973-39.758035 7.288973-40.420669a9.939509 9.939509 0 0 1 5.301071-10.602143 9.939509 9.939509 0 0 1 11.264777 1.325268c4.638437 4.638437 45.72174 43.733839 33.131696 78.853436-8.614241 23.854821-38.432767 37.107499-90.780847 40.420669z m59.637053-86.805043a169.634283 169.634283 0 0 1-6.62634 23.854821 125.237811 125.237811 0 0 1-25.180088 40.420669c25.180089-4.638437 40.420669-12.590044 44.396472-23.854821s-3.31317-28.493258-12.590044-40.420669z" fill="" p-id="2945"></path><path d="M270.462871 552.867284a13.252678 13.252678 0 0 1-13.252678-12.590044c-1.325268-27.830625 14.577946-83.491874 83.491873-94.75665a13.252678 13.252678 0 0 1 3.975804 25.842722c-62.950222 9.939509-60.96232 64.938124-60.962321 66.926026a13.252678 13.252678 0 0 1-12.590044 13.915312z" fill="" p-id="2946"></path><path d="M485.818894 1024a487.03593 487.03593 0 0 1-409.507761-748.776327 26.505357 26.505357 0 1 1 44.396473 28.493258 433.362582 433.362582 0 0 0 642.092266 566.552c10.602143-8.614241 20.541651-17.891116 29.818526-27.830625a26.505357 26.505357 0 1 1 37.770134 37.1075c-10.602143 10.602143-21.866919 21.204285-33.79433 31.143794a485.048028 485.048028 0 0 1-310.775308 113.3104z m371.737628-190.175934a26.505357 26.505357 0 0 1-21.204285-41.745937 433.362582 433.362582 0 0 0 40.420669-68.251294 487.03593 487.03593 0 0 1-546.672982-591.732089 430.049413 430.049413 0 0 0-86.805044 45.721741 26.505357 26.505357 0 1 1-29.818526-43.733839A481.734858 481.734858 0 0 1 362.568986 65.831354a26.505357 26.505357 0 0 1 31.806428 34.456964 433.362582 433.362582 0 0 0 518.179724 561.913563 26.505357 26.505357 0 0 1 31.806428 34.456963 485.710662 485.710662 0 0 1-66.263392 126.563079 26.505357 26.505357 0 0 1-20.541652 10.602143zM135.948186 265.284164a26.505357 26.505357 0 0 1-19.879018-43.733839 491.674367 491.674367 0 0 1 35.782232-37.770133 26.505357 26.505357 0 1 1 36.444865 38.432767 438.00102 438.00102 0 0 0-31.806428 33.79433 26.505357 26.505357 0 0 1-20.541651 9.276875z" fill="" p-id="2947"></path><path d="M291.667156 711.236791a41.083303 41.083303 0 1 0 82.166606 0 41.083303 41.083303 0 1 0-82.166606 0Z" fill="#FFA11F" p-id="2948"></path></svg>
+        <br>
+        <svg t="1608937639614" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5917" width="40px" height="40px"><path d="M889.173333 633.173333C855.620267 666.1632 815.240533 682.666667 768 682.666667H260.266667c45.5168-1.1264 84.48-17.629867 116.906666-49.493334 31.863467-31.829333 48.349867-70.229333 49.493334-115.2V512c0-47.223467-16.503467-87.330133-49.493334-120.32-32.426667-32.426667-71.389867-49.2032-116.906666-50.346667H768c47.240533 0 87.620267 16.776533 121.173333 50.346667C922.1632 424.669867 938.666667 464.776533 938.666667 512c0 47.240533-16.503467 87.620267-49.493334 121.173333zM836.266667 506.026667h-51.2V597.333333v-91.306666h51.2zM853.333333 426.666667h-68.266666v79.36V426.666667h68.266666z m-290.133333 128v-85.333334c0-11.946667-4.266667-22.186667-12.8-30.72-7.970133-7.970133-17.92-11.946667-29.866667-11.946666s-22.186667 3.976533-30.72 11.946666c-7.970133 8.533333-11.946667 18.773333-11.946666 30.72v85.333334c0 11.946667 3.976533 21.896533 11.946666 29.866666 8.533333 8.533333 18.773333 12.8 30.72 12.8s21.896533-4.266667 29.866667-12.8c8.533333-7.970133 12.8-17.92 12.8-29.866666 0 11.946667-4.266667 21.896533-12.8 29.866666-7.970133 8.533333-17.92 12.8-29.866667 12.8s-22.186667-4.266667-30.72-12.8c-7.970133-7.970133-11.946667-17.92-11.946666-29.866666v-85.333334c0-11.946667 3.976533-22.186667 11.946666-30.72 8.533333-7.970133 18.773333-11.946667 30.72-11.946666s21.896533 3.976533 29.866667 11.946666c8.533333 8.533333 12.8 18.773333 12.8 30.72v85.333334z m136.533333-42.666667h-51.2v85.333333-85.333333h51.2z m17.066667-85.333333h-68.266667v85.333333-85.333333h68.266667z" p-id="5918"></path><path d="M785.066667 614.4a17.066667 17.066667 0 0 1-17.066667-17.066667V426.666667a17.066667 17.066667 0 0 1 17.066667-17.066667h68.266666a17.066667 17.066667 0 1 1 0 34.133333h-51.2v45.226667h34.133334a17.066667 17.066667 0 1 1 0 34.133333h-34.133334V597.333333a17.066667 17.066667 0 0 1-17.066666 17.066667z m-136.533334 0a17.066667 17.066667 0 0 1-17.066666-17.066667V426.666667a17.066667 17.066667 0 0 1 17.066666-17.066667h68.266667a17.066667 17.066667 0 1 1 0 34.133333h-51.2v51.2h34.133333a17.066667 17.066667 0 1 1 0 34.133334h-34.133333v68.266666a17.066667 17.066667 0 0 1-17.066667 17.066667z m-128 0a58.5728 58.5728 0 0 1-42.786133-17.800533C466.500267 585.3696 460.8 571.255467 460.8 554.666667v-85.333334c0-16.366933 5.563733-30.6176 16.554667-42.359466 12.561067-11.810133 26.811733-17.373867 43.178666-17.373867 16.5888 0 30.702933 5.700267 41.9328 16.964267A58.504533 58.504533 0 0 1 580.266667 469.333333v85.333334c0 16.571733-6.2976 31.214933-18.210134 42.3424-10.308267 11.093333-24.951467 17.390933-41.5232 17.390933z m0-170.666667c-7.645867 0-13.704533 2.338133-19.063466 7.355734-4.1984 4.539733-6.536533 10.5984-6.536534 18.244266v85.333334c0 7.406933 2.2016 13.073067 6.946134 17.800533 5.3248 5.307733 11.246933 7.799467 18.653866 7.799467 7.2704 0 12.629333-2.286933 17.390934-7.389867 5.922133-5.5808 8.209067-10.939733 8.209066-18.210133v-85.333334c0-7.406933-2.491733-13.329067-7.799466-18.653866-4.727467-4.744533-10.3936-6.946133-17.800534-6.946134z" fill="#ffffff" p-id="5919" data-spm-anchor-id="a313x.7781069.0.i8" class="selected"></path><path d="M768 699.733333H256c-51.694933 0-96.238933-18.3296-132.386133-54.493866C86.8864 608.529067 68.266667 563.712 68.266667 512c0-51.7632 18.653867-96.341333 55.466666-132.488533C159.658667 342.920533 204.2368 324.266667 256 324.266667h512c51.712 0 96.529067 18.619733 133.239467 55.3472C937.403733 415.761067 955.733333 460.305067 955.733333 512c0 51.6608-18.295467 96.443733-54.408533 133.137067l-0.2048 0.2048C864.426667 681.437867 819.643733 699.733333 768 699.733333z m-402.926933-34.133333H768c42.922667 0 78.609067-14.557867 109.1072-44.4928C907.042133 590.609067 921.6 554.939733 921.6 512c0-42.9056-14.557867-78.318933-44.4928-108.2368C846.592 373.230933 810.922667 358.4 768 358.4H364.373333c8.669867 6.229333 16.964267 13.294933 24.8832 21.213867C425.403733 415.761067 443.733333 460.305067 443.733333 512v5.973333c-1.245867 49.698133-19.575467 92.381867-54.493866 127.266134A204.8 204.8 0 0 1 365.073067 665.6zM256 358.4c-42.8544 0-78.2336 14.7968-108.1344 45.243733C117.1968 433.7664 102.4 469.1456 102.4 512c0 42.922667 14.830933 78.592 45.346133 109.1072C177.681067 651.042133 213.0944 665.6 256 665.6h4.0448c41.3184-1.058133 75.7248-15.6672 105.1648-44.5952 28.8256-28.808533 43.383467-62.6688 44.407467-103.458133L409.6 512c0-42.9056-14.557867-78.318933-44.4928-108.253867-29.422933-29.44-63.7952-44.270933-105.0624-45.346133H256z" p-id="5920" data-spm-anchor-id="a313x.7781069.0.i9" class="selected" fill="#ffffff"></path></svg>
+      </div> 
+      <script >
+      if (localStorage.getItem('preferredTheme') == 'dark') {
+        setDarkMode(true)
+      }
+      function setDarkMode(isDark) {
+        var darkBtn = document.getElementById('darkBtn')
+        var lightBtn = document.getElementById('lightBtn')
+        if (isDark) {
+        lightBtn.style.display = "block"
+        darkBtn.style.display = "none"
+        localStorage.setItem('preferredTheme', 'dark');
+        } else {
+        lightBtn.style.display = "none"
+        darkBtn.style.display = "block"
+        localStorage.removeItem('preferredTheme');
+        }
+        document.body.classList.toggle("darkmode");
+      }
+      </script>
+    </div>
+  </div>
+  <div class="avatar">
+    <!-- 头像取消懒加载，添加no-lazy -->
+    
+      <img src="/images/isle_icon.png" alt="">
+    
+    <div class="nickname">Yanghao Wang</div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/research/">
+          <a href="/research/">Research</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Review in Causal Inference (Part 2)</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2022-02-12
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Causal-Inference/" title="Causal Inference">
+                    <b>#</b> Causal Inference
+                  </a>
+                </span>
+                
+                <span class="span--tag">
+                  <a href="/tags/Instrumental-Variable/" title="Instrumental Variable">
+                    <b>#</b> Instrumental Variable
+                  </a>
+                </span>
+                
+                <span class="span--tag">
+                  <a href="/tags/CACE-LATE/" title="CACE/LATE">
+                    <b>#</b> CACE/LATE
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="Practice-4-Instrumental-Variables"><a href="#Practice-4-Instrumental-Variables" class="headerlink" title="Practice 4: Instrumental Variables"></a>Practice 4: Instrumental Variables</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wage &lt;- fread(<span class="string">&quot;IV/wage2.csv&quot;</span>)</span><br><span class="line">ed_real &lt;- na.omit(wage)</span><br><span class="line">print(paste(<span class="built_in">c</span>(<span class="string">&#x27;Number of Rows:&#x27;</span>, <span class="string">&#x27;Number of Columns:&#x27;</span>), <span class="built_in">dim</span>(ed_real)))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] &quot;Number of Rows: 663&quot;   &quot;Number of Columns: 17&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head(ed_real)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">##    wage hours  IQ KWW educ exper tenure age married black south urban sibs brthord meduc feduc    lwage</span><br><span class="line">## 1:  769    40  93  35   12    11      2  31       1     0     0     1    1       2     8     8 6.645091</span><br><span class="line">## 2:  825    40 108  46   14    11      9  33       1     0     0     1    1       2    14    14 6.715384</span><br><span class="line">## 3:  650    40  96  32   12    13      7  32       1     0     0     1    4       3    12    12 6.476973</span><br><span class="line">## 4:  562    40  74  27   11    14      5  34       1     0     0     1   10       6     6    11 6.331502</span><br><span class="line">## 5:  600    40  91  24   10    13      0  30       0     0     0     1    1       2     8     8 6.396930</span><br><span class="line">## 6: 1154    45 111  37   15    13      1  36       1     0     0     0    2       3    14     5 7.050990</span><br></pre></td></tr></table></figure>
+<h3 id="Navie-Model"><a href="#Navie-Model" class="headerlink" title="Navie Model"></a>Navie Model</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model_naive &lt;- lm(wage ~ educ + hours + exper + tenure + age + married + black + </span><br><span class="line">                    south + urban + sibs + brthord, data = ed_real)</span><br><span class="line">summary(model_naive)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## Call:</span><br><span class="line">## lm(formula &#x3D; wage ~ educ + hours + exper + tenure + age + married + </span><br><span class="line">##     black + south + urban + sibs + brthord, data &#x3D; ed_real)</span><br><span class="line">## </span><br><span class="line">## Residuals:</span><br><span class="line">##     Min      1Q  Median      3Q     Max </span><br><span class="line">## -760.19 -232.71  -47.58  175.86 2030.93 </span><br><span class="line">## </span><br><span class="line">## Coefficients:</span><br><span class="line">##             Estimate Std. Error t value Pr(&gt;|t|)    </span><br><span class="line">## (Intercept) -393.560    200.607  -1.962 0.050205 .  </span><br><span class="line">## educ          61.384      7.661   8.012 5.22e-15 ***</span><br><span class="line">## hours         -4.205      1.976  -2.128 0.033708 *  </span><br><span class="line">## exper          9.764      4.532   2.154 0.031579 *  </span><br><span class="line">## tenure         3.480      2.954   1.178 0.239141    </span><br><span class="line">## age           10.659      5.575   1.912 0.056326 .  </span><br><span class="line">## married      182.178     47.054   3.872 0.000119 ***</span><br><span class="line">## black       -170.437     54.618  -3.121 0.001885 ** </span><br><span class="line">## south        -38.523     31.098  -1.239 0.215878    </span><br><span class="line">## urban        192.487     31.701   6.072 2.15e-09 ***</span><br><span class="line">## sibs           4.399      7.983   0.551 0.581767    </span><br><span class="line">## brthord      -22.558     11.694  -1.929 0.054167 .  </span><br><span class="line">## ---</span><br><span class="line">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span><br><span class="line">## </span><br><span class="line">## Residual standard error: 359.3 on 651 degrees of freedom</span><br><span class="line">## Multiple R-squared:  0.2319, Adjusted R-squared:  0.2189 </span><br><span class="line">## F-statistic: 17.87 on 11 and 651 DF,  p-value: &lt; 2.2e-16</span><br></pre></td></tr></table></figure>
+<h3 id="Check-Instrument-Validity"><a href="#Check-Instrument-Validity" class="headerlink" title="Check Instrument Validity"></a>Check Instrument Validity</h3><ol>
+<li>Relevance: The instrument is correlated with the endogenous variable</li>
+<li>Exclusion: Instrument is correlated with the outcome only through the endogenous variable</li>
+<li>Exogeneity: The instrument is exogenous; in other words, it is NOT correlated with omitting variables</li>
+</ol>
+<p><strong>Relevance</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ed_real_long &lt;- melt(ed_real[, .(educ, feduc, meduc)],</span><br><span class="line">                     id.vars = <span class="built_in">c</span>(<span class="string">&#x27;educ&#x27;</span>), measure.vars = <span class="built_in">c</span>(<span class="string">&#x27;feduc&#x27;</span>, <span class="string">&#x27;meduc&#x27;</span>),</span><br><span class="line">                     variable.name = <span class="string">&#x27;instrument&#x27;</span>, value.name = <span class="string">&#x27;instrument_val&#x27;</span>)</span><br><span class="line">ed_real_long &lt;- ed_real_long[, .(n_obs = .N)</span><br><span class="line">                             , by = <span class="built_in">c</span>(<span class="string">&#x27;educ&#x27;</span>, <span class="string">&#x27;instrument&#x27;</span>, <span class="string">&#x27;instrument_val&#x27;</span>)]</span><br><span class="line"></span><br><span class="line">ggplot(ed_real_long, aes(x=instrument_val, y = educ)) + </span><br><span class="line">  geom_point(aes(size=n_obs), alpha = <span class="number">0.2</span>) +</span><br><span class="line">  geom_smooth(aes(weight=n_obs), method = <span class="string">&#x27;loess&#x27;</span>, formula = <span class="string">&#x27;y ~ x&#x27;</span>) +</span><br><span class="line">  facet_wrap(vars(instrument))</span><br></pre></td></tr></table></figure>
+<img src="/posts/20220212-Review-in-Causal-Inference-Part-2/unnamed-chunk-3-1.png" class="">
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model_check_instruments &lt;- lm(educ ~ feduc + meduc, data = ed_real)</span><br><span class="line">summary(model_check_instruments)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## Call:</span><br><span class="line">## lm(formula &#x3D; educ ~ feduc + meduc, data &#x3D; ed_real)</span><br><span class="line">## </span><br><span class="line">## Residuals:</span><br><span class="line">##     Min      1Q  Median      3Q     Max </span><br><span class="line">## -4.2226 -1.5658 -0.4271  1.7373  5.7305 </span><br><span class="line">## </span><br><span class="line">## Coefficients:</span><br><span class="line">##             Estimate Std. Error t value Pr(&gt;|t|)    </span><br><span class="line">## (Intercept)  9.91329    0.31959  31.019  &lt; 2e-16 ***</span><br><span class="line">## feduc        0.21894    0.02889   7.578 1.19e-13 ***</span><br><span class="line">## meduc        0.14017    0.03365   4.165 3.52e-05 ***</span><br><span class="line">## ---</span><br><span class="line">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span><br><span class="line">## </span><br><span class="line">## Residual standard error: 1.997 on 660 degrees of freedom</span><br><span class="line">## Multiple R-squared:  0.2015, Adjusted R-squared:  0.1991 </span><br><span class="line">## F-statistic: 83.29 on 2 and 660 DF,  p-value: &lt; 2.2e-16</span><br></pre></td></tr></table></figure>
+<p><strong>Exclusion</strong></p>
+<ol>
+<li>Check the relationship between the instruments and the outcome, i.e., wages (we should see some relationship)</li>
+<li>Argue the relationship is built on the path through the endogenous variable, i.e., education</li>
+</ol>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ed_real_long &lt;- melt(ed_real[, .(wage, feduc, meduc)],</span><br><span class="line">                     id.vars = <span class="built_in">c</span>(<span class="string">&#x27;wage&#x27;</span>), measure.vars = <span class="built_in">c</span>(<span class="string">&#x27;feduc&#x27;</span>, <span class="string">&#x27;meduc&#x27;</span>),</span><br><span class="line">                     variable.name = <span class="string">&#x27;instrument&#x27;</span>, value.name = <span class="string">&#x27;instrument_val&#x27;</span>)</span><br><span class="line"></span><br><span class="line">ggplot(ed_real_long, aes(x=instrument_val, y = wage)) + </span><br><span class="line">  geom_point(alpha = <span class="number">0.2</span>) +</span><br><span class="line">  geom_smooth(method = <span class="string">&#x27;loess&#x27;</span>, formula = <span class="string">&#x27;y ~ x&#x27;</span>) +</span><br><span class="line">  facet_wrap(vars(instrument))</span><br></pre></td></tr></table></figure>
+<img src="/posts/20220212-Review-in-Causal-Inference-Part-2/unnamed-chunk-5-1.png" class="">
+
+<p><strong>Exogeneity</strong></p>
+<p>There’s no statistical test for exogeneity.</p>
+<p>Scott Cunningham’s argument</p>
+<blockquote>
+<p>The reason I think this is because an instrument doesn’t belong in the structural error term and the structural error term is all the intuitive things that determine your outcome. So <em>it must be weird, otherwise it’s probably in the error term.</em></p>
+</blockquote>
+<h3 id="2-Stage-Least-Squares-2SLS"><a href="#2-Stage-Least-Squares-2SLS" class="headerlink" title="2-Stage Least Squares (2SLS)"></a>2-Stage Least Squares (2SLS)</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Conduct 2SLS manually</span></span><br><span class="line">first_stage &lt;- lm(educ ~ feduc + meduc + hours + exper + tenure + age +</span><br><span class="line">                    married + black + south + urban + sibs + brthord, data = ed_real)</span><br><span class="line">ed_real_with_pred &lt;- copy(ed_real)</span><br><span class="line">ed_real_with_pred$educ_hat &lt;- first_stage$fitted.values</span><br><span class="line">second_stage &lt;- lm(wage ~ educ_hat + hours + exper + tenure + age +</span><br><span class="line">                     married + black + south + urban + sibs + brthord, data = ed_real_with_pred)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Conduct 2SLS automatically</span></span><br><span class="line">model_2sls &lt;- estimatr::iv_robust(wage ~ educ + hours + exper + tenure + age + </span><br><span class="line">                                    married + black + south + urban + sibs + brthord | </span><br><span class="line">                                    feduc + meduc + hours + exper + tenure + age + </span><br><span class="line">                                    married + black + south + urban + sibs + brthord, </span><br><span class="line">                                  data = ed_real, diagnostics = <span class="literal">TRUE</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>Summary</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">##              Naive OLS    2SLS (Manual)  2SLS (Auto)        </span><br><span class="line">## ------------------------------------------------------------</span><br><span class="line">## (Intercept)  -393.56      -1064.47 ***    -1064.47 *        </span><br><span class="line">##              (200.61)      (302.54)      [-1680.71; -448.23]</span><br><span class="line">## educ           61.38 ***                    127.86 *        </span><br><span class="line">##                (7.66)                    [   83.31;  172.40]</span><br><span class="line">## educ_hat                    127.86 ***                      </span><br><span class="line">##                             (23.35)                         </span><br><span class="line">## ------------------------------------------------------------</span><br><span class="line">## Controls      YES           YES             YES             </span><br><span class="line">## R^2             0.23          0.19            0.14          </span><br><span class="line">## Adj. R^2        0.22          0.18            0.13          </span><br><span class="line">## Num. obs.     663           663             663             </span><br><span class="line">## RMSE                                        379.48          </span><br><span class="line">## &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05 (or Null hypothesis value outside the confidence interval).</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">summary(model_2sls)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## Call:</span><br><span class="line">## estimatr::iv_robust(formula &#x3D; wage ~ educ + hours + exper + tenure + </span><br><span class="line">##     age + married + black + south + urban + sibs + brthord | </span><br><span class="line">##     feduc + meduc + hours + exper + tenure + age + married + </span><br><span class="line">##         black + south + urban + sibs + brthord, data &#x3D; ed_real, </span><br><span class="line">##     diagnostics &#x3D; TRUE)</span><br><span class="line">## </span><br><span class="line">## Standard error type:  HC2 </span><br><span class="line">## </span><br><span class="line">## Coefficients:</span><br><span class="line">##              Estimate Std. Error t value  Pr(&gt;|t|)  CI Lower CI Upper  DF</span><br><span class="line">## (Intercept) -1064.471    313.829 -3.3919 7.362e-04 -1680.709 -448.232 651</span><br><span class="line">## educ          127.858     22.686  5.6360 2.594e-08    83.311  172.404 651</span><br><span class="line">## hours          -4.416      2.780 -1.5885 1.127e-01    -9.875    1.043 651</span><br><span class="line">## exper          30.677      8.439  3.6352 2.997e-04    14.106   47.248 651</span><br><span class="line">## tenure          1.976      3.103  0.6366 5.246e-01    -4.118    8.069 651</span><br><span class="line">## age            -4.171      8.052 -0.5180 6.046e-01   -19.982   11.640 651</span><br><span class="line">## married       195.132     47.632  4.0967 4.720e-05   101.602  288.663 651</span><br><span class="line">## black        -148.117     47.498 -3.1184 1.898e-03  -241.385  -54.850 651</span><br><span class="line">## south         -32.697     33.067 -0.9888 3.231e-01   -97.627   32.233 651</span><br><span class="line">## urban         167.666     31.920  5.2527 2.033e-07   104.988  230.345 651</span><br><span class="line">## sibs           12.351      8.757  1.4104 1.589e-01    -4.845   29.547 651</span><br><span class="line">## brthord       -16.887     11.608 -1.4547 1.462e-01   -39.681    5.907 651</span><br><span class="line">## </span><br><span class="line">## Multiple R-squared:  0.143 , Adjusted R-squared:  0.1286 </span><br><span class="line">## F-statistic: 16.88 on 11 and 651 DF,  p-value: &lt; 2.2e-16</span><br><span class="line">## </span><br><span class="line">## Diagnostics:</span><br><span class="line">##                  numdf dendf  value  p.value    </span><br><span class="line">## Weak instruments     2   650 42.896  &lt; 2e-16 ***</span><br><span class="line">## Wu-Hausman           1   650 11.659 0.000679 ***</span><br><span class="line">## Overidentifying      1    NA  0.104 0.747148    </span><br><span class="line">## ---</span><br><span class="line">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span><br></pre></td></tr></table></figure>
+<p><strong>Notes</strong>: A test of overidentifying restrictions regresses the residuals $u$ from an IV or 2SLS regression on all instruments in $z$. Under the <strong>null</strong> hypothesis, all instruments are uncorrelated with $u$.</p>
+<p>The test of overidentifying restrictions should be performed routinely in any overidentified model estimated with instrumental variables techniques. Instrumental variables techniques are powerful, but if a strong rejection of the null hypothesis is encountered, you should strongly doubt the validity of the estimates.</p>
+<h2 id="Practice-5-Complier-Average-Treatment-Effects"><a href="#Practice-5-Complier-Average-Treatment-Effects" class="headerlink" title="Practice 5: Complier Average Treatment Effects"></a>Practice 5: Complier Average Treatment Effects</h2><p>We can calculate conditional average treatment effect (CATE) by averaging the treatment effect of a program over some segment of the population.</p>
+<p>One important type of CATE is the effect of a program on just those who comply with the program. This is the complier average treatment effect, but the acronym would be the same as the conditional average treatment effect, so we call it the <strong>complier average causal effect</strong> (<strong>CACE</strong>), also known as the local average treatment effect (LATE).</p>
+<p>We can split the population into four types of people:</p>
+<ul>
+<li><strong>Compliers</strong>: People who follow whatever their assignment is</li>
+<li><strong>Always takers</strong>: People who will receive or seek out the treatment regardless of assignment</li>
+<li><strong>Never takers</strong>: People who will NOT receive or seek out the treatment regardless of assignment</li>
+<li><strong>Defiers</strong>: People who will do the opposite of whatever their assignment is</li>
+</ul>
+<p>For simplicity, we assume that defiers don’t exist based on the idea of <em>monotonicity</em>, which means that the effect of being assigned to treatment only increases the likelihood of participating in the program rather than decreases.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bed_nets_time_machine &lt;- fread(<span class="string">&quot;ITT&amp;CACE/bed_nets_time_machine.csv&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>Ideally, we can identify different types of people from the data.</p>
+<img src="/posts/20220212-Review-in-Causal-Inference-Part-2/unnamed-chunk-10-1.png" class="">
+
+<p>However, we can tell some of the always takers from the control group (those who used bed nets after being assigned to the control group) and some of the never takers from the treatment group (those who did not use a bed net after being assigned to the treatment group), but compliers are mixed up with the always and never takers.</p>
+<img src="/posts/20220212-Review-in-Causal-Inference-Part-2/unnamed-chunk-11-1.png" class="">
+
+<h3 id="Intent-to-Treat-ITT"><a href="#Intent-to-Treat-ITT" class="headerlink" title="Intent to Treat (ITT)"></a>Intent to Treat (ITT)</h3><p>We can calculate ITT by assuming the proportion of compliers (c), never takers (n), and always takers (a) are equally spread across treatment and control. This assumption is plausible in a randomized control trial.</p>
+<p>$$<br>\begin{align*}~<br>\text{ITT}\space=\space&amp; \sum_{k\in\{c,n,a\}}\pi_k\times(\text{T}-\text{C})_k<br>\end{align*}<br>$$</p>
+<p>Suppose treatment doesn’t make someone more likely to be an always taker or a never taker, we have $\text{ATACE}=0$ and $\text{NTACE}=0$. Hence,</p>
+<p>$$<br>\text{ITT}=\pi_c\text{CACE} \implies \text{CACE} = \frac{\text{ITT}}{\pi_c}<br>$$</p>
+<p><strong>Finding ITT Using regression</strong></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">itt_model &lt;- lm(health ~ treatment, data = bed_nets_time_machine)</span><br><span class="line">summary(itt_model)$coeff %&gt;%</span><br><span class="line">  (<span class="keyword">function</span>(x) <span class="built_in">round</span>(x, <span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">##                    Estimate Std. Error t value Pr(&gt;|t|)</span><br><span class="line">## (Intercept)         40.9381     0.4444 92.1143        0</span><br><span class="line">## treatmentTreatment   5.9880     0.6298  9.5081        0</span><br></pre></td></tr></table></figure>
+<h3 id="CACE-LATE"><a href="#CACE-LATE" class="headerlink" title="CACE/LATE"></a>CACE/LATE</h3><p>Given$ \text{ITT}$, we can calculate $\text{CACE/LATE}$ by obtaining $\pi_c$.</p>
+<p>$$<br>\begin{align*}~<br>\pi_a+\pi_c &amp;= \text{percent of yes in treatment} \\<br>\implies \pi_c&amp;=\text{percent of yes in treatment} - \pi_a<br>\\ &amp;=\text{percent of yes in treatment} - \text{percent of yes in control}<br>\end{align*}<br>$$</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">table_net &lt;- bed_nets_time_machine[, .N, by=<span class="built_in">c</span>(<span class="string">&#x27;treatment&#x27;</span>, <span class="string">&#x27;bed_net&#x27;</span>)][</span><br><span class="line">  order(treatment, bed_net)]</span><br><span class="line">table_net[, percent:=<span class="built_in">round</span>(N/<span class="built_in">sum</span>(N), <span class="number">4</span>), by=<span class="string">&#x27;treatment&#x27;</span>]</span><br><span class="line">table_net</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">##    treatment    bed_net   N percent</span><br><span class="line">## 1:   Control    Bed net 196  0.1952</span><br><span class="line">## 2:   Control No bed net 808  0.8048</span><br><span class="line">## 3: Treatment    Bed net 608  0.6104</span><br><span class="line">## 4: Treatment No bed net 388  0.3896</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cACE &lt;- itt_model$coef[<span class="string">&quot;treatmentTreatment&quot;</span>] / </span><br><span class="line">  (table_net[treatment == <span class="string">&#x27;Treatment&#x27;</span> &amp; bed_net == <span class="string">&#x27;Bed net&#x27;</span>]$percent - </span><br><span class="line">     table_net[treatment == <span class="string">&#x27;Control&#x27;</span> &amp; bed_net == <span class="string">&#x27;Bed net&#x27;</span>]$percent)</span><br><span class="line"><span class="built_in">names</span>(cACE) &lt;- <span class="string">&quot;CACE&quot;</span></span><br><span class="line"><span class="built_in">round</span>(cACE, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">##  CACE </span><br><span class="line">## 14.42</span><br></pre></td></tr></table></figure>
+<h4 id="IV-Regression"><a href="#IV-Regression" class="headerlink" title="IV Regression"></a>IV Regression</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model_2sls &lt;- estimatr::iv_robust(health ~ as.factor(bed_net) | as.factor(treatment),</span><br><span class="line">                                  data = bed_nets_time_machine)</span><br><span class="line"><span class="built_in">round</span>(summary(model_2sls)$coef, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">##                              Estimate Std. Error t value Pr(&gt;|t|) CI Lower</span><br><span class="line">## (Intercept)                     52.54       0.84    62.2        0    50.89</span><br><span class="line">## as.factor(bed_net)No bed net   -14.42       1.25   -11.5        0   -16.88</span><br><span class="line">##                              CI Upper   DF</span><br><span class="line">## (Intercept)                     54.20 1998</span><br><span class="line">## as.factor(bed_net)No bed net   -11.96 1998</span><br></pre></td></tr></table></figure>
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/posts/20220206-Review-in-Causal-Inference-Part-1" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2022-02-12
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Causal-Inference/" title="Causal Inference">
+                        <b>#</b> Causal Inference
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Instrumental-Variable/" title="Instrumental Variable">
+                        <b>#</b> Instrumental Variable
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/CACE-LATE/" title="CACE/LATE">
+                        <b>#</b> CACE/LATE
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/posts/20220405-My-Different-Qingming" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div class="post-catalog" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Practice-4-Instrumental-Variables"><span class="toc-text">Practice 4: Instrumental Variables</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Navie-Model"><span class="toc-text">Navie Model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Check-Instrument-Validity"><span class="toc-text">Check Instrument Validity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Stage-Least-Squares-2SLS"><span class="toc-text">2-Stage Least Squares (2SLS)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Practice-5-Complier-Average-Treatment-Effects"><span class="toc-text">Practice 5: Complier Average Treatment Effects</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Intent-to-Treat-ITT"><span class="toc-text">Intent to Treat (ITT)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CACE-LATE"><span class="toc-text">CACE&#x2F;LATE</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IV-Regression"><span class="toc-text">IV Regression</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+  <div id="disqus_thread">
+    <h2>
+      <a href="#" class="comment" onclick="loadDisqus();return false;">View / Make Comments</a>
+    </h2>
+  </div>
+
+  <script>
+    var disqus_config = function() {
+      this.page.url = 'http://yanghaowang.github.io/posts/20220212-Review-in-Causal-Inference-Part-2.html';
+      this.page.identifier = 'posts/20220212-Review-in-Causal-Inference-Part-2.html';
+      this.page.title = 'Review in Causal Inference (Part 2)';
+    };
+
+    var is_disqus_loaded = false;
+
+    function loadDisqus() {
+      if (!is_disqus_loaded) {
+        is_disqus_loaded = true;
+
+        var d = document,
+          s = d.createElement('script');
+        s.src = 'https://https-yanghaowang-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+    }
+
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/in/yanghaowang">
+            <i class="iconfont icon-linkedin"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="mailto:wyangh90@gamil.com">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      <!-- <a href="">© 2018-2020 Yanghao Wang. All Rights Reserved.</a> -->
+      
+        © 2018-2020 Yanghao Wang. All Rights Reserved.
+            
+    </div>
+  
+  <div class="footer-more" style="text-align:center;">
+    Hosted by 
+    <a href="https://github.com/yanghaowang" target="_blank" style="text-decoration: none;" rel="noreferrer">
+      <svg class="img-hov" style="width: 15px;" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    </a> with Theme  
+    <a target="_blank" href="https://github.com/zchengsite/hexo-theme-oranges" style="text-decoration: none;" rel="noreferrer noopener">
+      <img class="img-hov" style="width: 15px;" src="/images/favicon.png">
+    </a> Powered by 
+    <a href="https://hexo.io/themes/#Oranges" target="_blank" style="text-decoration: none;" rel="noreferrer">
+      <svg class="img-hov" style="width: 15px; fill: #03adfc" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+    </a>.
+    <p><br></p>
+  </div>
+</div>
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)"> 
+    <p style="text-align: center;">Back to Top</p>
+    <p style="text-align: center;"><i class="iconfont icon-chevronup"></i></p>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+
+
+    </div>
+  </body>
+</html>
