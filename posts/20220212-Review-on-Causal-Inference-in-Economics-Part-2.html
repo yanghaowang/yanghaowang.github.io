@@ -13,7 +13,7 @@
   
   
   
-  <title>Review in Causal Inference (Part 2)  </title>
+  <title>Review on Causal Inference (Part 2)  </title>
 
   
     <link rel="apple-touch-icon" href="/images/isle_icon.png">
@@ -21,10 +21,10 @@
   
 
   <!-- Info Feed for Search Engine -->
-  <meta property="og:url" content="http://yanghaowang.github.io/posts/20220212-Review-in-Causal-Inference-Part-2.html" />
+  <meta property="og:url" content="http://yanghaowang.github.io/posts/20220212-Review-on-Causal-Inference-in-Economics-Part-2.html" />
   <meta property="og:site_name" content="Home - Yanghao Wang" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Review in Causal Inference (Part 2)" />
+  <meta property="og:title" content="Review on Causal Inference (Part 2)" />
 
   
     <meta name="description" content="This is the second post in a series of reviews on Causal Inference in Economics, covering the instrumental variable method and the estimation of the complier average causal effect (CACE), also known as the local average treatment effect (LATE).">
@@ -32,9 +32,9 @@
 
 
   <!-- Info Feed for Twitter -->
-  <meta name="twitter:url" content="http://yanghaowang.github.io/posts/20220212-Review-in-Causal-Inference-Part-2.html" />
+  <meta name="twitter:url" content="http://yanghaowang.github.io/posts/20220212-Review-on-Causal-Inference-in-Economics-Part-2.html" />
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Review in Causal Inference (Part 2)">
+  <meta name="twitter:title" content="Review on Causal Inference (Part 2)">
   
     <meta name="twitter:description" content="This is the second post in a series of reviews on Causal Inference in Economics, covering the instrumental variable method and the estimation of the complier average causal effect (CACE), also known as the local average treatment effect (LATE).">
   
@@ -194,7 +194,7 @@ MathJax = {
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">Review in Causal Inference (Part 2)</div>
+      <div class="post-title">Review on Causal Inference (Part 2)</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="Update time"></i>
@@ -239,7 +239,7 @@ MathJax = {
 </ol>
 <p><strong>Relevance</strong></p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ed_real_long &lt;- melt(ed_real[, .(educ, feduc, meduc)],</span><br><span class="line">                     id.vars = <span class="built_in">c</span>(<span class="string">&#x27;educ&#x27;</span>), measure.vars = <span class="built_in">c</span>(<span class="string">&#x27;feduc&#x27;</span>, <span class="string">&#x27;meduc&#x27;</span>),</span><br><span class="line">                     variable.name = <span class="string">&#x27;instrument&#x27;</span>, value.name = <span class="string">&#x27;instrument_val&#x27;</span>)</span><br><span class="line">ed_real_long &lt;- ed_real_long[, .(n_obs = .N)</span><br><span class="line">                             , by = <span class="built_in">c</span>(<span class="string">&#x27;educ&#x27;</span>, <span class="string">&#x27;instrument&#x27;</span>, <span class="string">&#x27;instrument_val&#x27;</span>)]</span><br><span class="line"></span><br><span class="line">ggplot(ed_real_long, aes(x=instrument_val, y = educ)) + </span><br><span class="line">  geom_point(aes(size=n_obs), alpha = <span class="number">0.2</span>) +</span><br><span class="line">  geom_smooth(aes(weight=n_obs), method = <span class="string">&#x27;loess&#x27;</span>, formula = <span class="string">&#x27;y ~ x&#x27;</span>) +</span><br><span class="line">  facet_wrap(vars(instrument))</span><br></pre></td></tr></table></figure>
-<img src="/posts/20220212-Review-in-Causal-Inference-Part-2/unnamed-chunk-3-1.png" class="">
+<img src="/posts/20220212-Review-on-Causal-Inference-in-Economics-Part-2/unnamed-chunk-3-1.png" class="">
 
 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model_check_instruments &lt;- lm(educ ~ feduc + meduc, data = ed_real)</span><br><span class="line">summary(model_check_instruments)</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## Call:</span><br><span class="line">## lm(formula &#x3D; educ ~ feduc + meduc, data &#x3D; ed_real)</span><br><span class="line">## </span><br><span class="line">## Residuals:</span><br><span class="line">##     Min      1Q  Median      3Q     Max </span><br><span class="line">## -4.2226 -1.5658 -0.4271  1.7373  5.7305 </span><br><span class="line">## </span><br><span class="line">## Coefficients:</span><br><span class="line">##             Estimate Std. Error t value Pr(&gt;|t|)    </span><br><span class="line">## (Intercept)  9.91329    0.31959  31.019  &lt; 2e-16 ***</span><br><span class="line">## feduc        0.21894    0.02889   7.578 1.19e-13 ***</span><br><span class="line">## meduc        0.14017    0.03365   4.165 3.52e-05 ***</span><br><span class="line">## ---</span><br><span class="line">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span><br><span class="line">## </span><br><span class="line">## Residual standard error: 1.997 on 660 degrees of freedom</span><br><span class="line">## Multiple R-squared:  0.2015, Adjusted R-squared:  0.1991 </span><br><span class="line">## F-statistic: 83.29 on 2 and 660 DF,  p-value: &lt; 2.2e-16</span><br></pre></td></tr></table></figure>
@@ -249,7 +249,7 @@ MathJax = {
 <li>Argue the relationship is built on the path through the endogenous variable, i.e., education</li>
 </ol>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ed_real_long &lt;- melt(ed_real[, .(wage, feduc, meduc)],</span><br><span class="line">                     id.vars = <span class="built_in">c</span>(<span class="string">&#x27;wage&#x27;</span>), measure.vars = <span class="built_in">c</span>(<span class="string">&#x27;feduc&#x27;</span>, <span class="string">&#x27;meduc&#x27;</span>),</span><br><span class="line">                     variable.name = <span class="string">&#x27;instrument&#x27;</span>, value.name = <span class="string">&#x27;instrument_val&#x27;</span>)</span><br><span class="line"></span><br><span class="line">ggplot(ed_real_long, aes(x=instrument_val, y = wage)) + </span><br><span class="line">  geom_point(alpha = <span class="number">0.2</span>) +</span><br><span class="line">  geom_smooth(method = <span class="string">&#x27;loess&#x27;</span>, formula = <span class="string">&#x27;y ~ x&#x27;</span>) +</span><br><span class="line">  facet_wrap(vars(instrument))</span><br></pre></td></tr></table></figure>
-<img src="/posts/20220212-Review-in-Causal-Inference-Part-2/unnamed-chunk-5-1.png" class="">
+<img src="/posts/20220212-Review-on-Causal-Inference-in-Economics-Part-2/unnamed-chunk-5-1.png" class="">
 
 <p><strong>Exogeneity</strong></p>
 <p>There’s no statistical test for exogeneity.</p>
@@ -276,10 +276,10 @@ MathJax = {
 <p>For simplicity, we assume that defiers don’t exist based on the idea of <em>monotonicity</em>, which means that the effect of being assigned to treatment only increases the likelihood of participating in the program rather than decreases.</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bed_nets_time_machine &lt;- fread(<span class="string">&quot;ITT&amp;CACE/bed_nets_time_machine.csv&quot;</span>)</span><br></pre></td></tr></table></figure>
 <p>Ideally, we can identify different types of people from the data.</p>
-<img src="/posts/20220212-Review-in-Causal-Inference-Part-2/unnamed-chunk-10-1.png" class="">
+<img src="/posts/20220212-Review-on-Causal-Inference-in-Economics-Part-2/unnamed-chunk-10-1.png" class="">
 
 <p>However, we can tell some of the always takers from the control group (those who used bed nets after being assigned to the control group) and some of the never takers from the treatment group (those who did not use a bed net after being assigned to the treatment group), but compliers are mixed up with the always and never takers.</p>
-<img src="/posts/20220212-Review-in-Causal-Inference-Part-2/unnamed-chunk-11-1.png" class="">
+<img src="/posts/20220212-Review-on-Causal-Inference-in-Economics-Part-2/unnamed-chunk-11-1.png" class="">
 
 <h3 id="Intent-to-Treat-ITT"><a href="#Intent-to-Treat-ITT" class="headerlink" title="Intent to Treat (ITT)"></a>Intent to Treat (ITT)</h3><p>We can calculate ITT by assuming the proportion of compliers (c), never takers (n), and always takers (a) are equally spread across treatment and control. This assumption is plausible in a randomized control trial.</p>
 <p>$$<br>\begin{align*}~<br>\text{ITT}\space=\space&amp; \sum_{k\in\{c,n,a\}}\pi_k\times(\text{T}-\text{C})_k<br>\end{align*}<br>$$</p>
@@ -301,7 +301,7 @@ MathJax = {
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/posts/20220206-Review-in-Causal-Inference-Part-1" target="_self">
+              <a href="/posts/20220206-Review-on-Causal-Inference-in-Economics-Part-1" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -339,7 +339,7 @@ MathJax = {
           </div>
           <div class="post-foot-prev">
             
-              <a href="/posts/20220405-My-Different-Qingming" target="_self">
+              <a href="/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3" target="_self">
                 <span>Next</span>
                 <i class="iconfont icon-chevronright"></i>
               </a>
@@ -373,9 +373,9 @@ MathJax = {
 
   <script>
     var disqus_config = function() {
-      this.page.url = 'http://yanghaowang.github.io/posts/20220212-Review-in-Causal-Inference-Part-2.html';
-      this.page.identifier = 'posts/20220212-Review-in-Causal-Inference-Part-2.html';
-      this.page.title = 'Review in Causal Inference (Part 2)';
+      this.page.url = 'http://yanghaowang.github.io/posts/20220212-Review-on-Causal-Inference-in-Economics-Part-2.html';
+      this.page.identifier = 'posts/20220212-Review-on-Causal-Inference-in-Economics-Part-2.html';
+      this.page.title = 'Review on Causal Inference (Part 2)';
     };
 
     var is_disqus_loaded = false;

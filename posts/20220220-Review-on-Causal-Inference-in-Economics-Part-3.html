@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  <head>
+  <meta charset="utf-8">
+  <!-- Template is created by "zchengsite"<1451426471@qq.com> -->
+  <meta name="author" content="Yanghao Wang" />
+
+  <!-- Mobile Specific Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  
+  
+  
+  
+  <title>Review on Causal Inference (Part 3)  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/isle_icon.png">
+    <link rel="icon" href="/images/isle_icon.png">
+  
+
+  <!-- Info Feed for Search Engine -->
+  <meta property="og:url" content="http://yanghaowang.github.io/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3.html" />
+  <meta property="og:site_name" content="Home - Yanghao Wang" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Review on Causal Inference (Part 3)" />
+
+  
+    <meta name="description" content="This is the third (last) post in a series of reviews on Causal Inference in Economics, covering regression discontinuity sharp and fuzzy design.">
+  
+
+
+  <!-- Info Feed for Twitter -->
+  <meta name="twitter:url" content="http://yanghaowang.github.io/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3.html" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Review on Causal Inference (Part 3)">
+  
+    <meta name="twitter:description" content="This is the third (last) post in a series of reviews on Causal Inference in Economics, covering regression discontinuity sharp and fuzzy design.">
+  
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQF7RSRVHX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-HQF7RSRVHX');
+    </script>
+  
+
+  <!-- Site Verification (Begin) -->
+  <meta name="google-site-verification" content="JjXbgMsnj0fxvl9a8Srz8H3mqG7a5WH302GAZAceyHw" />
+  <meta name="msvalidate.01" content="83FCCA6F2323CE633A05D6A4C1D2116A" />
+  <!-- Site Verification (End) -->
+  
+  <!-- Microsoft Clarity (Begin) -->
+  <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "906d8r2odq");
+  </script>
+  <!-- Microsoft Clarity (Begin) -->
+
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Home - Yanghao Wang" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="container" align="right">
+    <div style="width: 40px; height: 40px;">
+      <div onclick=setDarkMode(true) id="darkBtn" style="font-size: 20px; cursor: pointer;">
+        <!-- 🌞 On -->
+        <svg t="1608934765001" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2784" width="40px" height="40px"><path d="M195.327541 505.553631a337.969888 337.409408 0 1 0 675.939777 0 337.969888 337.409408 0 1 0-675.939777 0Z" fill="#FAD700" p-id="2785"></path><path d="M306.302729 256.700181a337.409408 337.409408 0 1 1 378.884982 550.952571 337.409408 337.409408 0 0 0-378.884982-550.952571z" fill="#FFBE34" p-id="2786"></path><path d="M350.020227 223.071336a337.409408 337.409408 0 1 1 326.760273 588.504781 337.409408 337.409408 0 0 0-326.760273-588.504781z" fill="#FF9019" p-id="2787"></path><path d="M374.120899 463.517575a25.221633 25.221633 0 1 0 50.443267 0 25.221633 25.221633 0 1 0-50.443267 0Z" fill="" p-id="2788"></path><path d="M581.498774 463.517575a25.221633 25.221633 0 1 0 50.443267 0 25.221633 25.221633 0 1 0-50.443267 0Z" fill="" p-id="2789"></path><path d="M446.422915 563.283147h128.910571a64.455286 64.455286 0 0 1-128.910571 0z" fill="#FF8472" p-id="2790"></path><path d="M510.8782 636.145644a75.6649 75.6649 0 0 1-75.6649-72.302016 11.209615 11.209615 0 0 1 11.209615-11.770096h128.910571a11.209615 11.209615 0 0 1 11.209614 11.770096 75.6649 75.6649 0 0 1-75.6649 72.302016z m-51.564228-61.652882a53.245671 53.245671 0 0 0 103.128457 0z" fill="" p-id="2791"></path><path d="M643.712136 568.327474a29.144999 29.144999 0 1 0 58.289998 0 29.144999 29.144999 0 1 0-58.289998 0Z" fill="#FF9218" p-id="2792"></path><path d="M485.096086 879.954767A360.389118 360.389118 0 0 1 124.706968 520.12613a356.465753 356.465753 0 0 1 33.068364-150.76932 22.564955 22.564955 0 1 1 40.915094 19.056345A312.187774 312.187774 0 0 0 169.545427 520.12613a315.550659 315.550659 0 0 0 543.105841 218.027009 22.41923 22.41923 0 0 1 32.507883 30.826441A357.026234 357.026234 0 0 1 485.096086 879.954767z m284.163737-155.813646a22.41923 22.41923 0 0 1-19.056345-34.749806 313.308736 313.308736 0 0 0 34.189325-71.741536 22.41923 22.41923 0 0 1 42.596536 14.012019 358.707676 358.707676 0 0 1-38.673171 81.830189 22.41923 22.41923 0 0 1-19.056345 10.649134z m53.245671-182.156242a22.41923 22.41923 0 0 1-22.41923-22.41923 315.550659 315.550659 0 0 0-314.990178-314.429697l-30.26596 1.681442a22.531326 22.531326 0 1 1-4.483846-44.838459l34.749806-1.681442a360.389118 360.389118 0 0 1 360.389118 359.828637 22.41923 22.41923 0 0 1-22.97971 22.41923zM227.274944 323.95787a22.41923 22.41923 0 0 1-16.814422-36.991729 362.631041 362.631041 0 0 1 65.015766-59.97144 22.475278 22.475278 0 0 1 26.342595 36.431248 317.232101 317.232101 0 0 0-57.169036 52.68519 22.41923 22.41923 0 0 1-17.374903 7.846731z m121.06384-90.2374a22.41923 22.41923 0 0 1-8.967691-43.157017l30.82644-11.209615a22.508907 22.508907 0 0 1 14.5725 42.596536l-27.463557 10.088654a22.41923 22.41923 0 0 1-8.967692 1.681442z" fill="" p-id="2793"></path><path d="M272.673884 568.327474a29.144999 29.144999 0 1 0 58.289997 0 29.144999 29.144999 0 1 0-58.289997 0Z" fill="#FF9218" p-id="2794"></path><path d="M555.156179 1023.998319a16.814422 16.814422 0 0 1-16.814422-14.012019l-8.967692-50.443267a16.814422 16.814422 0 0 1 33.068364-5.604807l8.967691 50.443267a16.814422 16.814422 0 0 1-13.451537 19.616826z m-334.607004-83.511631a16.814422 16.814422 0 0 1-14.572499-25.221634l25.782114-44.838459a16.825632 16.825632 0 1 1 29.144998 16.814422l-25.782114 44.83846a16.814422 16.814422 0 0 1-14.572499 8.407211z m644.552855-67.257689a16.814422 16.814422 0 0 1-10.649134-3.923366l-39.233652-33.068364a16.898494 16.898494 0 1 1 21.858749-25.782114l39.233652 33.068364a16.814422 16.814422 0 0 1-10.649134 29.70548zM18.215626 661.367277a16.814422 16.814422 0 0 1-5.604807-32.507883l48.201344-17.374903a16.814422 16.814422 0 0 1 11.770096 31.386922L23.820434 660.246316z m936.002842-103.128456a16.814422 16.814422 0 0 1 0-33.628845h51.564229a16.814422 16.814422 0 0 1 0 33.628845H954.218468zM91.078123 334.607004l-5.604807-1.120962-48.761825-17.374903a16.814422 16.814422 0 0 1 11.209615-31.386921l48.761825 17.374903a16.814422 16.814422 0 0 1-5.604808 32.507883z m780.189195-75.10442a16.814422 16.814422 0 0 1-10.649134-29.705479l39.233652-33.068364a16.898494 16.898494 0 0 1 21.858749 25.782114l-39.233652 33.068364a16.814422 16.814422 0 0 1-11.209615 3.923365z m-563.283147-145.724993a16.814422 16.814422 0 0 1-14.572499-8.407211l-25.782115-44.277979a16.825632 16.825632 0 1 1 29.144999-16.814422l25.782114 44.277978a16.814422 16.814422 0 0 1-14.572499 25.221634z m308.264409-29.705479h-2.802404a16.814422 16.814422 0 0 1-13.451538-19.616826l8.967692-50.443267a16.814422 16.814422 0 0 1 33.068364 5.604807l-8.967692 50.443267a16.814422 16.814422 0 0 1-16.814422 14.012019z" fill="" p-id="2795"></path></svg>
+        <br>
+        <svg t="1608937543125" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5577" width="40px" height="40px"><path d="M768 699.733333H256c-51.694933 0-96.529067-18.619733-133.239467-55.3472C86.596267 608.221867 68.266667 563.677867 68.266667 512c0-51.6096 18.295467-96.4096 54.391466-133.137067C159.5904 342.562133 204.3904 324.266667 256 324.266667h512c51.694933 0 96.238933 18.3296 132.386133 54.493866C937.1136 415.470933 955.733333 460.305067 955.733333 512c0 51.746133-18.653867 96.341333-55.4496 132.488533C864.3584 681.0624 819.7632 699.733333 768 699.733333z m-3.8912-34.133333H768c42.871467 0 78.2336-14.7968 108.1344-45.243733C906.8032 590.2336 921.6 554.8544 921.6 512c0-42.9056-14.830933-78.592-45.346133-109.1072C846.318933 372.957867 810.922667 358.4 768 358.4h-4.0448c-41.3184 1.0752-75.7248 15.6672-105.147733 44.5952C628.974933 433.322667 614.4 469.0432 614.4 512c0 42.9056 14.557867 78.301867 44.4928 108.253867 29.457067 29.474133 63.880533 44.305067 105.216 45.346133zM256 358.4c-42.9568 0-78.677333 14.592-109.2096 44.5952C116.992 433.322667 102.4 469.0432 102.4 512c0 42.9056 14.557867 78.301867 44.4928 108.253867C177.408 650.769067 213.0944 665.6 256 665.6h403.626667a199.936 199.936 0 0 1-24.866134-21.213867C598.596267 608.221867 580.266667 563.677867 580.266667 512c0-51.626667 18.295467-96.4096 54.408533-133.137067 7.7312-7.611733 15.837867-14.4384 24.285867-20.462933H256z m256.853333 256c-6.331733 0-12.288-3.5328-15.240533-9.3696L443.733333 498.3296V597.333333a17.066667 17.066667 0 1 1-34.133333 0V426.666667a17.066667 17.066667 0 0 1 32.3072-7.697067L495.786667 525.653333V426.666667a17.066667 17.066667 0 0 1 34.133333 0v170.666666a17.066667 17.066667 0 0 1-17.066667 17.066667zM298.666667 614.4a58.5728 58.5728 0 0 1-42.786134-17.800533C244.6336 585.3696 238.933333 571.255467 238.933333 554.666667v-85.333334c0-16.366933 5.563733-30.6176 16.554667-42.359466 12.561067-11.810133 26.811733-17.373867 43.178667-17.373867 16.5888 0 30.702933 5.700267 41.9328 16.9472A58.641067 58.641067 0 0 1 358.4 469.333333v85.333334c0 16.571733-6.2976 31.214933-18.210133 42.3424-10.308267 11.093333-24.951467 17.390933-41.5232 17.390933z m0-170.666667c-7.645867 0-13.704533 2.338133-19.063467 7.355734-4.1984 4.539733-6.536533 10.5984-6.536533 18.244266v85.333334c0 7.406933 2.2016 13.073067 6.946133 17.800533 5.3248 5.307733 11.246933 7.799467 18.653867 7.799467 7.2704 0 12.629333-2.286933 17.390933-7.389867 5.9392-5.5808 8.209067-10.939733 8.209067-18.210133v-85.333334a24.917333 24.917333 0 0 0-7.799467-18.653866c-4.744533-4.744533-10.3936-6.946133-17.800533-6.946134z" p-id="5578"></path></svg>
+      </div>
+      <div onclick=setDarkMode(false) id="lightBtn" style="font-size: 20px; cursor: pointer; display: none;">
+        <!-- 🌙 Off  -->
+        <svg t="1608934974290" viewBox="0 0 1052 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2939" width="40px" height="40px"><path d="M475.216752 26.735953a461.193207 461.193207 0 0 0 434.025216 610.948473 458.542671 458.542671 0 0 0 115.960936-14.577946 459.205305 459.205305 0 1 1-549.986152-596.370527z" fill="#FACD00" p-id="2940"></path><path d="M591.840321 959.061876A487.03593 487.03593 0 0 1 468.590413 0.893231a26.505357 26.505357 0 0 1 31.806428 34.456963 434.68785 434.68785 0 0 0 408.845127 575.828875 432.699948 432.699948 0 0 0 109.334597-13.915312 26.505357 26.505357 0 0 1 31.806428 34.456964 485.710662 485.710662 0 0 1-458.542672 327.341155zM436.121351 67.156622a434.025216 434.025216 0 1 0 546.010348 591.732089 489.023832 489.023832 0 0 1-72.889731 5.301071 487.698564 487.698564 0 0 1-473.120617-597.03316z" fill="#FACD00" p-id="2941"></path><path d="M425.519208 79.746667a441.314189 441.314189 0 0 0 416.1341 585.105749 439.326288 439.326288 0 0 0 111.322499-14.577946A439.988922 439.988922 0 1 1 425.519208 79.746667z" fill="#FAF400" p-id="2942"></path><path d="M536.841706 974.302456A467.819546 467.819546 0 0 1 418.892869 53.903944a26.505357 26.505357 0 0 1 31.806428 34.456964 414.146199 414.146199 0 0 0 494.987537 536.733473 26.505357 26.505357 0 0 1 31.806428 34.456964A466.494278 466.494278 0 0 1 536.841706 974.302456zM386.423807 120.167336a414.146199 414.146199 0 1 0 522.818161 565.889366 467.819546 467.819546 0 0 1-522.818161-565.889366z" fill="#FAF400" p-id="2943"></path><path d="M497.746305 762.259602s33.131696-26.505357 43.733839-56.323883 7.288973-45.059106 7.288973-45.059106 100.057722 92.106115-51.022812 101.382989z" fill="#FF8472" p-id="2944"></path><path d="M497.746305 772.199111a9.939509 9.939509 0 0 1-5.963705-17.891116s31.143794-25.180089 40.420669-52.348079 7.288973-39.758035 7.288973-40.420669a9.939509 9.939509 0 0 1 5.301071-10.602143 9.939509 9.939509 0 0 1 11.264777 1.325268c4.638437 4.638437 45.72174 43.733839 33.131696 78.853436-8.614241 23.854821-38.432767 37.107499-90.780847 40.420669z m59.637053-86.805043a169.634283 169.634283 0 0 1-6.62634 23.854821 125.237811 125.237811 0 0 1-25.180088 40.420669c25.180089-4.638437 40.420669-12.590044 44.396472-23.854821s-3.31317-28.493258-12.590044-40.420669z" fill="" p-id="2945"></path><path d="M270.462871 552.867284a13.252678 13.252678 0 0 1-13.252678-12.590044c-1.325268-27.830625 14.577946-83.491874 83.491873-94.75665a13.252678 13.252678 0 0 1 3.975804 25.842722c-62.950222 9.939509-60.96232 64.938124-60.962321 66.926026a13.252678 13.252678 0 0 1-12.590044 13.915312z" fill="" p-id="2946"></path><path d="M485.818894 1024a487.03593 487.03593 0 0 1-409.507761-748.776327 26.505357 26.505357 0 1 1 44.396473 28.493258 433.362582 433.362582 0 0 0 642.092266 566.552c10.602143-8.614241 20.541651-17.891116 29.818526-27.830625a26.505357 26.505357 0 1 1 37.770134 37.1075c-10.602143 10.602143-21.866919 21.204285-33.79433 31.143794a485.048028 485.048028 0 0 1-310.775308 113.3104z m371.737628-190.175934a26.505357 26.505357 0 0 1-21.204285-41.745937 433.362582 433.362582 0 0 0 40.420669-68.251294 487.03593 487.03593 0 0 1-546.672982-591.732089 430.049413 430.049413 0 0 0-86.805044 45.721741 26.505357 26.505357 0 1 1-29.818526-43.733839A481.734858 481.734858 0 0 1 362.568986 65.831354a26.505357 26.505357 0 0 1 31.806428 34.456964 433.362582 433.362582 0 0 0 518.179724 561.913563 26.505357 26.505357 0 0 1 31.806428 34.456963 485.710662 485.710662 0 0 1-66.263392 126.563079 26.505357 26.505357 0 0 1-20.541652 10.602143zM135.948186 265.284164a26.505357 26.505357 0 0 1-19.879018-43.733839 491.674367 491.674367 0 0 1 35.782232-37.770133 26.505357 26.505357 0 1 1 36.444865 38.432767 438.00102 438.00102 0 0 0-31.806428 33.79433 26.505357 26.505357 0 0 1-20.541651 9.276875z" fill="" p-id="2947"></path><path d="M291.667156 711.236791a41.083303 41.083303 0 1 0 82.166606 0 41.083303 41.083303 0 1 0-82.166606 0Z" fill="#FFA11F" p-id="2948"></path></svg>
+        <br>
+        <svg t="1608937639614" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5917" width="40px" height="40px"><path d="M889.173333 633.173333C855.620267 666.1632 815.240533 682.666667 768 682.666667H260.266667c45.5168-1.1264 84.48-17.629867 116.906666-49.493334 31.863467-31.829333 48.349867-70.229333 49.493334-115.2V512c0-47.223467-16.503467-87.330133-49.493334-120.32-32.426667-32.426667-71.389867-49.2032-116.906666-50.346667H768c47.240533 0 87.620267 16.776533 121.173333 50.346667C922.1632 424.669867 938.666667 464.776533 938.666667 512c0 47.240533-16.503467 87.620267-49.493334 121.173333zM836.266667 506.026667h-51.2V597.333333v-91.306666h51.2zM853.333333 426.666667h-68.266666v79.36V426.666667h68.266666z m-290.133333 128v-85.333334c0-11.946667-4.266667-22.186667-12.8-30.72-7.970133-7.970133-17.92-11.946667-29.866667-11.946666s-22.186667 3.976533-30.72 11.946666c-7.970133 8.533333-11.946667 18.773333-11.946666 30.72v85.333334c0 11.946667 3.976533 21.896533 11.946666 29.866666 8.533333 8.533333 18.773333 12.8 30.72 12.8s21.896533-4.266667 29.866667-12.8c8.533333-7.970133 12.8-17.92 12.8-29.866666 0 11.946667-4.266667 21.896533-12.8 29.866666-7.970133 8.533333-17.92 12.8-29.866667 12.8s-22.186667-4.266667-30.72-12.8c-7.970133-7.970133-11.946667-17.92-11.946666-29.866666v-85.333334c0-11.946667 3.976533-22.186667 11.946666-30.72 8.533333-7.970133 18.773333-11.946667 30.72-11.946666s21.896533 3.976533 29.866667 11.946666c8.533333 8.533333 12.8 18.773333 12.8 30.72v85.333334z m136.533333-42.666667h-51.2v85.333333-85.333333h51.2z m17.066667-85.333333h-68.266667v85.333333-85.333333h68.266667z" p-id="5918"></path><path d="M785.066667 614.4a17.066667 17.066667 0 0 1-17.066667-17.066667V426.666667a17.066667 17.066667 0 0 1 17.066667-17.066667h68.266666a17.066667 17.066667 0 1 1 0 34.133333h-51.2v45.226667h34.133334a17.066667 17.066667 0 1 1 0 34.133333h-34.133334V597.333333a17.066667 17.066667 0 0 1-17.066666 17.066667z m-136.533334 0a17.066667 17.066667 0 0 1-17.066666-17.066667V426.666667a17.066667 17.066667 0 0 1 17.066666-17.066667h68.266667a17.066667 17.066667 0 1 1 0 34.133333h-51.2v51.2h34.133333a17.066667 17.066667 0 1 1 0 34.133334h-34.133333v68.266666a17.066667 17.066667 0 0 1-17.066667 17.066667z m-128 0a58.5728 58.5728 0 0 1-42.786133-17.800533C466.500267 585.3696 460.8 571.255467 460.8 554.666667v-85.333334c0-16.366933 5.563733-30.6176 16.554667-42.359466 12.561067-11.810133 26.811733-17.373867 43.178666-17.373867 16.5888 0 30.702933 5.700267 41.9328 16.964267A58.504533 58.504533 0 0 1 580.266667 469.333333v85.333334c0 16.571733-6.2976 31.214933-18.210134 42.3424-10.308267 11.093333-24.951467 17.390933-41.5232 17.390933z m0-170.666667c-7.645867 0-13.704533 2.338133-19.063466 7.355734-4.1984 4.539733-6.536533 10.5984-6.536534 18.244266v85.333334c0 7.406933 2.2016 13.073067 6.946134 17.800533 5.3248 5.307733 11.246933 7.799467 18.653866 7.799467 7.2704 0 12.629333-2.286933 17.390934-7.389867 5.922133-5.5808 8.209067-10.939733 8.209066-18.210133v-85.333334c0-7.406933-2.491733-13.329067-7.799466-18.653866-4.727467-4.744533-10.3936-6.946133-17.800534-6.946134z" fill="#ffffff" p-id="5919" data-spm-anchor-id="a313x.7781069.0.i8" class="selected"></path><path d="M768 699.733333H256c-51.694933 0-96.238933-18.3296-132.386133-54.493866C86.8864 608.529067 68.266667 563.712 68.266667 512c0-51.7632 18.653867-96.341333 55.466666-132.488533C159.658667 342.920533 204.2368 324.266667 256 324.266667h512c51.712 0 96.529067 18.619733 133.239467 55.3472C937.403733 415.761067 955.733333 460.305067 955.733333 512c0 51.6608-18.295467 96.443733-54.408533 133.137067l-0.2048 0.2048C864.426667 681.437867 819.643733 699.733333 768 699.733333z m-402.926933-34.133333H768c42.922667 0 78.609067-14.557867 109.1072-44.4928C907.042133 590.609067 921.6 554.939733 921.6 512c0-42.9056-14.557867-78.318933-44.4928-108.2368C846.592 373.230933 810.922667 358.4 768 358.4H364.373333c8.669867 6.229333 16.964267 13.294933 24.8832 21.213867C425.403733 415.761067 443.733333 460.305067 443.733333 512v5.973333c-1.245867 49.698133-19.575467 92.381867-54.493866 127.266134A204.8 204.8 0 0 1 365.073067 665.6zM256 358.4c-42.8544 0-78.2336 14.7968-108.1344 45.243733C117.1968 433.7664 102.4 469.1456 102.4 512c0 42.922667 14.830933 78.592 45.346133 109.1072C177.681067 651.042133 213.0944 665.6 256 665.6h4.0448c41.3184-1.058133 75.7248-15.6672 105.1648-44.5952 28.8256-28.808533 43.383467-62.6688 44.407467-103.458133L409.6 512c0-42.9056-14.557867-78.318933-44.4928-108.253867-29.422933-29.44-63.7952-44.270933-105.0624-45.346133H256z" p-id="5920" data-spm-anchor-id="a313x.7781069.0.i9" class="selected" fill="#ffffff"></path></svg>
+      </div> 
+      <script >
+      if (localStorage.getItem('preferredTheme') == 'dark') {
+        setDarkMode(true)
+      }
+      function setDarkMode(isDark) {
+        var darkBtn = document.getElementById('darkBtn')
+        var lightBtn = document.getElementById('lightBtn')
+        if (isDark) {
+        lightBtn.style.display = "block"
+        darkBtn.style.display = "none"
+        localStorage.setItem('preferredTheme', 'dark');
+        } else {
+        lightBtn.style.display = "none"
+        darkBtn.style.display = "block"
+        localStorage.removeItem('preferredTheme');
+        }
+        document.body.classList.toggle("darkmode");
+      }
+      </script>
+    </div>
+  </div>
+  <div class="avatar">
+    <!-- 头像取消懒加载，添加no-lazy -->
+    
+      <img src="/images/isle_icon.png" alt="">
+    
+    <div class="nickname">Yanghao Wang</div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/research/">
+          <a href="/research/">Research</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Review on Causal Inference (Part 3)</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2022-02-20
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Causal/" title="Causal">
+                    <b>#</b> Causal
+                  </a>
+                </span>
+                
+                <span class="span--tag">
+                  <a href="/tags/Causal-RD-Sharp/" title="Causal-RD Sharp">
+                    <b>#</b> Causal-RD Sharp
+                  </a>
+                </span>
+                
+                <span class="span--tag">
+                  <a href="/tags/Causal-RD-Fuzzy/" title="Causal-RD Fuzzy">
+                    <b>#</b> Causal-RD Fuzzy
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="Practice-6-Regression-Discontinuity-Sharp"><a href="#Practice-6-Regression-Discontinuity-Sharp" class="headerlink" title="Practice 6: Regression Discontinuity - Sharp"></a>Practice 6: Regression Discontinuity - Sharp</h2><p>Data in this example include student test scores from an entrance and an exit exam. Students who score 70 or below in the entrance exam are automatically enrolled in a free tutoring program and receive assistance throughout the year. At the end of the school year, students take an exit exam (with a maximum of 100 points) to measure how much they learned overall.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tutoring &lt;- fread(<span class="string">&quot;RD/tutoring_program.csv&quot;</span>)</span><br><span class="line">print(paste(<span class="built_in">c</span>(<span class="string">&#x27;Number of Rows:&#x27;</span>, <span class="string">&#x27;Number of Columns:&#x27;</span>), <span class="built_in">dim</span>(tutoring)))</span><br></pre></td></tr></table></figure>
+<pre><code>## [1] &quot;Number of Rows: 1000&quot; &quot;Number of Columns: 4&quot;</code></pre>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head(tutoring)</span><br></pre></td></tr></table></figure>
+<pre><code>##    id entrance_exam exit_exam tutoring
+## 1:  1          92.4      78.1    FALSE
+## 2:  2          72.8      58.2    FALSE
+## 3:  3          53.7      62.0     TRUE
+## 4:  4          98.3      67.5    FALSE
+## 5:  5          69.7      54.1     TRUE
+## 6:  6          68.1      60.1     TRUE</code></pre>
+<p>There are 5 steps in a causal study using regression discontinuity (RD)<br>technique:</p>
+<p><strong>Step 1</strong>: Determine if process of assigning treatment is rule based</p>
+<p><strong>Step 2</strong>: Determine if the design is fuzzy or sharp</p>
+<p><strong>Step 3</strong>: Check for discontinuity in running variable around cutpoint</p>
+<p><strong>Step 4</strong>: Check for discontinuity in outcome across running variable</p>
+<p><strong>Step 5</strong>: Measure the size of the effect</p>
+<h3 id="Sharp-or-Fuzzy"><a href="#Sharp-or-Fuzzy" class="headerlink" title="Sharp or Fuzzy"></a>Sharp or Fuzzy</h3><p>Check in plot and verify in table</p>
+<img src="/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3/unnamed-chunk-2-1.png" class="">
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tutoring[, .(group_min = <span class="built_in">min</span>(entrance_exam), group_max = <span class="built_in">max</span>(entrance_exam))</span><br><span class="line">         , by = <span class="string">&#x27;tutoring&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>##    tutoring group_min group_max
+## 1:    FALSE      70.1      99.8
+## 2:     TRUE      28.8      70.0</code></pre>
+<p>We confirm that there is a sharp cutoff at 70.</p>
+<h3 id="Manipulation-Testing"><a href="#Manipulation-Testing" class="headerlink" title="Manipulation Testing"></a>Manipulation Testing</h3><p>Check if there was any manipulation in the running variable. For example, students wanted to enroll in the program, so they did poorly on the exam to get under 70 in purpose. First, we’ll make a histogram of the running variable (test scores) and see if there are any big jumps around the threshold.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ggplot(tutoring, aes(x = entrance_exam, fill = tutoring)) +</span><br><span class="line">  geom_histogram(binwidth = <span class="number">2</span>, color = <span class="string">&quot;white&quot;</span>, boundary = <span class="number">70</span>) +</span><br><span class="line">  geom_vline(xintercept = <span class="number">70</span>) +</span><br><span class="line">  labs(x = <span class="string">&quot;Entrance exam score&quot;</span>, y = <span class="string">&quot;Count&quot;</span>, fill = <span class="string">&quot;In program&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src="/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3/unnamed-chunk-4-1.png" class="">
+
+<p>There’s a tiny visible difference between the height of the bars right before and right after the score of 70. We can check to see if that jump is statistically significant with a McCrary density test. This puts data into bins like a histogram, and then plots the averages and confidence intervals of those bins. </p>
+<ul>
+<li><p>If the confidence intervals of the density lines don’t overlap, then there’s likely something systematically wrong with how the test was scored (i.e. too many people getting 69 vs 71). </p>
+</li>
+<li><p>If the confidence intervals overlap, there’s not any significant difference around the threshold and we’re fine.</p>
+</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test_density &lt;- rddensity(tutoring$entrance_exam, <span class="built_in">c</span> = <span class="number">70</span>)</span><br><span class="line">summary(test_density)</span><br></pre></td></tr></table></figure>
+<pre><code>## 
+## Manipulation testing using local polynomial density estimation.
+## 
+## Number of obs =       1000
+## Model =               unrestricted
+## Kernel =              triangular
+## BW method =           estimated
+## VCE method =          jackknife
+## 
+## c = 70                Left of c           Right of c          
+## Number of obs         237                 763                 
+## Eff. Number of obs    208                 577                 
+## Order est. (p)        2                   2                   
+## Order bias (q)        3                   3                   
+## BW est. (h)           22.444              19.966              
+## 
+## Method                T                   P &gt; |T|             
+## Robust                -0.5521             0.5809              
+## 
+## 
+## P-values of binomial tests (H0: p=0.5).
+## 
+## Window Length / 2          &lt;c     &gt;=c    P&gt;|T|
+## 0.300                       9      11    0.8238
+## 0.600                      15      16    1.0000
+## 0.900                      17      19    0.8679
+## 1.200                      22      22    1.0000
+## 1.500                      26      29    0.7877
+## 1.800                      34      35    1.0000
+## 2.100                      41      44    0.8284
+## 2.400                      43      51    0.4705
+## 2.700                      46      56    0.3729
+## 3.000                      51      61    0.3952</code></pre>
+<p>Let’s focus on the t-test result, which is presented on the line starting with “Robust.” It shows the t-test for the difference in the two points on either side of the cutpoint in the plot. Notice in the plot that the confidence intervals overlap substantially. The p-value for the size of that overlap is 0.5809. So we don’t have good evidence that there’s a significant difference between the two lines.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plot_density_test &lt;- rdplotdensity(rdd = test_density,</span><br><span class="line">                                   X = tutoring$entrance_exam,</span><br><span class="line">                                   type = <span class="string">&quot;both&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src="/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3/unnamed-chunk-6-1.png" class="">
+
+<p><strong>Note</strong>: Bias correction is only used for the construction of confidence intervals, but not for point estimation. So we see some points are out of the confidence intervals.</p>
+<h3 id="Discontinuity-in-Outcome"><a href="#Discontinuity-in-Outcome" class="headerlink" title="Discontinuity in Outcome"></a>Discontinuity in Outcome</h3><p>So far, we have known this is a sharp design and that there’s no manipulation on the entrance exam scores around the threshold–70. Now we can finally see if there’s a discontinuity in the exit exam scores based on the participation in the tutoring program.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ggplot(tutoring, aes(x = entrance_exam, y = exit_exam, color = tutoring)) +</span><br><span class="line">  geom_point(size = <span class="number">0.5</span>, alpha = <span class="number">0.5</span>) +</span><br><span class="line">  <span class="comment"># Add a line based on a linear model for the people scoring 70 or less</span></span><br><span class="line">  geom_smooth(data = filter(tutoring, entrance_exam &lt;= <span class="number">70</span>), method = <span class="string">&quot;loess&quot;</span>, formula = <span class="string">&#x27;y ~ x&#x27;</span>) +</span><br><span class="line">  <span class="comment"># Add a line based on a linear model for the people scoring more than 70</span></span><br><span class="line">  geom_smooth(data = filter(tutoring, entrance_exam &gt; <span class="number">70</span>), method = <span class="string">&quot;loess&quot;</span>, formula = <span class="string">&#x27;y ~ x&#x27;</span>) +</span><br><span class="line">  geom_vline(xintercept = <span class="number">70</span>) +</span><br><span class="line">  labs(x = <span class="string">&quot;Entrance exam score&quot;</span>, y = <span class="string">&quot;Exit exam score&quot;</span>, color = <span class="string">&quot;Used tutoring&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src="/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3/unnamed-chunk-7-1.png" class="">
+
+<p>Based on this graph, there’s a clear discontinuity, suggesting the participation in the tutoring program boosted the exit exam scores.</p>
+<h3 id="Parametric-Estimation-Regression"><a href="#Parametric-Estimation-Regression" class="headerlink" title="Parametric Estimation (Regression)"></a>Parametric Estimation (Regression)</h3><ul>
+<li>How big is this discontinuity?</li>
+<li>Is it statistically significant?</li>
+</ul>
+<p>We can check the size in a parametric method (i.e. using <code>lm()</code> with specific parameters and coefficients). Particularly, We estimate in a linear regression specified as following,</p>
+<p>$$<br>\text{Exit exam} = \beta_0 + \beta_1\text{Entrance exam score}_{\text{centered}} +<br>\beta_2\text{Tutoring program} + \epsilon*.<br>$$</p>
+<p>where $\text{Entrance exam score}_{\text{centered}}$ shows how many points away from the threshold $70$</p>
+<ul>
+<li>$\beta_0$: This is the intercept. Since we centered <em>entrance</em> exam scores, it shows the average <em>exit</em> exam score at the threshold. People who scored 70.001 points on the entrance exam had an average of 59.4 points on the exit exam.</li>
+<li>$\beta_1$: This represents the slope of the linear equation on both sides of the threshold.</li>
+<li>$\beta_2$: This is the coefficient of interest, suggesting the causal effect of participation in the tutoring program.</li>
+</ul>
+<h4 id="Robustness-Check"><a href="#Robustness-Check" class="headerlink" title="Robustness Check"></a>Robustness Check</h4><ol>
+<li><p>We can include extra demographics and use a polynomial regression including $\text{entrance}_\text{centered}^2$, $\text{entrance}_\text{centered}^3$, or $\text{entrance}_\text{centered}^4$ to fit the data as close as possible.</p>
+</li>
+<li><p>We care most about the observations right around the threshold rather than observations far away from the center. Therefore, we should only include the students who had scores just barely under and over 70. Accordingly, We can fit the same model and restrict it to students within a smaller window, or bandwidth, like $70\pm10$, or $70\pm5$.</p>
+</li>
+</ol>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">tutoring[, entrance_centered := entrance_exam - <span class="number">70</span>]</span><br><span class="line"></span><br><span class="line">model_simple &lt;- lm(exit_exam ~ entrance_centered + tutoring,</span><br><span class="line">                   data = tutoring)</span><br><span class="line"><span class="comment"># round(summary(model_simple)$coef, 4)</span></span><br><span class="line"></span><br><span class="line">model_poly &lt;- lm(exit_exam ~ entrance_centered + I((entrance_centered/<span class="number">10</span>)^<span class="number">2</span>) + </span><br><span class="line">                   I((entrance_centered/<span class="number">10</span>)^<span class="number">3</span>) + I((entrance_centered/<span class="number">10</span>)^<span class="number">4</span>) + </span><br><span class="line">                   tutoring, data = tutoring)</span><br><span class="line"><span class="comment"># round(summary(model_ploy)$coef, 4)</span></span><br><span class="line"></span><br><span class="line">model_bw_10 &lt;- lm(exit_exam ~ entrance_centered + tutoring,</span><br><span class="line">                  data = filter(tutoring,</span><br><span class="line">                                entrance_centered &gt;= -<span class="number">10</span> &amp;</span><br><span class="line">                                  entrance_centered &lt;= <span class="number">10</span>))</span><br><span class="line"><span class="comment"># round(summary(model_bw_10)$coef, 4)</span></span><br><span class="line"></span><br><span class="line">model_bw_5 &lt;- lm(exit_exam ~ entrance_centered + tutoring,</span><br><span class="line">                 data = filter(tutoring,</span><br><span class="line">                               entrance_centered &gt;= -<span class="number">5</span> &amp;</span><br><span class="line">                                 entrance_centered &lt;= <span class="number">5</span>))</span><br><span class="line"><span class="comment"># round(summary(model_bw_5)$coef, 4)</span></span><br><span class="line"></span><br><span class="line">model_bw_5_poly &lt;- lm(exit_exam ~ entrance_centered + I((entrance_centered/<span class="number">10</span>)^<span class="number">2</span>) +</span><br><span class="line">                        I((entrance_centered/<span class="number">10</span>)^<span class="number">3</span>) + I((entrance_centered/<span class="number">10</span>)^<span class="number">4</span>) + </span><br><span class="line">                        tutoring,</span><br><span class="line">                      data = filter(tutoring,</span><br><span class="line">                                    entrance_centered &gt;= -<span class="number">5</span> &amp;</span><br><span class="line">                                      entrance_centered &lt;= <span class="number">5</span>))</span><br><span class="line"><span class="comment"># round(summary(model_bw_5_poly)$coef, 4)</span></span><br></pre></td></tr></table></figure>
+<img src="/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3/table1.png" class="">
+
+<p>The effect of tutoring differs a lot across these different models, from 9.1 to 10.8. The comparison between RMSEs from <code>model_bw_5</code> and <code>model_bw_5_poly</code> might suggest the overfitting issue resulting from the over-specification with several polynomial terms and the small size of sample.</p>
+<img src="/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3/unnamed-chunk-10-1.png" class="">
+
+<h3 id="Nonparametric-Estimation-Kernel"><a href="#Nonparametric-Estimation-Kernel" class="headerlink" title="Nonparametric Estimation (Kernel)"></a>Nonparametric Estimation (Kernel)</h3><p>Instead of using linear regressions, we can use nonparametric methods (i.e. using kernel functions to determine the weights of observations and fit the data in non-linear function forms). The <code>rdrobust()</code> function makes it easy to estimate the causal effect at the cutoff with nonparametric methods.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rdrobust(y = tutoring$exit_exam, x = tutoring$entrance_exam, <span class="built_in">c</span> = <span class="number">70</span>) %&gt;%</span><br><span class="line">  summary()</span><br></pre></td></tr></table></figure>
+<pre><code>## [1] &quot;Mass points detected in the running variable.&quot;
+## Call: rdrobust
+## 
+## Number of Obs.                 1000
+## BW type                       mserd
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                  237          763
+## Eff. Number of Obs.             144          256
+## Order est. (p)                    1            1
+## Order bias  (q)                   2            2
+## BW est. (h)                   9.969        9.969
+## BW bias (b)                  14.661       14.661
+## rho (h/b)                     0.680        0.680
+## Unique Obs.                     155          262
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional    -8.578     1.601    -5.359     0.000   [-11.715 , -5.441]    
+##         Robust         -         -    -4.352     0.000   [-12.101 , -4.587]    
+## =============================================================================</code></pre>
+<ul>
+<li>The estimate of the causal effect is present in the table. It shows tutoring program causes an 8-point change in exit exam scores. Confidence intervals are constructed with normal Std. Err (conventional) and robust Std. Err (robust).</li>
+<li>The model used a bandwidth of 9.969 (<code>BW est. (h)</code> in the output), which means it includes students with test scores between ~60 and ~80.</li>
+<li>The model used a triangular kernel. The kernel decides how much weight to give to observations around the cutoff. The closer to the cutoff, the larger the weight. You can use different kernels and <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Kernel_(statistics)#Kernel_functions_in_common_use">this Wikipage</a> has a nice summary.</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rdplot(y = tutoring$exit_exam, x = tutoring$entrance_exam, <span class="built_in">c</span> = <span class="number">70</span>, nbins = <span class="number">50</span>,</span><br><span class="line">       x.label = <span class="string">&quot;Entrance exam score&quot;</span>, y.label = <span class="string">&quot;Exit exam score&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>## [1] &quot;Mass points detected in the running variable.&quot;</code></pre>
+<img src="/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3/unnamed-chunk-12-1.png" class="">
+
+<p><strong>Note</strong>: Points in the graph are not the actual observations in the dataset. The <code>rdplot()</code> function makes bins of points (like a histogram) and then shows the average outcome within each bin. The argument <code>nbins</code> and <code>binselect</code> can be specified accordingly. Additionally, the plot part in the <code>rdplot()</code> output is a <code>ggplot()</code> object and hence inherit the associated features/functionalities.</p>
+<h4 id="Robustness-Check-1"><a href="#Robustness-Check-1" class="headerlink" title="Robustness Check"></a>Robustness Check</h4><ol>
+<li><p>Try different Kernel functions</p>
+<blockquote>
+<p>By default <code>rdrobust()</code> uses a triangular kernel (linearly decreasing weights). We can also use Epanechnikov (non-linearly decreasing weights) or uniform (equal weights, i.e., unweighted).</p>
+</blockquote>
+</li>
+<li><p>Try different the bandwidth algorithms</p>
+</li>
+</ol>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rdbwselect(y = tutoring$exit_exam, x = tutoring$entrance_exam, <span class="built_in">c</span> = <span class="number">70</span>, <span class="built_in">all</span> = <span class="literal">TRUE</span>) %&gt;%</span><br><span class="line">  summary()</span><br></pre></td></tr></table></figure>
+<pre><code>## [1] &quot;Mass points detected in the running variable.&quot;
+## Call: rdbwselect
+## 
+## Number of Obs.                 1000
+## BW type                         All
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                  237          763
+## Order est. (p)                    1            1
+## Order bias  (q)                   2            2
+## Unique Obs.                     155          262
+## 
+## =======================================================
+##                   BW est. (h)    BW bias (b)
+##             Left of c Right of c  Left of c Right of c
+## =======================================================
+##      mserd     9.969      9.969     14.661     14.661
+##     msetwo    11.521     10.054     17.067     14.907
+##     msesum    12.044     12.044     17.631     17.631
+##   msecomb1     9.969      9.969     14.661     14.661
+##   msecomb2    11.521     10.054     17.067     14.907
+##      cerrd     7.058      7.058     14.661     14.661
+##     certwo     8.156      7.118     17.067     14.907
+##     cersum     8.526      8.526     17.631     17.631
+##   cercomb1     7.058      7.058     14.661     14.661
+##   cercomb2     8.156      7.118     17.067     14.907
+## =======================================================</code></pre>
+<ol>
+<li>Compare the results using the ideal bandwidth, twice the ideal, and half the ideal</li>
+</ol>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ideal bandwidth </span></span><br><span class="line">rdbwselect(y = tutoring$exit_exam, x = tutoring$entrance_exam, <span class="built_in">c</span> = <span class="number">70</span>) %&gt;%</span><br><span class="line">  summary()</span><br></pre></td></tr></table></figure>
+<pre><code>## [1] &quot;Mass points detected in the running variable.&quot;
+## Call: rdbwselect
+## 
+## Number of Obs.                 1000
+## BW type                       mserd
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                  237          763
+## Order est. (p)                    1            1
+## Order bias  (q)                   2            2
+## Unique Obs.                     155          262
+## 
+## =======================================================
+##                   BW est. (h)    BW bias (b)
+##             Left of c Right of c  Left of c Right of c
+## =======================================================
+##      mserd     9.969      9.969     14.661     14.661
+## =======================================================</code></pre>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rdrobust(y = tutoring$exit_exam, x = tutoring$entrance_exam, <span class="built_in">c</span> = <span class="number">70</span>, h = <span class="number">9.969</span>) %&gt;%</span><br><span class="line">  summary()</span><br></pre></td></tr></table></figure>
+<pre><code>## [1] &quot;Mass points detected in the running variable.&quot;
+## Call: rdrobust
+## 
+## Number of Obs.                 1000
+## BW type                      Manual
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                  237          763
+## Eff. Number of Obs.             144          256
+## Order est. (p)                    1            1
+## Order bias  (q)                   2            2
+## BW est. (h)                   9.969        9.969
+## BW bias (b)                   9.969        9.969
+## rho (h/b)                     1.000        1.000
+## Unique Obs.                     155          262
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional    -8.578     1.601    -5.359     0.000   [-11.715 , -5.441]    
+##         Robust         -         -    -3.276     0.001   [-12.483 , -3.138]    
+## =============================================================================</code></pre>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rdrobust(y = tutoring$exit_exam, x = tutoring$entrance_exam, <span class="built_in">c</span> = <span class="number">70</span>, h = <span class="number">9.969</span> * <span class="number">2</span>) %&gt;%</span><br><span class="line">  summary()</span><br></pre></td></tr></table></figure>
+<pre><code>## [1] &quot;Mass points detected in the running variable.&quot;
+## Call: rdrobust
+## 
+## Number of Obs.                 1000
+## BW type                      Manual
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                  237          763
+## Eff. Number of Obs.             206          577
+## Order est. (p)                    1            1
+## Order bias  (q)                   2            2
+## BW est. (h)                  19.938       19.938
+## BW bias (b)                  19.938       19.938
+## rho (h/b)                     1.000        1.000
+## Unique Obs.                     155          262
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional    -9.151     1.130    -8.100     0.000   [-11.365 , -6.937]    
+##         Robust         -         -    -4.980     0.000   [-11.670 , -5.078]    
+## =============================================================================</code></pre>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rdrobust(y = tutoring$exit_exam, x = tutoring$entrance_exam, <span class="built_in">c</span> = <span class="number">70</span>, h = <span class="number">9.969</span> / <span class="number">2</span>) %&gt;%</span><br><span class="line">  summary()</span><br></pre></td></tr></table></figure>
+<pre><code>## [1] &quot;Mass points detected in the running variable.&quot;
+## Call: rdrobust
+## 
+## Number of Obs.                 1000
+## BW type                      Manual
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                  237          763
+## Eff. Number of Obs.              82          109
+## Order est. (p)                    1            1
+## Order bias  (q)                   2            2
+## BW est. (h)                   4.984        4.984
+## BW bias (b)                   4.984        4.984
+## rho (h/b)                     1.000        1.000
+## Unique Obs.                     155          262
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional    -8.201     2.348    -3.493     0.000   [-12.803 , -3.600]    
+##         Robust         -         -    -2.032     0.042   [-13.618 , -0.246]    
+## =============================================================================</code></pre>
+<h2 id="Practice-7-Regression-Discontinuity-Fuzzy"><a href="#Practice-7-Regression-Discontinuity-Fuzzy" class="headerlink" title="Practice 7: Regression Discontinuity - Fuzzy"></a>Practice 7: Regression Discontinuity - Fuzzy</h2><p>In the sharp RD example in Practice 6, it was fairly easy to measure the size of the jump at the cutoff because compliance was perfect. No people who scored above the threshold used the tutoring program, and nobody who qualified for the program did not participate.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tutoring_fuzzy &lt;- fread(<span class="string">&quot;RD/tutoring_program_fuzzy.csv&quot;</span>)</span><br><span class="line">print(paste(<span class="built_in">c</span>(<span class="string">&#x27;Number of Rows:&#x27;</span>, <span class="string">&#x27;Number of Columns:&#x27;</span>), <span class="built_in">dim</span>(tutoring_fuzzy)))</span><br></pre></td></tr></table></figure>
+<pre><code>## [1] &quot;Number of Rows: 1000&quot; &quot;Number of Columns: 5&quot;</code></pre>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># kbl(head(tutoring_fuzzy)) %&gt;%</span></span><br><span class="line"><span class="comment">#   kable_paper() %&gt;%</span></span><br><span class="line"><span class="comment">#   scroll_box(width = &quot;100%&quot;) # height = &quot;400px&quot;</span></span><br><span class="line">head(tutoring_fuzzy)</span><br></pre></td></tr></table></figure>
+<pre><code>##    id entrance_exam tutoring tutoring_text exit_exam
+## 1:  1      92.40833    FALSE      No tutor  78.07592
+## 2:  2      72.77238    FALSE      No tutor  58.21757
+## 3:  3      53.65090     TRUE         Tutor  61.96543
+## 4:  4      98.32688    FALSE      No tutor  67.48956
+## 5:  5      69.71219     TRUE         Tutor  54.12888
+## 6:  6      68.06771     TRUE         Tutor  60.13143</code></pre>
+<img src="/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3/unnamed-chunk-16-1.png" class="">
+
+<p>Check the count and percentages of compliance:</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tutoring_fuzzy[, leq70 := entrance_exam &lt;= <span class="number">70</span>]</span><br><span class="line">tutoring_fuzzy[, .(count = .N), by = <span class="built_in">c</span>(<span class="string">&#x27;tutoring&#x27;</span>, <span class="string">&#x27;leq70&#x27;</span>)][</span><br><span class="line">  , per := <span class="built_in">round</span>(count/<span class="built_in">sum</span>(count)*<span class="number">100</span>, <span class="number">2</span>), by = <span class="string">&#x27;leq70&#x27;</span>][</span><br><span class="line">    order(leq70, tutoring)]</span><br></pre></td></tr></table></figure>
+<pre><code>##    tutoring leq70 count   per
+## 1:    FALSE FALSE   646 84.78
+## 2:     TRUE FALSE   116 15.22
+## 3:    FALSE  TRUE    36 15.13
+## 4:     TRUE  TRUE   202 84.87</code></pre>
+<p>This table shows there are 36 students who should participate didn’t while 116 who shouldn’t participate did. The students who shouldn’t participate but did account for about one third of all enrolled students. This is a <strong>fuzzy</strong> design.</p>
+<h3 id="Fuzzy-Gap"><a href="#Fuzzy-Gap" class="headerlink" title="Fuzzy Gap"></a>Fuzzy Gap</h3><p>First, let’s look at a histogram that shows the probability of being in the tutoring program at different entrance exam scores.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tutoring_fuzzy[, exam_bin := cut(entrance_exam, breaks = seq(<span class="number">0</span>, <span class="number">100</span>, <span class="number">5</span>))]</span><br><span class="line"></span><br><span class="line">tutoring_bins &lt;- tutoring_fuzzy[, .(count = .N, count_t = <span class="built_in">sum</span>(tutoring), </span><br><span class="line">                                    per = <span class="number">100</span>*<span class="built_in">sum</span>(tutoring)/.N)</span><br><span class="line">                                , by = <span class="string">&#x27;exam_bin&#x27;</span>][order(exam_bin)]</span><br><span class="line"></span><br><span class="line">ggplot(data = tutoring_bins, aes(x = exam_bin, y = per)) + </span><br><span class="line">  geom_col() + geom_vline(xintercept = <span class="number">8.5</span>) +</span><br><span class="line">  labs(x = <span class="string">&quot;Entrance exam score&quot;</span>, y = <span class="string">&quot;Proportion of students participating in program&quot;</span>)</span><br></pre></td></tr></table></figure>
+<img src="/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3/unnamed-chunk-18-1.png" class="">
+
+<p>If this were a sharp design, every single bar to the left of the cut point would be 100% and every single bar to the right would be 0%, but that’s not the case in this fuzzy design.</p>
+<ul>
+<li>100% of students who scored between 25 and 50 on the entrance exam used tutoring</li>
+<li>This rate drops to 80ish% up until the cut point at 70</li>
+<li>There’s about 15% chance of using tutoring if students are above the threshold</li>
+</ul>
+<h3 id="Discontinuity-in-Outcome-1"><a href="#Discontinuity-in-Outcome-1" class="headerlink" title="Discontinuity in Outcome"></a>Discontinuity in Outcome</h3><p>We can visualize the gap by making scatter plots of running variable against outcome. Moreover, we can fit data with linear and local polynomial regressions on both sides of the threshold.</p>
+<p><strong>Fit data with linear regressions</strong></p>
+<img src="/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3/unnamed-chunk-19-1.png" class="">
+
+<p><strong>Fit data with local polynomial regressions</strong></p>
+<img src="/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3/unnamed-chunk-20-1.png" class="">
+
+<h3 id="Parametric-and-Non-parametric-Estimation"><a href="#Parametric-and-Non-parametric-Estimation" class="headerlink" title="Parametric and Non-parametric Estimation"></a>Parametric and Non-parametric Estimation</h3><p>Given the compliance issues, we need to isolate causal effects for compliers from others, i.e., the <em>complier average causal effect</em> (<strong>CACE</strong>).</p>
+<p>As a result, we need an <strong>instrument</strong> which implies what should have happened rather than what actually happened. In a fuzzy design, the variable indicating if someone is above or below the threshold is a valid instrument.</p>
+<p>Particularly, in this example, let “entrance score less than 70”, “participation in tutoring”, and “exit score” be denoted as $Z$, $X$, and $Y$. The indication variable of “entrance score less than 70” satisfies all requirements for a valid instrument:</p>
+<ul>
+<li>Relevance: The cutoff affects the access to the tutoring program; $Z \rightarrow X$ and $Cor(Z, X)\neq 0$.</li>
+<li>Exclusion: The cutoff affects exit exam scores only through the tutoring program; $Z \rightarrow X\rightarrow Y$ and $Cor(Z,Y|X)=0$.</li>
+<li>Exogeneity: Unobserved confounders between the tutoring program and exit exam scores are unrelated to the cutoff in local. For example, IQ is an unobserved variable in the outcome equation. The implicit assumption is that students who scored barely below or above the cutoff have the same level of IQ.</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">tutoring_fuzzy[, entrance_centered := entrance_exam - <span class="number">70</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run a regression in a sharp RD design</span></span><br><span class="line">model_sharp &lt;- lm(exit_exam ~ entrance_centered + tutoring,</span><br><span class="line">                  data = filter(tutoring_fuzzy,</span><br><span class="line">                                entrance_centered &gt;= -<span class="number">10</span> &amp;</span><br><span class="line">                                  entrance_centered &lt;= <span class="number">10</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run a regression in a fuzzy RD design</span></span><br><span class="line">model_fuzzy &lt;- estimatr::iv_robust(exit_exam ~ entrance_centered + tutoring |</span><br><span class="line">                                     entrance_centered + leq70,</span><br><span class="line">                                   data = filter(tutoring_fuzzy,</span><br><span class="line">                                                 entrance_centered &gt;= -<span class="number">10</span> &amp; </span><br><span class="line">                                                   entrance_centered &lt;= <span class="number">10</span>))</span><br><span class="line"></span><br><span class="line">modelsummary(<span class="built_in">list</span>(<span class="string">&quot;Sharp RD (wrong)&quot;</span> = model_sharp,</span><br><span class="line">                  <span class="string">&quot;Fuzzy RD (bw = 10)&quot;</span> = model_fuzzy),</span><br><span class="line">             gof_omit = <span class="string">&quot;IC|Log|Adj|p\\.value|statistic|se_type|RMSE|Std.Errors&quot;</span>,</span><br><span class="line">             stars = <span class="literal">TRUE</span>, output = <span class="string">&quot;table2.tex&quot;</span>) </span><br></pre></td></tr></table></figure>
+<img src="/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3/table2.png" class="">
+
+<p><strong>Note</strong>:</p>
+<ul>
+<li>We’re estimating a <strong>CACE</strong> or a <em>local average treatment effect</em> (<strong>LATE</strong>) for people in the bandwidth, because we’re working with regression discontinuity.</li>
+<li>We’re estimating the CACE/LATE for compliers only, because we’re using instruments.</li>
+<li>We <strong>should check the robustness</strong> of estimates by modifying the bandwidth, adding polynomial terms, and others that we discussed in Practice 6.</li>
+</ul>
+<p>Also, we can estimate the CACE in non-parametric methods. We use the fuzzy argument in <code>rdrobust()</code> to specify the treatment column (or tutoring in our case). Importantly, we do not need to specify an instrument (or even create one!). All you need to specify is the column that indicates treatment status. <code>rdrobust()</code> will do all the above/below-the-cutoff instrument stuff automatically for us.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rdrobust(y = tutoring_fuzzy$exit_exam, x = tutoring_fuzzy$entrance_exam,</span><br><span class="line">         <span class="built_in">c</span> = <span class="number">70</span>, fuzzy = tutoring_fuzzy$tutoring) %&gt;%</span><br><span class="line">  summary()</span><br></pre></td></tr></table></figure>
+<pre><code>## Call: rdrobust
+## 
+## Number of Obs.                 1000
+## BW type                       mserd
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                  238          762
+## Eff. Number of Obs.             170          347
+## Order est. (p)                    1            1
+## Order bias  (q)                   2            2
+## BW est. (h)                  12.985       12.985
+## BW bias (b)                  19.733       19.733
+## rho (h/b)                     0.658        0.658
+## Unique Obs.                     238          762
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional     9.683     1.893     5.116     0.000     [5.973 , 13.393]    
+##         Robust         -         -     4.258     0.000     [5.210 , 14.095]    
+## =============================================================================</code></pre>
+<p><strong>Note</strong>:</p>
+<ul>
+<li>We <strong>should check the robustness</strong> of estimates by modifying the bandwidth (ideal, half, double) and using different kernels (e.g., uniform, triangular, Epanechnikov).</li>
+</ul>
+<p><strong>Recall</strong>:</p>
+<p>There is an alternative way to evaluate an causal effect with ONE instrument in regressions:</p>
+<p>$$<br>\beta_{\text{IV}} = \frac{\beta_\text{reduced form}}{\beta_\text{1st stage}},<br>$$</p>
+<p>where the first stage and the reduced form are specified respectively as</p>
+<p>$$<br>\begin{align*}~<br>x_\text{endog} &amp;= \beta_\text{1st stage}z+ X_\text{exog}’\theta+\eta, \text{ and}\\<br>y &amp;= \beta_\text{reduced form}z+X_\text{exog}’\gamma+\epsilon.<br>\end{align*}<br>$$</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">model_FirstStage &lt;- lm(tutoring ~ entrance_centered + leq70, </span><br><span class="line">                       data = filter(tutoring_fuzzy, </span><br><span class="line">                                     entrance_centered &gt;= -<span class="number">10</span> &amp; </span><br><span class="line">                                       entrance_centered &lt;= <span class="number">10</span>))</span><br><span class="line"></span><br><span class="line">model_Reduced &lt;- lm(exit_exam ~ entrance_centered + leq70, </span><br><span class="line">                    data = filter(tutoring_fuzzy, </span><br><span class="line">                                  entrance_centered &gt;= -<span class="number">10</span> &amp; </span><br><span class="line">                                    entrance_centered &lt;= <span class="number">10</span>))</span><br><span class="line"></span><br><span class="line">model_Reduced$coef[<span class="string">&#x27;leq70TRUE&#x27;</span>]/model_FirstStage$coef[<span class="string">&#x27;leq70TRUE&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>## leq70TRUE 
+##  9.741044</code></pre>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/posts/20220212-Review-on-Causal-Inference-in-Economics-Part-2" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2022-02-20
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Causal/" title="Causal">
+                        <b>#</b> Causal
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Causal-RD-Sharp/" title="Causal-RD Sharp">
+                        <b>#</b> Causal-RD Sharp
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Causal-RD-Fuzzy/" title="Causal-RD Fuzzy">
+                        <b>#</b> Causal-RD Fuzzy
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/posts/20220405-My-Different-Qingming" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div class="post-catalog" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Practice-6-Regression-Discontinuity-Sharp"><span class="toc-text">Practice 6: Regression Discontinuity - Sharp</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sharp-or-Fuzzy"><span class="toc-text">Sharp or Fuzzy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Manipulation-Testing"><span class="toc-text">Manipulation Testing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Discontinuity-in-Outcome"><span class="toc-text">Discontinuity in Outcome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Parametric-Estimation-Regression"><span class="toc-text">Parametric Estimation (Regression)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Robustness-Check"><span class="toc-text">Robustness Check</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nonparametric-Estimation-Kernel"><span class="toc-text">Nonparametric Estimation (Kernel)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Robustness-Check-1"><span class="toc-text">Robustness Check</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Practice-7-Regression-Discontinuity-Fuzzy"><span class="toc-text">Practice 7: Regression Discontinuity - Fuzzy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Fuzzy-Gap"><span class="toc-text">Fuzzy Gap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Discontinuity-in-Outcome-1"><span class="toc-text">Discontinuity in Outcome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Parametric-and-Non-parametric-Estimation"><span class="toc-text">Parametric and Non-parametric Estimation</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+  <div id="disqus_thread">
+    <h2>
+      <a href="#" class="comment" onclick="loadDisqus();return false;">View / Make Comments</a>
+    </h2>
+  </div>
+
+  <script>
+    var disqus_config = function() {
+      this.page.url = 'http://yanghaowang.github.io/posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3.html';
+      this.page.identifier = 'posts/20220220-Review-on-Causal-Inference-in-Economics-Part-3.html';
+      this.page.title = 'Review on Causal Inference (Part 3)';
+    };
+
+    var is_disqus_loaded = false;
+
+    function loadDisqus() {
+      if (!is_disqus_loaded) {
+        is_disqus_loaded = true;
+
+        var d = document,
+          s = d.createElement('script');
+        s.src = 'https://https-yanghaowang-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+    }
+
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/in/yanghaowang">
+            <i class="iconfont icon-linkedin"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="mailto:wyangh90@gamil.com">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      <!-- <a href="">© 2018-2020 Yanghao Wang. All Rights Reserved.</a> -->
+      
+        © 2018-2020 Yanghao Wang. All Rights Reserved.
+            
+    </div>
+  
+  <div class="footer-more" style="text-align:center;">
+    Hosted by 
+    <a href="https://github.com/yanghaowang" target="_blank" style="text-decoration: none;" rel="noreferrer">
+      <svg class="img-hov" style="width: 15px;" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    </a> with Theme  
+    <a target="_blank" href="https://github.com/zchengsite/hexo-theme-oranges" style="text-decoration: none;" rel="noreferrer noopener">
+      <img class="img-hov" style="width: 15px;" src="/images/favicon.png">
+    </a> Powered by 
+    <a href="https://hexo.io/themes/#Oranges" target="_blank" style="text-decoration: none;" rel="noreferrer">
+      <svg class="img-hov" style="width: 15px; fill: #03adfc" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+    </a>.
+    <p><br></p>
+  </div>
+</div>
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)"> 
+    <p style="text-align: center;">Back to Top</p>
+    <p style="text-align: center;"><i class="iconfont icon-chevronup"></i></p>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+
+
+    </div>
+  </body>
+</html>
