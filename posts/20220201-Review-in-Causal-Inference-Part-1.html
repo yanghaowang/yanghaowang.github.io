@@ -210,6 +210,36 @@ MathJax = {
                   </a>
                 </span>
                 
+                <span class="span--tag">
+                  <a href="/tags/ATE/" title="ATE">
+                    <b>#</b> ATE
+                  </a>
+                </span>
+                
+                <span class="span--tag">
+                  <a href="/tags/DAG/" title="DAG">
+                    <b>#</b> DAG
+                  </a>
+                </span>
+                
+                <span class="span--tag">
+                  <a href="/tags/Matching/" title="Matching">
+                    <b>#</b> Matching
+                  </a>
+                </span>
+                
+                <span class="span--tag">
+                  <a href="/tags/IPW/" title="IPW">
+                    <b>#</b> IPW
+                  </a>
+                </span>
+                
+                <span class="span--tag">
+                  <a href="/tags/DID/" title="DID">
+                    <b>#</b> DID
+                  </a>
+                </span>
+                
               </span>
           
       </div>
@@ -269,7 +299,7 @@ MathJax = {
 </li>
 </ul>
 <h4 id="Conditional-Independence"><a href="#Conditional-Independence" class="headerlink" title="Conditional Independence"></a>Conditional Independence</h4><ul>
-<li>$\text{Health}\perp\text{\# of Household}$</li>
+<li>$\text{Health}\perp\text{Numb. of Household}$</li>
 </ul>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cor(nets$health, nets$household)</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 9.785337e-05</span><br></pre></td></tr></table></figure>
@@ -279,13 +309,13 @@ MathJax = {
 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cor(nets$income, nets$resistance)</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 0.01371297</span><br></pre></td></tr></table></figure>
 <ul>
-<li>$\text{Malaria risk}\perp\text{\# of Household} \mid \text{(Net Use, Health, Income, Temp)}$</li>
+<li>$\text{Malaria risk}\perp\text{Numb. of Household} \mid \text{(Net Use, Health, Income, Temp)}$</li>
 </ul>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lm(malaria_risk ~ household + net + health + income + temperature,</span><br><span class="line">   data = nets) %&gt;%</span><br><span class="line">  (<span class="keyword">function</span>(x) summary(x)$coeff) %&gt;%</span><br><span class="line">  (<span class="keyword">function</span>(x) <span class="built_in">round</span>(x, <span class="number">4</span>))</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">##             Estimate Std. Error  t value Pr(&gt;|t|)</span><br><span class="line">## (Intercept)  76.2067     0.9658  78.9062   0.0000</span><br><span class="line">## household    -0.0155     0.0893  -0.1730   0.8626</span><br><span class="line">## netTRUE     -10.4370     0.2665 -39.1633   0.0000</span><br><span class="line">## health        0.1483     0.0107  13.8997   0.0000</span><br><span class="line">## income       -0.0751     0.0010 -72.5635   0.0000</span><br><span class="line">## temperature   1.0058     0.0310  32.4829   0.0000</span><br></pre></td></tr></table></figure>
 <p><strong>Notes:</strong> No correlation ⇏ Independence</p>
 <blockquote>
-<p>[Example] Flip a fair coin to determine the amount of your bet: bet $1 if heads $2 if tails. Then flip again: win the amount of your bet if heads lose if tails.</p>
+<p>[Example] Flip a fair coin to determine the amount of your bet: bet $1 if heads \$2 if tails. Then flip again: win the amount of your bet if heads lose if tails.</p>
 </blockquote>
 <h3 id="Naive-Comparison"><a href="#Naive-Comparison" class="headerlink" title="Naive Comparison"></a>Naive Comparison</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model_naive &lt;- lm(malaria_risk ~ net, data = nets) </span><br><span class="line">summary(model_naive)</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## Call:</span><br><span class="line">## lm(formula &#x3D; malaria_risk ~ net, data &#x3D; nets)</span><br><span class="line">## </span><br><span class="line">## Residuals:</span><br><span class="line">##     Min      1Q  Median      3Q     Max </span><br><span class="line">## -26.937  -9.605  -1.937   7.063  55.395 </span><br><span class="line">## </span><br><span class="line">## Coefficients:</span><br><span class="line">##             Estimate Std. Error t value Pr(&gt;|t|)    </span><br><span class="line">## (Intercept)  41.9365     0.4049  103.57   &lt;2e-16 ***</span><br><span class="line">## netTRUE     -16.3315     0.6495  -25.15   &lt;2e-16 ***</span><br><span class="line">## ---</span><br><span class="line">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span><br><span class="line">## </span><br><span class="line">## Residual standard error: 13.25 on 1750 degrees of freedom</span><br><span class="line">## Multiple R-squared:  0.2654, Adjusted R-squared:  0.265 </span><br><span class="line">## F-statistic: 632.3 on 1 and 1750 DF,  p-value: &lt; 2.2e-16</span><br></pre></td></tr></table></figure>
@@ -495,6 +525,36 @@ MathJax = {
                     <span class="span--tag">
                       <a href="/tags/Causal-Inference/" title="Causal Inference">
                         <b>#</b> Causal Inference
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/ATE/" title="ATE">
+                        <b>#</b> ATE
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/DAG/" title="DAG">
+                        <b>#</b> DAG
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Matching/" title="Matching">
+                        <b>#</b> Matching
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/IPW/" title="IPW">
+                        <b>#</b> IPW
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/DID/" title="DID">
+                        <b>#</b> DID
                       </a>
                     </span>
                     
