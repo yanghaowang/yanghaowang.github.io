@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yanghaowang.github.io/posts/20220201-Review-in-Causal-Inference-Part-1</loc>
+    
+    <lastmod>2022-07-06</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yanghaowang.github.io/posts/20220405-My-Different-Qingming</loc>
     
     <lastmod>2022-04-05</lastmod>
@@ -130,7 +137,7 @@
 
   <url>
     <loc>http://yanghaowang.github.io/</loc>
-    <lastmod>2022-06-22</lastmod>
+    <lastmod>2022-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>

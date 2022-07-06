@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  <head>
+  <meta charset="utf-8">
+  <!-- Template is created by "zchengsite"<1451426471@qq.com> -->
+  <meta name="author" content="Yanghao Wang" />
+
+  <!-- Mobile Specific Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  
+  
+  
+  
+  <title>Review in Causal Inference (Part 1)  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/isle_icon.png">
+    <link rel="icon" href="/images/isle_icon.png">
+  
+
+  <!-- Info Feed for Search Engine -->
+  <meta property="og:url" content="http://yanghaowang.github.io/posts/20220201-Review-in-Causal-Inference-Part-1.html" />
+  <meta property="og:site_name" content="Home - Yanghao Wang" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Review in Causal Inference (Part 1)" />
+
+  
+    <meta name="description" content="This is the first post in a series of reviews in Causal Inference in Economics.">
+  
+
+
+  <!-- Info Feed for Twitter -->
+  <meta name="twitter:url" content="http://yanghaowang.github.io/posts/20220201-Review-in-Causal-Inference-Part-1.html" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Review in Causal Inference (Part 1)">
+  
+    <meta name="twitter:description" content="This is the first post in a series of reviews in Causal Inference in Economics.">
+  
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQF7RSRVHX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-HQF7RSRVHX');
+    </script>
+  
+
+  <!-- Site Verification (Begin) -->
+  <meta name="google-site-verification" content="JjXbgMsnj0fxvl9a8Srz8H3mqG7a5WH302GAZAceyHw" />
+  <meta name="msvalidate.01" content="83FCCA6F2323CE633A05D6A4C1D2116A" />
+  <!-- Site Verification (End) -->
+  
+  <!-- Microsoft Clarity (Begin) -->
+  <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "906d8r2odq");
+  </script>
+  <!-- Microsoft Clarity (Begin) -->
+
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Home - Yanghao Wang" type="application/atom+xml">
+</head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="container" align="right">
+    <div style="width: 40px; height: 40px;">
+      <div onclick=setDarkMode(true) id="darkBtn" style="font-size: 20px; cursor: pointer;">
+        <!-- 🌞 On -->
+        <svg t="1608934765001" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2784" width="40px" height="40px"><path d="M195.327541 505.553631a337.969888 337.409408 0 1 0 675.939777 0 337.969888 337.409408 0 1 0-675.939777 0Z" fill="#FAD700" p-id="2785"></path><path d="M306.302729 256.700181a337.409408 337.409408 0 1 1 378.884982 550.952571 337.409408 337.409408 0 0 0-378.884982-550.952571z" fill="#FFBE34" p-id="2786"></path><path d="M350.020227 223.071336a337.409408 337.409408 0 1 1 326.760273 588.504781 337.409408 337.409408 0 0 0-326.760273-588.504781z" fill="#FF9019" p-id="2787"></path><path d="M374.120899 463.517575a25.221633 25.221633 0 1 0 50.443267 0 25.221633 25.221633 0 1 0-50.443267 0Z" fill="" p-id="2788"></path><path d="M581.498774 463.517575a25.221633 25.221633 0 1 0 50.443267 0 25.221633 25.221633 0 1 0-50.443267 0Z" fill="" p-id="2789"></path><path d="M446.422915 563.283147h128.910571a64.455286 64.455286 0 0 1-128.910571 0z" fill="#FF8472" p-id="2790"></path><path d="M510.8782 636.145644a75.6649 75.6649 0 0 1-75.6649-72.302016 11.209615 11.209615 0 0 1 11.209615-11.770096h128.910571a11.209615 11.209615 0 0 1 11.209614 11.770096 75.6649 75.6649 0 0 1-75.6649 72.302016z m-51.564228-61.652882a53.245671 53.245671 0 0 0 103.128457 0z" fill="" p-id="2791"></path><path d="M643.712136 568.327474a29.144999 29.144999 0 1 0 58.289998 0 29.144999 29.144999 0 1 0-58.289998 0Z" fill="#FF9218" p-id="2792"></path><path d="M485.096086 879.954767A360.389118 360.389118 0 0 1 124.706968 520.12613a356.465753 356.465753 0 0 1 33.068364-150.76932 22.564955 22.564955 0 1 1 40.915094 19.056345A312.187774 312.187774 0 0 0 169.545427 520.12613a315.550659 315.550659 0 0 0 543.105841 218.027009 22.41923 22.41923 0 0 1 32.507883 30.826441A357.026234 357.026234 0 0 1 485.096086 879.954767z m284.163737-155.813646a22.41923 22.41923 0 0 1-19.056345-34.749806 313.308736 313.308736 0 0 0 34.189325-71.741536 22.41923 22.41923 0 0 1 42.596536 14.012019 358.707676 358.707676 0 0 1-38.673171 81.830189 22.41923 22.41923 0 0 1-19.056345 10.649134z m53.245671-182.156242a22.41923 22.41923 0 0 1-22.41923-22.41923 315.550659 315.550659 0 0 0-314.990178-314.429697l-30.26596 1.681442a22.531326 22.531326 0 1 1-4.483846-44.838459l34.749806-1.681442a360.389118 360.389118 0 0 1 360.389118 359.828637 22.41923 22.41923 0 0 1-22.97971 22.41923zM227.274944 323.95787a22.41923 22.41923 0 0 1-16.814422-36.991729 362.631041 362.631041 0 0 1 65.015766-59.97144 22.475278 22.475278 0 0 1 26.342595 36.431248 317.232101 317.232101 0 0 0-57.169036 52.68519 22.41923 22.41923 0 0 1-17.374903 7.846731z m121.06384-90.2374a22.41923 22.41923 0 0 1-8.967691-43.157017l30.82644-11.209615a22.508907 22.508907 0 0 1 14.5725 42.596536l-27.463557 10.088654a22.41923 22.41923 0 0 1-8.967692 1.681442z" fill="" p-id="2793"></path><path d="M272.673884 568.327474a29.144999 29.144999 0 1 0 58.289997 0 29.144999 29.144999 0 1 0-58.289997 0Z" fill="#FF9218" p-id="2794"></path><path d="M555.156179 1023.998319a16.814422 16.814422 0 0 1-16.814422-14.012019l-8.967692-50.443267a16.814422 16.814422 0 0 1 33.068364-5.604807l8.967691 50.443267a16.814422 16.814422 0 0 1-13.451537 19.616826z m-334.607004-83.511631a16.814422 16.814422 0 0 1-14.572499-25.221634l25.782114-44.838459a16.825632 16.825632 0 1 1 29.144998 16.814422l-25.782114 44.83846a16.814422 16.814422 0 0 1-14.572499 8.407211z m644.552855-67.257689a16.814422 16.814422 0 0 1-10.649134-3.923366l-39.233652-33.068364a16.898494 16.898494 0 1 1 21.858749-25.782114l39.233652 33.068364a16.814422 16.814422 0 0 1-10.649134 29.70548zM18.215626 661.367277a16.814422 16.814422 0 0 1-5.604807-32.507883l48.201344-17.374903a16.814422 16.814422 0 0 1 11.770096 31.386922L23.820434 660.246316z m936.002842-103.128456a16.814422 16.814422 0 0 1 0-33.628845h51.564229a16.814422 16.814422 0 0 1 0 33.628845H954.218468zM91.078123 334.607004l-5.604807-1.120962-48.761825-17.374903a16.814422 16.814422 0 0 1 11.209615-31.386921l48.761825 17.374903a16.814422 16.814422 0 0 1-5.604808 32.507883z m780.189195-75.10442a16.814422 16.814422 0 0 1-10.649134-29.705479l39.233652-33.068364a16.898494 16.898494 0 0 1 21.858749 25.782114l-39.233652 33.068364a16.814422 16.814422 0 0 1-11.209615 3.923365z m-563.283147-145.724993a16.814422 16.814422 0 0 1-14.572499-8.407211l-25.782115-44.277979a16.825632 16.825632 0 1 1 29.144999-16.814422l25.782114 44.277978a16.814422 16.814422 0 0 1-14.572499 25.221634z m308.264409-29.705479h-2.802404a16.814422 16.814422 0 0 1-13.451538-19.616826l8.967692-50.443267a16.814422 16.814422 0 0 1 33.068364 5.604807l-8.967692 50.443267a16.814422 16.814422 0 0 1-16.814422 14.012019z" fill="" p-id="2795"></path></svg>
+        <br>
+        <svg t="1608937543125" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5577" width="40px" height="40px"><path d="M768 699.733333H256c-51.694933 0-96.529067-18.619733-133.239467-55.3472C86.596267 608.221867 68.266667 563.677867 68.266667 512c0-51.6096 18.295467-96.4096 54.391466-133.137067C159.5904 342.562133 204.3904 324.266667 256 324.266667h512c51.694933 0 96.238933 18.3296 132.386133 54.493866C937.1136 415.470933 955.733333 460.305067 955.733333 512c0 51.746133-18.653867 96.341333-55.4496 132.488533C864.3584 681.0624 819.7632 699.733333 768 699.733333z m-3.8912-34.133333H768c42.871467 0 78.2336-14.7968 108.1344-45.243733C906.8032 590.2336 921.6 554.8544 921.6 512c0-42.9056-14.830933-78.592-45.346133-109.1072C846.318933 372.957867 810.922667 358.4 768 358.4h-4.0448c-41.3184 1.0752-75.7248 15.6672-105.147733 44.5952C628.974933 433.322667 614.4 469.0432 614.4 512c0 42.9056 14.557867 78.301867 44.4928 108.253867 29.457067 29.474133 63.880533 44.305067 105.216 45.346133zM256 358.4c-42.9568 0-78.677333 14.592-109.2096 44.5952C116.992 433.322667 102.4 469.0432 102.4 512c0 42.9056 14.557867 78.301867 44.4928 108.253867C177.408 650.769067 213.0944 665.6 256 665.6h403.626667a199.936 199.936 0 0 1-24.866134-21.213867C598.596267 608.221867 580.266667 563.677867 580.266667 512c0-51.626667 18.295467-96.4096 54.408533-133.137067 7.7312-7.611733 15.837867-14.4384 24.285867-20.462933H256z m256.853333 256c-6.331733 0-12.288-3.5328-15.240533-9.3696L443.733333 498.3296V597.333333a17.066667 17.066667 0 1 1-34.133333 0V426.666667a17.066667 17.066667 0 0 1 32.3072-7.697067L495.786667 525.653333V426.666667a17.066667 17.066667 0 0 1 34.133333 0v170.666666a17.066667 17.066667 0 0 1-17.066667 17.066667zM298.666667 614.4a58.5728 58.5728 0 0 1-42.786134-17.800533C244.6336 585.3696 238.933333 571.255467 238.933333 554.666667v-85.333334c0-16.366933 5.563733-30.6176 16.554667-42.359466 12.561067-11.810133 26.811733-17.373867 43.178667-17.373867 16.5888 0 30.702933 5.700267 41.9328 16.9472A58.641067 58.641067 0 0 1 358.4 469.333333v85.333334c0 16.571733-6.2976 31.214933-18.210133 42.3424-10.308267 11.093333-24.951467 17.390933-41.5232 17.390933z m0-170.666667c-7.645867 0-13.704533 2.338133-19.063467 7.355734-4.1984 4.539733-6.536533 10.5984-6.536533 18.244266v85.333334c0 7.406933 2.2016 13.073067 6.946133 17.800533 5.3248 5.307733 11.246933 7.799467 18.653867 7.799467 7.2704 0 12.629333-2.286933 17.390933-7.389867 5.9392-5.5808 8.209067-10.939733 8.209067-18.210133v-85.333334a24.917333 24.917333 0 0 0-7.799467-18.653866c-4.744533-4.744533-10.3936-6.946133-17.800533-6.946134z" p-id="5578"></path></svg>
+      </div>
+      <div onclick=setDarkMode(false) id="lightBtn" style="font-size: 20px; cursor: pointer; display: none;">
+        <!-- 🌙 Off  -->
+        <svg t="1608934974290" viewBox="0 0 1052 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2939" width="40px" height="40px"><path d="M475.216752 26.735953a461.193207 461.193207 0 0 0 434.025216 610.948473 458.542671 458.542671 0 0 0 115.960936-14.577946 459.205305 459.205305 0 1 1-549.986152-596.370527z" fill="#FACD00" p-id="2940"></path><path d="M591.840321 959.061876A487.03593 487.03593 0 0 1 468.590413 0.893231a26.505357 26.505357 0 0 1 31.806428 34.456963 434.68785 434.68785 0 0 0 408.845127 575.828875 432.699948 432.699948 0 0 0 109.334597-13.915312 26.505357 26.505357 0 0 1 31.806428 34.456964 485.710662 485.710662 0 0 1-458.542672 327.341155zM436.121351 67.156622a434.025216 434.025216 0 1 0 546.010348 591.732089 489.023832 489.023832 0 0 1-72.889731 5.301071 487.698564 487.698564 0 0 1-473.120617-597.03316z" fill="#FACD00" p-id="2941"></path><path d="M425.519208 79.746667a441.314189 441.314189 0 0 0 416.1341 585.105749 439.326288 439.326288 0 0 0 111.322499-14.577946A439.988922 439.988922 0 1 1 425.519208 79.746667z" fill="#FAF400" p-id="2942"></path><path d="M536.841706 974.302456A467.819546 467.819546 0 0 1 418.892869 53.903944a26.505357 26.505357 0 0 1 31.806428 34.456964 414.146199 414.146199 0 0 0 494.987537 536.733473 26.505357 26.505357 0 0 1 31.806428 34.456964A466.494278 466.494278 0 0 1 536.841706 974.302456zM386.423807 120.167336a414.146199 414.146199 0 1 0 522.818161 565.889366 467.819546 467.819546 0 0 1-522.818161-565.889366z" fill="#FAF400" p-id="2943"></path><path d="M497.746305 762.259602s33.131696-26.505357 43.733839-56.323883 7.288973-45.059106 7.288973-45.059106 100.057722 92.106115-51.022812 101.382989z" fill="#FF8472" p-id="2944"></path><path d="M497.746305 772.199111a9.939509 9.939509 0 0 1-5.963705-17.891116s31.143794-25.180089 40.420669-52.348079 7.288973-39.758035 7.288973-40.420669a9.939509 9.939509 0 0 1 5.301071-10.602143 9.939509 9.939509 0 0 1 11.264777 1.325268c4.638437 4.638437 45.72174 43.733839 33.131696 78.853436-8.614241 23.854821-38.432767 37.107499-90.780847 40.420669z m59.637053-86.805043a169.634283 169.634283 0 0 1-6.62634 23.854821 125.237811 125.237811 0 0 1-25.180088 40.420669c25.180089-4.638437 40.420669-12.590044 44.396472-23.854821s-3.31317-28.493258-12.590044-40.420669z" fill="" p-id="2945"></path><path d="M270.462871 552.867284a13.252678 13.252678 0 0 1-13.252678-12.590044c-1.325268-27.830625 14.577946-83.491874 83.491873-94.75665a13.252678 13.252678 0 0 1 3.975804 25.842722c-62.950222 9.939509-60.96232 64.938124-60.962321 66.926026a13.252678 13.252678 0 0 1-12.590044 13.915312z" fill="" p-id="2946"></path><path d="M485.818894 1024a487.03593 487.03593 0 0 1-409.507761-748.776327 26.505357 26.505357 0 1 1 44.396473 28.493258 433.362582 433.362582 0 0 0 642.092266 566.552c10.602143-8.614241 20.541651-17.891116 29.818526-27.830625a26.505357 26.505357 0 1 1 37.770134 37.1075c-10.602143 10.602143-21.866919 21.204285-33.79433 31.143794a485.048028 485.048028 0 0 1-310.775308 113.3104z m371.737628-190.175934a26.505357 26.505357 0 0 1-21.204285-41.745937 433.362582 433.362582 0 0 0 40.420669-68.251294 487.03593 487.03593 0 0 1-546.672982-591.732089 430.049413 430.049413 0 0 0-86.805044 45.721741 26.505357 26.505357 0 1 1-29.818526-43.733839A481.734858 481.734858 0 0 1 362.568986 65.831354a26.505357 26.505357 0 0 1 31.806428 34.456964 433.362582 433.362582 0 0 0 518.179724 561.913563 26.505357 26.505357 0 0 1 31.806428 34.456963 485.710662 485.710662 0 0 1-66.263392 126.563079 26.505357 26.505357 0 0 1-20.541652 10.602143zM135.948186 265.284164a26.505357 26.505357 0 0 1-19.879018-43.733839 491.674367 491.674367 0 0 1 35.782232-37.770133 26.505357 26.505357 0 1 1 36.444865 38.432767 438.00102 438.00102 0 0 0-31.806428 33.79433 26.505357 26.505357 0 0 1-20.541651 9.276875z" fill="" p-id="2947"></path><path d="M291.667156 711.236791a41.083303 41.083303 0 1 0 82.166606 0 41.083303 41.083303 0 1 0-82.166606 0Z" fill="#FFA11F" p-id="2948"></path></svg>
+        <br>
+        <svg t="1608937639614" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5917" width="40px" height="40px"><path d="M889.173333 633.173333C855.620267 666.1632 815.240533 682.666667 768 682.666667H260.266667c45.5168-1.1264 84.48-17.629867 116.906666-49.493334 31.863467-31.829333 48.349867-70.229333 49.493334-115.2V512c0-47.223467-16.503467-87.330133-49.493334-120.32-32.426667-32.426667-71.389867-49.2032-116.906666-50.346667H768c47.240533 0 87.620267 16.776533 121.173333 50.346667C922.1632 424.669867 938.666667 464.776533 938.666667 512c0 47.240533-16.503467 87.620267-49.493334 121.173333zM836.266667 506.026667h-51.2V597.333333v-91.306666h51.2zM853.333333 426.666667h-68.266666v79.36V426.666667h68.266666z m-290.133333 128v-85.333334c0-11.946667-4.266667-22.186667-12.8-30.72-7.970133-7.970133-17.92-11.946667-29.866667-11.946666s-22.186667 3.976533-30.72 11.946666c-7.970133 8.533333-11.946667 18.773333-11.946666 30.72v85.333334c0 11.946667 3.976533 21.896533 11.946666 29.866666 8.533333 8.533333 18.773333 12.8 30.72 12.8s21.896533-4.266667 29.866667-12.8c8.533333-7.970133 12.8-17.92 12.8-29.866666 0 11.946667-4.266667 21.896533-12.8 29.866666-7.970133 8.533333-17.92 12.8-29.866667 12.8s-22.186667-4.266667-30.72-12.8c-7.970133-7.970133-11.946667-17.92-11.946666-29.866666v-85.333334c0-11.946667 3.976533-22.186667 11.946666-30.72 8.533333-7.970133 18.773333-11.946667 30.72-11.946666s21.896533 3.976533 29.866667 11.946666c8.533333 8.533333 12.8 18.773333 12.8 30.72v85.333334z m136.533333-42.666667h-51.2v85.333333-85.333333h51.2z m17.066667-85.333333h-68.266667v85.333333-85.333333h68.266667z" p-id="5918"></path><path d="M785.066667 614.4a17.066667 17.066667 0 0 1-17.066667-17.066667V426.666667a17.066667 17.066667 0 0 1 17.066667-17.066667h68.266666a17.066667 17.066667 0 1 1 0 34.133333h-51.2v45.226667h34.133334a17.066667 17.066667 0 1 1 0 34.133333h-34.133334V597.333333a17.066667 17.066667 0 0 1-17.066666 17.066667z m-136.533334 0a17.066667 17.066667 0 0 1-17.066666-17.066667V426.666667a17.066667 17.066667 0 0 1 17.066666-17.066667h68.266667a17.066667 17.066667 0 1 1 0 34.133333h-51.2v51.2h34.133333a17.066667 17.066667 0 1 1 0 34.133334h-34.133333v68.266666a17.066667 17.066667 0 0 1-17.066667 17.066667z m-128 0a58.5728 58.5728 0 0 1-42.786133-17.800533C466.500267 585.3696 460.8 571.255467 460.8 554.666667v-85.333334c0-16.366933 5.563733-30.6176 16.554667-42.359466 12.561067-11.810133 26.811733-17.373867 43.178666-17.373867 16.5888 0 30.702933 5.700267 41.9328 16.964267A58.504533 58.504533 0 0 1 580.266667 469.333333v85.333334c0 16.571733-6.2976 31.214933-18.210134 42.3424-10.308267 11.093333-24.951467 17.390933-41.5232 17.390933z m0-170.666667c-7.645867 0-13.704533 2.338133-19.063466 7.355734-4.1984 4.539733-6.536533 10.5984-6.536534 18.244266v85.333334c0 7.406933 2.2016 13.073067 6.946134 17.800533 5.3248 5.307733 11.246933 7.799467 18.653866 7.799467 7.2704 0 12.629333-2.286933 17.390934-7.389867 5.922133-5.5808 8.209067-10.939733 8.209066-18.210133v-85.333334c0-7.406933-2.491733-13.329067-7.799466-18.653866-4.727467-4.744533-10.3936-6.946133-17.800534-6.946134z" fill="#ffffff" p-id="5919" data-spm-anchor-id="a313x.7781069.0.i8" class="selected"></path><path d="M768 699.733333H256c-51.694933 0-96.238933-18.3296-132.386133-54.493866C86.8864 608.529067 68.266667 563.712 68.266667 512c0-51.7632 18.653867-96.341333 55.466666-132.488533C159.658667 342.920533 204.2368 324.266667 256 324.266667h512c51.712 0 96.529067 18.619733 133.239467 55.3472C937.403733 415.761067 955.733333 460.305067 955.733333 512c0 51.6608-18.295467 96.443733-54.408533 133.137067l-0.2048 0.2048C864.426667 681.437867 819.643733 699.733333 768 699.733333z m-402.926933-34.133333H768c42.922667 0 78.609067-14.557867 109.1072-44.4928C907.042133 590.609067 921.6 554.939733 921.6 512c0-42.9056-14.557867-78.318933-44.4928-108.2368C846.592 373.230933 810.922667 358.4 768 358.4H364.373333c8.669867 6.229333 16.964267 13.294933 24.8832 21.213867C425.403733 415.761067 443.733333 460.305067 443.733333 512v5.973333c-1.245867 49.698133-19.575467 92.381867-54.493866 127.266134A204.8 204.8 0 0 1 365.073067 665.6zM256 358.4c-42.8544 0-78.2336 14.7968-108.1344 45.243733C117.1968 433.7664 102.4 469.1456 102.4 512c0 42.922667 14.830933 78.592 45.346133 109.1072C177.681067 651.042133 213.0944 665.6 256 665.6h4.0448c41.3184-1.058133 75.7248-15.6672 105.1648-44.5952 28.8256-28.808533 43.383467-62.6688 44.407467-103.458133L409.6 512c0-42.9056-14.557867-78.318933-44.4928-108.253867-29.422933-29.44-63.7952-44.270933-105.0624-45.346133H256z" p-id="5920" data-spm-anchor-id="a313x.7781069.0.i9" class="selected" fill="#ffffff"></path></svg>
+      </div> 
+      <script >
+      if (localStorage.getItem('preferredTheme') == 'dark') {
+        setDarkMode(true)
+      }
+      function setDarkMode(isDark) {
+        var darkBtn = document.getElementById('darkBtn')
+        var lightBtn = document.getElementById('lightBtn')
+        if (isDark) {
+        lightBtn.style.display = "block"
+        darkBtn.style.display = "none"
+        localStorage.setItem('preferredTheme', 'dark');
+        } else {
+        lightBtn.style.display = "none"
+        darkBtn.style.display = "block"
+        localStorage.removeItem('preferredTheme');
+        }
+        document.body.classList.toggle("darkmode");
+      }
+      </script>
+    </div>
+  </div>
+  <div class="avatar">
+    <!-- 头像取消懒加载，添加no-lazy -->
+    
+      <img src="/images/isle_icon.png" alt="">
+    
+    <div class="nickname">Yanghao Wang</div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/research/">
+          <a href="/research/">Research</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Review in Causal Inference (Part 1)</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2022-02-01
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Causal-Inference/" title="Causal Inference">
+                    <b>#</b> Causal Inference
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h2 id="Practice-1-ATEs-and-CATEs"><a href="#Practice-1-ATEs-and-CATEs" class="headerlink" title="Practice 1: ATEs and CATEs"></a>Practice 1: ATEs and CATEs</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Examine the effect of private school on earnings</span></span><br><span class="line">schools &lt;- fread(<span class="string">&quot;ATEs&amp;CTEs/public_private_earnings.csv&quot;</span>)</span><br><span class="line">schools</span><br></pre></td></tr></table></figure>
+<pre><code>##    student_id group   ivy1   ivy2  ivy3 public1 public2 public3 enrolled earnings
+## 1:          1     A   &lt;NA&gt; Reject Admit    &lt;NA&gt;   Admit    &lt;NA&gt;     ivy3   110000
+## 2:          2     A   &lt;NA&gt; Reject Admit    &lt;NA&gt;   Admit    &lt;NA&gt;     ivy3   100000
+## 3:          3     A   &lt;NA&gt; Reject Admit    &lt;NA&gt;   Admit    &lt;NA&gt;  public2   110000
+## 4:          4     B  Admit   &lt;NA&gt;  &lt;NA&gt;   Admit    &lt;NA&gt;   Admit     ivy1    60000
+## 5:          5     B  Admit   &lt;NA&gt;  &lt;NA&gt;   Admit    &lt;NA&gt;   Admit  public3    30000
+## 6:          6     C   &lt;NA&gt;  Admit  &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;     ivy2   115000
+## 7:          7     C   &lt;NA&gt;  Admit  &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;     ivy2    75000
+## 8:          8     D Reject   &lt;NA&gt;  &lt;NA&gt;   Admit   Admit    &lt;NA&gt;  public1    90000
+## 9:          9     D Reject   &lt;NA&gt;  &lt;NA&gt;   Admit   Admit    &lt;NA&gt;  public2    60000</code></pre>
+<ul>
+<li><p>Select comparable groups</p>
+</li>
+<li><p>Evaluate ATEs</p>
+<ul>
+<li><p>Manual Calculation</p>
+<p>$$<br>\text{ATE}=\sum_i \pi_i\times \text{CATE}_i<br>$$</p>
+<p>where \pi_i is the share of group i and \text{CATE}_i is the conditional ATE of observations in group i.</p>
+</li>
+<li><p>Regression</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Manual-Calculation"><a href="#Manual-Calculation" class="headerlink" title="Manual Calculation"></a>Manual Calculation</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">schools[, <span class="string">&#x27;:=&#x27;</span>(private = grepl(<span class="string">&#x27;ivy&#x27;</span>, enrolled))]</span><br><span class="line">schools[group %in% <span class="built_in">c</span>(<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>)][, .(n_obs = .N, avg_earnings = mean(earnings))</span><br><span class="line">                                , by=<span class="built_in">c</span>(<span class="string">&#x27;group&#x27;</span>, <span class="string">&#x27;private&#x27;</span>)]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">##    group private n_obs avg_earnings</span><br><span class="line">## 1:     A    TRUE     2       105000</span><br><span class="line">## 2:     A   FALSE     1       110000</span><br><span class="line">## 3:     B    TRUE     1        60000</span><br><span class="line">## 4:     B   FALSE     1        30000</span><br></pre></td></tr></table></figure>
+<h3 id="Regression"><a href="#Regression" class="headerlink" title="Regression"></a>Regression</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lm(earnings ~ private + factor(group), </span><br><span class="line">   data=schools[group %in% <span class="built_in">c</span>(<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>)])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## Call:</span><br><span class="line">## lm(formula &#x3D; earnings ~ private + factor(group), data &#x3D; schools[group %in% </span><br><span class="line">##     c(&quot;A&quot;, &quot;B&quot;)])</span><br><span class="line">## </span><br><span class="line">## Coefficients:</span><br><span class="line">##    (Intercept)     privateTRUE  factor(group)B  </span><br><span class="line">##         100000           10000          -60000</span><br></pre></td></tr></table></figure>
+<h2 id="Practice-2-Matching-and-Inverse-Probability-Weighting"><a href="#Practice-2-Matching-and-Inverse-Probability-Weighting" class="headerlink" title="Practice 2: Matching and Inverse Probability Weighting"></a>Practice 2: Matching and Inverse Probability Weighting</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Examine the effect of bed net usage on malaria risk</span></span><br><span class="line">nets &lt;- fread(<span class="string">&quot;Matching&amp;IPW/mosquito_nets.csv&quot;</span>)</span><br><span class="line">head(nets)</span><br></pre></td></tr></table></figure>
+<pre><code>##    id   net net_num malaria_risk income health household eligible temperature resistance
+## 1:  1  TRUE       1           33    781     56         2    FALSE        21.1         59
+## 2:  2 FALSE       0           42    974     57         4    FALSE        26.5         73
+## 3:  3 FALSE       0           80    502     15         3    FALSE        25.6         65
+## 4:  4  TRUE       1           34    671     20         5     TRUE        21.3         46
+## 5:  5 FALSE       0           44    728     17         5    FALSE        19.2         54
+## 6:  6 FALSE       0           25   1050     48         1    FALSE        25.3         34</code></pre>
+<h3 id="Directed-Acyclic-Graph-DAG"><a href="#Directed-Acyclic-Graph-DAG" class="headerlink" title="Directed Acyclic Graph (DAG)"></a>Directed Acyclic Graph (DAG)</h3><ul>
+<li><p>Identify mediator, confounder, and collider</p>
+<ul>
+<li><p>Example</p>
+<img src="/posts/20220201-Review-in-Causal-Inference-Part-1/unnamed-chunk-5-1.png" class="">
+</li>
+<li><p>DAG for nets</p>
+<img src="/posts/20220201-Review-in-Causal-Inference-Part-1/dag-1.png" class="">
+
+<ul>
+<li>Control variables?</li>
+<li>Do we need to control <code>eligible</code> and <code>household</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Conditional-Independence"><a href="#Conditional-Independence" class="headerlink" title="Conditional Independence"></a>Conditional Independence</h4><ul>
+<li>$\text{Health}\perp\text{\# of Household}$</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cor(nets$health, nets$household)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 9.785337e-05</span><br></pre></td></tr></table></figure>
+<ul>
+<li>$\text{Income}\perp\text{Insect Resistance}$</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cor(nets$income, nets$resistance)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 0.01371297</span><br></pre></td></tr></table></figure>
+<ul>
+<li>$\text{Malaria risk}\perp\text{\# of Household} \mid \text{(Net Use, Health, Income, Temp)}$</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lm(malaria_risk ~ household + net + health + income + temperature,</span><br><span class="line">   data = nets) %&gt;%</span><br><span class="line">  (<span class="keyword">function</span>(x) summary(x)$coeff) %&gt;%</span><br><span class="line">  (<span class="keyword">function</span>(x) <span class="built_in">round</span>(x, <span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">##             Estimate Std. Error  t value Pr(&gt;|t|)</span><br><span class="line">## (Intercept)  76.2067     0.9658  78.9062   0.0000</span><br><span class="line">## household    -0.0155     0.0893  -0.1730   0.8626</span><br><span class="line">## netTRUE     -10.4370     0.2665 -39.1633   0.0000</span><br><span class="line">## health        0.1483     0.0107  13.8997   0.0000</span><br><span class="line">## income       -0.0751     0.0010 -72.5635   0.0000</span><br><span class="line">## temperature   1.0058     0.0310  32.4829   0.0000</span><br></pre></td></tr></table></figure>
+<p><strong>Notes:</strong> No correlation ⇏ Independence</p>
+<blockquote>
+<p>[Example] Flip a fair coin to determine the amount of your bet: bet $1 if heads $2 if tails. Then flip again: win the amount of your bet if heads lose if tails.</p>
+</blockquote>
+<h3 id="Naive-Comparison"><a href="#Naive-Comparison" class="headerlink" title="Naive Comparison"></a>Naive Comparison</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model_naive &lt;- lm(malaria_risk ~ net, data = nets) </span><br><span class="line">summary(model_naive)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## Call:</span><br><span class="line">## lm(formula &#x3D; malaria_risk ~ net, data &#x3D; nets)</span><br><span class="line">## </span><br><span class="line">## Residuals:</span><br><span class="line">##     Min      1Q  Median      3Q     Max </span><br><span class="line">## -26.937  -9.605  -1.937   7.063  55.395 </span><br><span class="line">## </span><br><span class="line">## Coefficients:</span><br><span class="line">##             Estimate Std. Error t value Pr(&gt;|t|)    </span><br><span class="line">## (Intercept)  41.9365     0.4049  103.57   &lt;2e-16 ***</span><br><span class="line">## netTRUE     -16.3315     0.6495  -25.15   &lt;2e-16 ***</span><br><span class="line">## ---</span><br><span class="line">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span><br><span class="line">## </span><br><span class="line">## Residual standard error: 13.25 on 1750 degrees of freedom</span><br><span class="line">## Multiple R-squared:  0.2654, Adjusted R-squared:  0.265 </span><br><span class="line">## F-statistic: 632.3 on 1 and 1750 DF,  p-value: &lt; 2.2e-16</span><br></pre></td></tr></table></figure>
+<h4 id="Balance-Check"><a href="#Balance-Check" class="headerlink" title="Balance Check"></a>Balance Check</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (v <span class="keyword">in</span> <span class="built_in">c</span>(<span class="string">&#x27;income&#x27;</span>, <span class="string">&#x27;temperature&#x27;</span>, <span class="string">&#x27;health&#x27;</span>)) &#123;</span><br><span class="line">  plot_command &lt;- paste0(<span class="string">&#x27;ggplot(data = nets, aes(x =&#x27;</span>, v,</span><br><span class="line">                         <span class="string">&#x27;, fill=net)) +geom_density(alpha = 0.7)&#x27;</span>)</span><br><span class="line">  print(eval(parse(text = plot_command)))</span><br><span class="line">  test_result &lt;- t.test(as.formula(paste0(v, <span class="string">&#x27;~net&#x27;</span>)), data=nets)</span><br><span class="line">  print(test_result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<img src="/posts/20220201-Review-in-Causal-Inference-Part-1/unnamed-chunk-10-1.png" class="">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">##  Welch Two Sample t-test</span><br><span class="line">## </span><br><span class="line">## data:  income by net</span><br><span class="line">## t &#x3D; -8.8113, df &#x3D; 1284.7, p-value &lt; 2.2e-16</span><br><span class="line">## alternative hypothesis: true difference in means between group FALSE and group TRUE is not equal to 0</span><br><span class="line">## 95 percent confidence interval:</span><br><span class="line">##  -100.79660  -64.08593</span><br><span class="line">## sample estimates:</span><br><span class="line">## mean in group FALSE  mean in group TRUE </span><br><span class="line">##            872.7526            955.1938</span><br></pre></td></tr></table></figure>
+<img src="/posts/20220201-Review-in-Causal-Inference-Part-1/unnamed-chunk-10-2.png" class="">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">##  Welch Two Sample t-test</span><br><span class="line">## </span><br><span class="line">## data:  temperature by net</span><br><span class="line">## t &#x3D; 3.492, df &#x3D; 1404.3, p-value &#x3D; 0.0004943</span><br><span class="line">## alternative hypothesis: true difference in means between group FALSE and group TRUE is not equal to 0</span><br><span class="line">## 95 percent confidence interval:</span><br><span class="line">##  0.3098586 1.1042309</span><br><span class="line">## sample estimates:</span><br><span class="line">## mean in group FALSE  mean in group TRUE </span><br><span class="line">##            24.08796            23.38091</span><br></pre></td></tr></table></figure>
+<img src="/posts/20220201-Review-in-Causal-Inference-Part-1/unnamed-chunk-10-3.png" class="">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">##  Welch Two Sample t-test</span><br><span class="line">## </span><br><span class="line">## data:  health by net</span><br><span class="line">## t &#x3D; -7.6447, df &#x3D; 1346.9, p-value &#x3D; 3.961e-14</span><br><span class="line">## alternative hypothesis: true difference in means between group FALSE and group TRUE is not equal to 0</span><br><span class="line">## 95 percent confidence interval:</span><br><span class="line">##  -8.610309 -5.093693</span><br><span class="line">## sample estimates:</span><br><span class="line">## mean in group FALSE  mean in group TRUE </span><br><span class="line">##            48.05696            54.90896</span><br></pre></td></tr></table></figure>
+<h3 id="Regression-1"><a href="#Regression-1" class="headerlink" title="Regression"></a>Regression</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model_regression &lt;- lm(malaria_risk ~ net + income + temperature + health, data = nets)</span><br><span class="line">summary(model_regression)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## Call:</span><br><span class="line">## lm(formula &#x3D; malaria_risk ~ net + income + temperature + health, </span><br><span class="line">##     data &#x3D; nets)</span><br><span class="line">## </span><br><span class="line">## Residuals:</span><br><span class="line">##     Min      1Q  Median      3Q     Max </span><br><span class="line">## -13.143  -3.915  -0.561   3.333  16.461 </span><br><span class="line">## </span><br><span class="line">## Coefficients:</span><br><span class="line">##               Estimate Std. Error t value Pr(&gt;|t|)    </span><br><span class="line">## (Intercept)  76.159901   0.926835   82.17   &lt;2e-16 ***</span><br><span class="line">## netTRUE     -10.441932   0.264906  -39.42   &lt;2e-16 ***</span><br><span class="line">## income       -0.075144   0.001035  -72.58   &lt;2e-16 ***</span><br><span class="line">## temperature   1.005855   0.030953   32.50   &lt;2e-16 ***</span><br><span class="line">## health        0.148362   0.010668   13.91   &lt;2e-16 ***</span><br><span class="line">## ---</span><br><span class="line">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span><br><span class="line">## </span><br><span class="line">## Residual standard error: 5.244 on 1747 degrees of freedom</span><br><span class="line">## Multiple R-squared:  0.8852, Adjusted R-squared:  0.8849 </span><br><span class="line">## F-statistic:  3366 on 4 and 1747 DF,  p-value: &lt; 2.2e-16</span><br></pre></td></tr></table></figure>
+<h3 id="Matching-Mahalanobis-Distance"><a href="#Matching-Mahalanobis-Distance" class="headerlink" title="Matching (Mahalanobis Distance)"></a>Matching (Mahalanobis Distance)</h3><ul>
+<li><p>Mahalanobis distance between $\bf{x}$ and $\bf{y}$</p>
+<p>$$<br>(\bf{x} - \bf{y})\Sigma^{-1}(\bf{x} - \bf{y})^T<br>$$</p>
+<p>where $\Sigma$ is the covariance matrix.</p>
+</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">library(MatchIt)</span><br><span class="line"></span><br><span class="line">matched &lt;- matchit(net ~ income + temperature + health, data = nets,</span><br><span class="line">                   method = <span class="string">&quot;nearest&quot;</span>, </span><br><span class="line">                   distance = <span class="string">&quot;mahalanobis&quot;</span>, </span><br><span class="line">                   replace = <span class="literal">TRUE</span>)</span><br><span class="line">matched</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">## A matchit object</span><br><span class="line">##  - method: 1:1 nearest neighbor matching with replacement</span><br><span class="line">##  - distance: Mahalanobis</span><br><span class="line">##  - number of obs.: 1752 (original), 1120 (matched)</span><br><span class="line">##  - target estimand: ATT</span><br><span class="line">##  - covariates: income, temperature, health</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Dimension of the data used for matching</span></span><br><span class="line"><span class="built_in">dim</span>(matched$X)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 1752    3</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Number of the treated</span></span><br><span class="line"><span class="built_in">sum</span>(matched$treat)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 681</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Number of the matched control</span></span><br><span class="line"><span class="built_in">sum</span>(matched$weights&gt;<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 1120</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Number of the unmatched control</span></span><br><span class="line"><span class="built_in">sum</span>(matched$weights==<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">## [1] 632</span><br></pre></td></tr></table></figure>
+<ul>
+<li>The <code>matchit()</code> function determines the pair weights by measuring how close the matched pair are. The weights can be used in the regression to account for the variation in distance.</li>
+</ul>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nets_matched &lt;- match.data(matched)</span><br><span class="line">model_matched &lt;- lm(malaria_risk ~ net, data = nets_matched, weights = weights)</span><br><span class="line">summary(model_matched)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## Call:</span><br><span class="line">## lm(formula &#x3D; malaria_risk ~ net, data &#x3D; nets_matched, weights &#x3D; weights)</span><br><span class="line">## </span><br><span class="line">## Weighted Residuals:</span><br><span class="line">##     Min      1Q  Median      3Q     Max </span><br><span class="line">## -36.312  -7.605  -1.681   5.395  55.395 </span><br><span class="line">## </span><br><span class="line">## Coefficients:</span><br><span class="line">##             Estimate Std. Error t value Pr(&gt;|t|)    </span><br><span class="line">## (Intercept)  36.0940     0.5951   60.65   &lt;2e-16 ***</span><br><span class="line">## netTRUE     -10.4890     0.7632  -13.74   &lt;2e-16 ***</span><br><span class="line">## ---</span><br><span class="line">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span><br><span class="line">## </span><br><span class="line">## Residual standard error: 12.47 on 1118 degrees of freedom</span><br><span class="line">## Multiple R-squared:  0.1445, Adjusted R-squared:  0.1438 </span><br><span class="line">## F-statistic: 188.9 on 1 and 1118 DF,  p-value: &lt; 2.2e-16</span><br></pre></td></tr></table></figure>
+<h4 id="Balance-Check-1"><a href="#Balance-Check-1" class="headerlink" title="Balance Check"></a>Balance Check</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (v <span class="keyword">in</span> <span class="built_in">c</span>(<span class="string">&#x27;income&#x27;</span>, <span class="string">&#x27;temperature&#x27;</span>, <span class="string">&#x27;health&#x27;</span>)) &#123;</span><br><span class="line">  test_result &lt;- t.test(as.formula(paste0(v, <span class="string">&#x27;~net&#x27;</span>)), data=nets_matched)</span><br><span class="line">  print(test_result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">##  Welch Two Sample t-test</span><br><span class="line">## </span><br><span class="line">## data:  income by net</span><br><span class="line">## t &#x3D; -3.5017, df &#x3D; 990.87, p-value &#x3D; 0.0004829</span><br><span class="line">## alternative hypothesis: true difference in means between group FALSE and group TRUE is not equal to 0</span><br><span class="line">## 95 percent confidence interval:</span><br><span class="line">##  -64.12955 -18.06677</span><br><span class="line">## sample estimates:</span><br><span class="line">## mean in group FALSE  mean in group TRUE </span><br><span class="line">##            914.0957            955.1938 </span><br><span class="line">## </span><br><span class="line">## </span><br><span class="line">##  Welch Two Sample t-test</span><br><span class="line">## </span><br><span class="line">## data:  temperature by net</span><br><span class="line">## t &#x3D; 0.79239, df &#x3D; 952.76, p-value &#x3D; 0.4283</span><br><span class="line">## alternative hypothesis: true difference in means between group FALSE and group TRUE is not equal to 0</span><br><span class="line">## 95 percent confidence interval:</span><br><span class="line">##  -0.2955968  0.6959627</span><br><span class="line">## sample estimates:</span><br><span class="line">## mean in group FALSE  mean in group TRUE </span><br><span class="line">##            23.58109            23.38091 </span><br><span class="line">## </span><br><span class="line">## </span><br><span class="line">##  Welch Two Sample t-test</span><br><span class="line">## </span><br><span class="line">## data:  health by net</span><br><span class="line">## t &#x3D; -3.0287, df &#x3D; 977.39, p-value &#x3D; 0.002521</span><br><span class="line">## alternative hypothesis: true difference in means between group FALSE and group TRUE is not equal to 0</span><br><span class="line">## 95 percent confidence interval:</span><br><span class="line">##  -5.567087 -1.189325</span><br><span class="line">## sample estimates:</span><br><span class="line">## mean in group FALSE  mean in group TRUE </span><br><span class="line">##            51.53075            54.90896</span><br></pre></td></tr></table></figure>
+<h3 id="Matching-Propensity-Score"><a href="#Matching-Propensity-Score" class="headerlink" title="Matching (Propensity Score)"></a>Matching (Propensity Score)</h3><p><strong>Other Source</strong>：<a target="_blank" rel="noopener" href="https://sejdemyr.github.io/r-tutorials/statistics/tutorial8.html">Simon Ejdemyr’s notes on propensity score matching</a></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">matched_psm &lt;- matchit(net ~ income + temperature + health, data = nets,</span><br><span class="line">                   method = <span class="string">&quot;nearest&quot;</span>,</span><br><span class="line">                   replace = <span class="literal">TRUE</span>)</span><br><span class="line">matched_psm</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">## A matchit object</span><br><span class="line">##  - method: 1:1 nearest neighbor matching with replacement</span><br><span class="line">##  - distance: Propensity score</span><br><span class="line">##              - estimated with logistic regression</span><br><span class="line">##  - number of obs.: 1752 (original), 1098 (matched)</span><br><span class="line">##  - target estimand: ATT</span><br><span class="line">##  - covariates: income, temperature, health</span><br></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nets_matched_psm &lt;- match.data(matched_psm)</span><br><span class="line">model_matched_psm &lt;- lm(malaria_risk ~ net, data = nets_matched_psm, weights = weights)</span><br><span class="line">summary(model_matched_psm)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## Call:</span><br><span class="line">## lm(formula &#x3D; malaria_risk ~ net, data &#x3D; nets_matched_psm, weights &#x3D; weights)</span><br><span class="line">## </span><br><span class="line">## Weighted Residuals:</span><br><span class="line">##     Min      1Q  Median      3Q     Max </span><br><span class="line">## -57.745  -7.605  -1.605   5.395  59.226 </span><br><span class="line">## </span><br><span class="line">## Coefficients:</span><br><span class="line">##             Estimate Std. Error t value Pr(&gt;|t|)    </span><br><span class="line">## (Intercept)  36.3025     0.6187   58.67   &lt;2e-16 ***</span><br><span class="line">## netTRUE     -10.6975     0.7857  -13.62   &lt;2e-16 ***</span><br><span class="line">## ---</span><br><span class="line">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span><br><span class="line">## </span><br><span class="line">## Residual standard error: 12.63 on 1096 degrees of freedom</span><br><span class="line">## Multiple R-squared:  0.1447, Adjusted R-squared:  0.1439 </span><br><span class="line">## F-statistic: 185.4 on 1 and 1096 DF,  p-value: &lt; 2.2e-16</span><br></pre></td></tr></table></figure>
+<h4 id="Common-Support"><a href="#Common-Support" class="headerlink" title="Common Support"></a>Common Support</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">model_treatment &lt;- glm(net ~ income + temperature + health, data = nets,</span><br><span class="line">                       family = binomial(link = <span class="string">&quot;logit&quot;</span>))</span><br><span class="line">nets_pred &lt;- copy(nets)</span><br><span class="line">nets_pred$pred &lt;- model_treatment$fitted.values</span><br><span class="line"></span><br><span class="line">ggplot(data = nets_pred, aes(x = pred, fill=net)) + </span><br><span class="line">  geom_histogram(position = <span class="string">&quot;identity&quot;</span>, alpha = <span class="number">0.7</span>, bins = <span class="number">50</span>) + xlim(<span class="built_in">c</span>(<span class="number">0</span>, <span class="number">1</span>)) + </span><br><span class="line">  labs(title=paste0(<span class="string">&#x27;Full Sample (N = &#x27;</span>, nrow(nets_pred), <span class="string">&#x27;)&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<img src="/posts/20220201-Review-in-Causal-Inference-Part-1/unnamed-chunk-17-1.png" class="">
+
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ggplot(data = nets_pred[id %in% nets_matched_psm$id], aes(x = pred, fill=net)) + </span><br><span class="line">  geom_histogram(position = <span class="string">&quot;identity&quot;</span>, alpha = <span class="number">0.7</span>, bins = <span class="number">50</span>) + xlim(<span class="built_in">c</span>(<span class="number">0</span>, <span class="number">1</span>)) + </span><br><span class="line">  labs(title=paste0(<span class="string">&#x27;Matched Sample (N = &#x27;</span>, nrow(nets_matched_psm), <span class="string">&#x27;)&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<img src="/posts/20220201-Review-in-Causal-Inference-Part-1/unnamed-chunk-18-1.png" class="">
+
+<h4 id="Balance-Check-2"><a href="#Balance-Check-2" class="headerlink" title="Balance Check"></a>Balance Check</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (v <span class="keyword">in</span> <span class="built_in">c</span>(<span class="string">&#x27;income&#x27;</span>, <span class="string">&#x27;temperature&#x27;</span>, <span class="string">&#x27;health&#x27;</span>)) &#123;</span><br><span class="line">  plot_command &lt;- paste0(<span class="string">&#x27;ggplot(data = nets_matched_psm, aes(x =&#x27;</span>, v,</span><br><span class="line">                         <span class="string">&#x27;, fill=net)) +geom_density(alpha = 0.7)&#x27;</span>)</span><br><span class="line">  print(eval(parse(text = plot_command)))</span><br><span class="line">  test_result &lt;- t.test(as.formula(paste0(v, <span class="string">&#x27;~net&#x27;</span>)), data=nets_matched_psm)</span><br><span class="line">  print(test_result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<img src="/posts/20220201-Review-in-Causal-Inference-Part-1/unnamed-chunk-19-1.png" class="">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">##  Welch Two Sample t-test</span><br><span class="line">## </span><br><span class="line">## data:  income by net</span><br><span class="line">## t &#x3D; -3.548, df &#x3D; 954.79, p-value &#x3D; 0.0004071</span><br><span class="line">## alternative hypothesis: true difference in means between group FALSE and group TRUE is not equal to 0</span><br><span class="line">## 95 percent confidence interval:</span><br><span class="line">##  -64.64167 -18.59971</span><br><span class="line">## sample estimates:</span><br><span class="line">## mean in group FALSE  mean in group TRUE </span><br><span class="line">##            913.5731            955.1938</span><br></pre></td></tr></table></figure>
+<img src="/posts/20220201-Review-in-Causal-Inference-Part-1/unnamed-chunk-19-2.png" class="">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">##  Welch Two Sample t-test</span><br><span class="line">## </span><br><span class="line">## data:  temperature by net</span><br><span class="line">## t &#x3D; 1.4522, df &#x3D; 910.52, p-value &#x3D; 0.1468</span><br><span class="line">## alternative hypothesis: true difference in means between group FALSE and group TRUE is not equal to 0</span><br><span class="line">## 95 percent confidence interval:</span><br><span class="line">##  -0.1294926  0.8664727</span><br><span class="line">## sample estimates:</span><br><span class="line">## mean in group FALSE  mean in group TRUE </span><br><span class="line">##            23.74940            23.38091</span><br></pre></td></tr></table></figure>
+<img src="/posts/20220201-Review-in-Causal-Inference-Part-1/unnamed-chunk-19-3.png" class="">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">##  Welch Two Sample t-test</span><br><span class="line">## </span><br><span class="line">## data:  health by net</span><br><span class="line">## t &#x3D; -2.1015, df &#x3D; 920.12, p-value &#x3D; 0.03587</span><br><span class="line">## alternative hypothesis: true difference in means between group FALSE and group TRUE is not equal to 0</span><br><span class="line">## 95 percent confidence interval:</span><br><span class="line">##  -4.6145611 -0.1577902</span><br><span class="line">## sample estimates:</span><br><span class="line">## mean in group FALSE  mean in group TRUE </span><br><span class="line">##            52.52278            54.90896</span><br></pre></td></tr></table></figure>
+<h3 id="Inverse-Probability-Weighting"><a href="#Inverse-Probability-Weighting" class="headerlink" title="Inverse Probability Weighting"></a>Inverse Probability Weighting</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Predict the probability of a household using bed nets</span></span><br><span class="line">model_treatment &lt;- glm(net ~ income + temperature + health, data = nets,</span><br><span class="line">                       family = binomial(link = <span class="string">&quot;logit&quot;</span>))</span><br><span class="line">nets_ipw &lt;- copy(nets)</span><br><span class="line">nets_ipw$pred &lt;- model_treatment$fitted.values</span><br><span class="line">nets_ipw[, ipw := (net_num / pred) + (<span class="number">1</span> - net_num) / (<span class="number">1</span> - pred)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Evaluate the effect with inverse probability weights</span></span><br><span class="line">model_ipw &lt;- lm(malaria_risk ~ net, data = nets_ipw, weights = ipw)</span><br><span class="line">summary(model_ipw)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## Call:</span><br><span class="line">## lm(formula &#x3D; malaria_risk ~ net, data &#x3D; nets_ipw, weights &#x3D; ipw)</span><br><span class="line">## </span><br><span class="line">## Weighted Residuals:</span><br><span class="line">##     Min      1Q  Median      3Q     Max </span><br><span class="line">## -45.705 -14.622  -4.924  10.791 162.642 </span><br><span class="line">## </span><br><span class="line">## Coefficients:</span><br><span class="line">##             Estimate Std. Error t value Pr(&gt;|t|)    </span><br><span class="line">## (Intercept)  39.6788     0.4684   84.71   &lt;2e-16 ***</span><br><span class="line">## netTRUE     -10.1312     0.6583  -15.39   &lt;2e-16 ***</span><br><span class="line">## ---</span><br><span class="line">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span><br><span class="line">## </span><br><span class="line">## Residual standard error: 19.54 on 1750 degrees of freedom</span><br><span class="line">## Multiple R-squared:  0.1192, Adjusted R-squared:  0.1187 </span><br><span class="line">## F-statistic: 236.8 on 1 and 1750 DF,  p-value: &lt; 2.2e-16</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>Inverse Probability Weights</p>
+<p>$$<br>\frac{\text{Treatment}}{\text{Propensity}}+\frac{1-\text{Treatment}}{1-\text{Propensity}}<br>$$</p>
+<p>Think of this formula in a controlled experiment scenario:</p>
+<ul>
+<li><p>Individuals are more likely to be <strong>never-takers</strong> (in a control group) if their likelihood values of receiving treatment are lower than the average and they do <em>not</em> receive treatment</p>
+</li>
+<li><p>Individuals are more likely to be <strong>always-takers</strong> (in a treatment group) if their likelihood values of receiving treatment are higher than the average and they <em>do</em> receive treatment</p>
+</li>
+<li><p>Individuals are more likely to be <strong>compliers</strong> (in both the control and the treatment group) if their likelihood values of receiving treatment are inconsistent with their actual treatment</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>To the end, we evaluate the change in the compliers’ outcomes due to<br> their different exposures to the treatment.In</p>
+<h3 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">## </span><br><span class="line">## &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">##              Naive        Regression   Matching (M)  Matching (PS)  IPW        </span><br><span class="line">## -------------------------------------------------------------------------------</span><br><span class="line">## (Intercept)    41.94 ***    76.16 ***    36.09 ***     36.30 ***      39.68 ***</span><br><span class="line">##                (0.40)       (0.93)       (0.60)        (0.62)         (0.47)   </span><br><span class="line">## netTRUE       -16.33 ***   -10.44 ***   -10.49 ***    -10.70 ***     -10.13 ***</span><br><span class="line">##                (0.65)       (0.26)       (0.76)        (0.79)         (0.66)   </span><br><span class="line">## income                      -0.08 ***                                          </span><br><span class="line">##                             (0.00)                                             </span><br><span class="line">## temperature                  1.01 ***                                          </span><br><span class="line">##                             (0.03)                                             </span><br><span class="line">## health                       0.15 ***                                          </span><br><span class="line">##                             (0.01)                                             </span><br><span class="line">## -------------------------------------------------------------------------------</span><br><span class="line">## R^2             0.27         0.89         0.14          0.14           0.12    </span><br><span class="line">## Adj. R^2        0.27         0.88         0.14          0.14           0.12    </span><br><span class="line">## Num. obs.    1752         1752         1120          1098           1752       </span><br><span class="line">## &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>Overestimate or underestimate? Why?</p>
+<p>Suppose $y = \beta x + \theta z + \varepsilon$ where $z$ is an omitting variable.</p>
+<p>$$<br>\begin{align*}~<br>z &amp;= \gamma x+\eta \\<br>y &amp;= \beta x +\xi = \beta x + \theta\gamma x +\theta\eta+\epsilon<br>\end{align*}<br>$$</p>
+<p>where $\beta’=\beta+\theta\gamma\neq\beta$ if $\theta\neq0$ or $\gamma\neq0$.</p>
+</li>
+</ul>
+<h2 id="Practice-3-Difference-in-differences"><a href="#Practice-3-Difference-in-differences" class="headerlink" title="Practice 3: Difference-in-differences"></a>Practice 3: Difference-in-differences</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">injury &lt;- fread(<span class="string">&quot;Did/injury.csv&quot;</span>)[ky==<span class="number">1</span>]</span><br><span class="line">setnames(injury, old=<span class="built_in">c</span>(<span class="string">&#x27;durat&#x27;</span>, <span class="string">&#x27;ldurat&#x27;</span>, <span class="string">&#x27;afchnge&#x27;</span>),</span><br><span class="line">         new=<span class="built_in">c</span>(<span class="string">&#x27;duration&#x27;</span>, <span class="string">&#x27;log_duration&#x27;</span>, <span class="string">&#x27;after_1980&#x27;</span>))</span><br><span class="line">injury$highearn &lt;- injury$highearn==<span class="number">1</span></span><br><span class="line">print(paste(<span class="built_in">c</span>(<span class="string">&#x27;Number of Rows:&#x27;</span>, <span class="string">&#x27;Number of Columns:&#x27;</span>), <span class="built_in">dim</span>(injury)))</span><br></pre></td></tr></table></figure>
+<pre><code>## [1] &quot;Number of Rows: 5626&quot;  &quot;Number of Columns: 30&quot;</code></pre>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">head(injury)</span><br></pre></td></tr></table></figure>
+<pre><code>##    duration after_1980 highearn male married hosp indust injtype age  prewage    totmed injdes  benefit ky mi log_duration afhigh lprewage     lage  ltotmed head neck upextr trunk lowback lowextr occdis manuf construc highlpre
+## 1:        1          1     TRUE    1       0    1      3       1  26 404.9500 1187.5732   1010 246.8375  1  0     0.000000      1 6.003764 3.258096 7.079667    1    0      0     0       0       0      0     0        0 6.003764
+## 2:        1          1     TRUE    1       1    0      3       1  31 643.8250  361.0786   1404 246.8375  1  0     0.000000      1 6.467427 3.433987 5.889095    1    0      0     0       0       0      0     0        0 6.467427
+## 3:       84          1     TRUE    1       1    1      3       1  37 398.1250 8963.6572   1032 246.8375  1  0     4.430817      1 5.986766 3.610918 9.100934    1    0      0     0       0       0      0     0        0 5.986766
+## 4:        4          1     TRUE    1       1    1      3       1  31 527.8000 1099.6483   1940 246.8375  1  0     1.386294      1 6.268717 3.433987 7.002746    1    0      0     0       0       0      0     0        0 6.268717
+## 5:        1          1     TRUE    1       1    0      3       1  23 528.9375  372.8019   1940 211.5750  1  0     0.000000      1 6.270870 3.135494 5.921047    1    0      0     0       0       0      0     0        0 6.270870
+## 6:        1          1     TRUE    1       1    0      3       1  34 614.2500  211.0199   1425 176.3125  1  0     0.000000      1 6.420402 3.526361 5.351953    1    0      0     0       0       0      0     0        0 6.420402</code></pre>
+<blockquote>
+<p>Background (Wooldridge’s Intro Econometrics P411): Meyer, Viscusi, and Durbin (1995) (hereafter, MVD) studied the length of time (in weeks) that an injured worker receives workers’ compensation. On July 15, 1980, Kentucky raised the cap on weekly earnings that were covered by workers’ compensation. An increase in the cap has no effect on the benefit for low-income workers, but it makes it less costly for a high-income worker to stay on workers’ compensation. Therefore, the control group is low-income workers, and the treatment group is high-income workers; high-income workers are defined as those who were subject to the pre-policy change cap. Using random samples both before and after the policy change, MVD were able to test whether more generous workers’ compensation causes people to stay out of work longer (everything else fixed). They started with a difference-in-differences analysis, using log(durat) as the dependent variable. Let afchnge be the dummy variable for observations after the policy change and highearn the dummy variable for high earners.</p>
+</blockquote>
+<h3 id="Change-after-1980"><a href="#Change-after-1980" class="headerlink" title="Change after 1980"></a>Change after 1980</h3><img src="/posts/20220201-Review-in-Causal-Inference-Part-1/unnamed-chunk-23-1.png" class="">
+
+<img src="/posts/20220201-Review-in-Causal-Inference-Part-1/unnamed-chunk-23-2.png" class="">
+
+<img src="/posts/20220201-Review-in-Causal-Inference-Part-1/unnamed-chunk-24-1.png" class="">
+
+<h3 id="Regression-2"><a href="#Regression-2" class="headerlink" title="Regression"></a>Regression</h3><p>$$<br>\log(\text{duration}) = \alpha + \beta \text{highearn} +<br>\gamma\text{after_1980} +<br>\delta(\text{highearn} \times \text{after_1980}) + \epsilon<br>$$</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model_simple &lt;- lm(log_duration ~ highearn + after_1980 + highearn * after_1980,</span><br><span class="line">                   data = injury)</span><br><span class="line">summary(model_simple)</span><br></pre></td></tr></table></figure>
+<pre><code>## 
+## Call:
+## lm(formula = log_duration ~ highearn + after_1980 + highearn * 
+##     after_1980, data = injury)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.9666 -0.8872  0.0042  0.8126  4.0784 
+## 
+## Coefficients:
+##                         Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)             1.125615   0.030737  36.621  &lt; 2e-16 ***
+## highearnTRUE            0.256479   0.047446   5.406 6.72e-08 ***
+## after_1980              0.007657   0.044717   0.171  0.86404    
+## highearnTRUE:after_1980 0.190601   0.068509   2.782  0.00542 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.269 on 5622 degrees of freedom
+## Multiple R-squared:  0.02066,    Adjusted R-squared:  0.02014 
+## F-statistic: 39.54 on 3 and 5622 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><strong>Add more controls</strong>: <code>male</code>, <code>married</code>, <code>age</code>, <code>hosp</code> (1 = hospitalized), <code>indust</code> (1 = manuf, 2 = construc, 3 = other), <code>injtype</code> (1-8; categories for different types of injury), <code>lprewage</code> (log of wage prior to filing a claim)</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model_full &lt;- lm(log_duration ~ highearn + after_1980 + highearn * after_1980 + male + </span><br><span class="line">                   married + age + hosp + as.factor(indust) + as.factor(injtype) + lprewage,</span><br><span class="line">                 data = injury)</span><br><span class="line">summary(model_full)</span><br></pre></td></tr></table></figure>
+<pre><code>## 
+## Call:
+## lm(formula = log_duration ~ highearn + after_1980 + highearn * 
+##     after_1980 + male + married + age + hosp + as.factor(indust) + 
+##     as.factor(injtype) + lprewage, data = injury)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.0606 -0.7726  0.0931  0.7314  4.3409 
+## 
+## Coefficients:
+##                          Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)             -1.528202   0.422212  -3.620 0.000298 ***
+## highearnTRUE            -0.151781   0.089116  -1.703 0.088591 .  
+## after_1980               0.049540   0.041321   1.199 0.230624    
+## male                    -0.084289   0.042315  -1.992 0.046427 *  
+## married                  0.056662   0.037305   1.519 0.128845    
+## age                      0.006507   0.001338   4.863 1.19e-06 ***
+## hosp                     1.130493   0.037006  30.549  &lt; 2e-16 ***
+## as.factor(indust)2       0.183864   0.054131   3.397 0.000687 ***
+## as.factor(indust)3       0.163485   0.037852   4.319 1.60e-05 ***
+## as.factor(injtype)2      0.935468   0.143731   6.508 8.29e-11 ***
+## as.factor(injtype)3      0.635466   0.085442   7.437 1.19e-13 ***
+## as.factor(injtype)4      0.554550   0.092849   5.973 2.49e-09 ***
+## as.factor(injtype)5      0.641201   0.085435   7.505 7.15e-14 ***
+## as.factor(injtype)6      0.615041   0.086312   7.126 1.17e-12 ***
+## as.factor(injtype)7      0.991336   0.190532   5.203 2.03e-07 ***
+## as.factor(injtype)8      0.434082   0.118912   3.650 0.000264 ***
+## lprewage                 0.284481   0.080056   3.554 0.000383 ***
+## highearnTRUE:after_1980  0.168721   0.063975   2.637 0.008381 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.15 on 5329 degrees of freedom
+##   (279 observations deleted due to missingness)
+## Multiple R-squared:  0.1899, Adjusted R-squared:  0.1873 
+## F-statistic: 73.46 on 17 and 5329 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><strong>Summary</strong></p>
+<pre><code>## 
+## =================================================
+##                          Simple       Full       
+## -------------------------------------------------
+## (Intercept)                 1.13 ***    -1.53 ***
+##                            (0.03)       (0.42)   
+## highearnTRUE                0.26 ***    -0.15    
+##                            (0.05)       (0.09)   
+## after_1980                  0.01         0.05    
+##                            (0.04)       (0.04)   
+## highearnTRUE:after_1980     0.19 **      0.17 ** 
+##                            (0.07)       (0.06)   
+## -------------------------------------------------
+## Additional Controls        NO          YES       
+## R^2                         0.02         0.19    
+## Adj. R^2                    0.02         0.19    
+## Num. obs.                5626         5347       
+## =================================================
+## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/posts/20210916-Short-Notes-on-A-B-Testing" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2022-02-01
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Causal-Inference/" title="Causal Inference">
+                        <b>#</b> Causal Inference
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/posts/20220405-My-Different-Qingming" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div class="post-catalog" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Practice-1-ATEs-and-CATEs"><span class="toc-text">Practice 1: ATEs and CATEs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Manual-Calculation"><span class="toc-text">Manual Calculation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Regression"><span class="toc-text">Regression</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Practice-2-Matching-and-Inverse-Probability-Weighting"><span class="toc-text">Practice 2: Matching and Inverse Probability Weighting</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Directed-Acyclic-Graph-DAG"><span class="toc-text">Directed Acyclic Graph (DAG)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Conditional-Independence"><span class="toc-text">Conditional Independence</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Naive-Comparison"><span class="toc-text">Naive Comparison</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Balance-Check"><span class="toc-text">Balance Check</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Regression-1"><span class="toc-text">Regression</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Matching-Mahalanobis-Distance"><span class="toc-text">Matching (Mahalanobis Distance)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Balance-Check-1"><span class="toc-text">Balance Check</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Matching-Propensity-Score"><span class="toc-text">Matching (Propensity Score)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Common-Support"><span class="toc-text">Common Support</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Balance-Check-2"><span class="toc-text">Balance Check</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inverse-Probability-Weighting"><span class="toc-text">Inverse Probability Weighting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Results"><span class="toc-text">Results</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Practice-3-Difference-in-differences"><span class="toc-text">Practice 3: Difference-in-differences</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Change-after-1980"><span class="toc-text">Change after 1980</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Regression-2"><span class="toc-text">Regression</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+  <div id="disqus_thread">
+    <h2>
+      <a href="#" class="comment" onclick="loadDisqus();return false;">View / Make Comments</a>
+    </h2>
+  </div>
+
+  <script>
+    var disqus_config = function() {
+      this.page.url = 'http://yanghaowang.github.io/posts/20220201-Review-in-Causal-Inference-Part-1.html';
+      this.page.identifier = 'posts/20220201-Review-in-Causal-Inference-Part-1.html';
+      this.page.title = 'Review in Causal Inference (Part 1)';
+    };
+
+    var is_disqus_loaded = false;
+
+    function loadDisqus() {
+      if (!is_disqus_loaded) {
+        is_disqus_loaded = true;
+
+        var d = document,
+          s = d.createElement('script');
+        s.src = 'https://https-yanghaowang-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+    }
+
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/in/yanghaowang">
+            <i class="iconfont icon-linkedin"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="mailto:wyangh90@gamil.com">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      <!-- <a href="">© 2018-2020 Yanghao Wang. All Rights Reserved.</a> -->
+      
+        © 2018-2020 Yanghao Wang. All Rights Reserved.
+            
+    </div>
+  
+  <div class="footer-more" style="text-align:center;">
+    Hosted by 
+    <a href="https://github.com/yanghaowang" target="_blank" style="text-decoration: none;" rel="noreferrer">
+      <svg class="img-hov" style="width: 15px;" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    </a> with Theme  
+    <a target="_blank" href="https://github.com/zchengsite/hexo-theme-oranges" style="text-decoration: none;" rel="noreferrer noopener">
+      <img class="img-hov" style="width: 15px;" src="/images/favicon.png">
+    </a> Powered by 
+    <a href="https://hexo.io/themes/#Oranges" target="_blank" style="text-decoration: none;" rel="noreferrer">
+      <svg class="img-hov" style="width: 15px; fill: #03adfc" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+    </a>.
+    <p><br></p>
+  </div>
+</div>
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)"> 
+    <p style="text-align: center;">Back to Top</p>
+    <p style="text-align: center;"><i class="iconfont icon-chevronup"></i></p>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+
+
+    </div>
+  </body>
+</html>
