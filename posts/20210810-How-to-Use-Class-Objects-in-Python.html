@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  <head>
+  <meta charset="utf-8">
+  <!-- Template is created by "zchengsite"<1451426471@qq.com> -->
+  <meta name="author" content="Yanghao Wang" />
+
+  <!-- Mobile Specific Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  
+  
+  
+  
+  <title>How to Use Class Objects in Python  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/isle_icon.png">
+    <link rel="icon" href="/images/isle_icon.png">
+  
+
+  <!-- Info Feed for Search Engine -->
+  <meta property="og:url" content="http://yanghaowang.github.io/posts/20210810-How-to-Use-Class-Objects-in-Python.html" />
+  <meta property="og:site_name" content="Home - Yanghao Wang" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="How to Use Class Objects in Python" />
+
+  
+    <meta name="description" content="A class is a prototype for an object, from which new instances can be created.">
+  
+
+
+  <!-- Info Feed for Twitter -->
+  <meta name="twitter:url" content="http://yanghaowang.github.io/posts/20210810-How-to-Use-Class-Objects-in-Python.html" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Use Class Objects in Python">
+  
+    <meta name="twitter:description" content="A class is a prototype for an object, from which new instances can be created.">
+  
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+  <!-- jquery3.3.1 -->
+  <!-- https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js -->
+  <script src="/plugins/jquery.min.js"></script>
+  
+  <!-- fancybox -->
+  <!-- https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css -->
+  <link href="/plugins/jquery.fancybox.min.css" rel="stylesheet">
+  <!-- https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js -->
+  <script async src="/plugins/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQF7RSRVHX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-HQF7RSRVHX');
+    </script>
+  
+
+  <!-- Site Verification (Begin) -->
+  <meta name="google-site-verification" content="JjXbgMsnj0fxvl9a8Srz8H3mqG7a5WH302GAZAceyHw" />
+  <meta name="msvalidate.01" content="83FCCA6F2323CE633A05D6A4C1D2116A" />
+  <!-- Site Verification (End) -->
+  
+  <!-- Microsoft Clarity (Begin) -->
+  <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "906d8r2odq");
+  </script>
+  <!-- Microsoft Clarity (Begin) -->
+
+<meta name="generator" content="Hexo 6.2.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="container" align="right">
+    <div style="width: 40px; height: 40px;">
+      <div onclick=setDarkMode(true) id="darkBtn" style="font-size: 20px; cursor: pointer;">
+        <!-- 🌞 On -->
+        <svg t="1608934765001" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2784" width="40px" height="40px"><path d="M195.327541 505.553631a337.969888 337.409408 0 1 0 675.939777 0 337.969888 337.409408 0 1 0-675.939777 0Z" fill="#FAD700" p-id="2785"></path><path d="M306.302729 256.700181a337.409408 337.409408 0 1 1 378.884982 550.952571 337.409408 337.409408 0 0 0-378.884982-550.952571z" fill="#FFBE34" p-id="2786"></path><path d="M350.020227 223.071336a337.409408 337.409408 0 1 1 326.760273 588.504781 337.409408 337.409408 0 0 0-326.760273-588.504781z" fill="#FF9019" p-id="2787"></path><path d="M374.120899 463.517575a25.221633 25.221633 0 1 0 50.443267 0 25.221633 25.221633 0 1 0-50.443267 0Z" fill="" p-id="2788"></path><path d="M581.498774 463.517575a25.221633 25.221633 0 1 0 50.443267 0 25.221633 25.221633 0 1 0-50.443267 0Z" fill="" p-id="2789"></path><path d="M446.422915 563.283147h128.910571a64.455286 64.455286 0 0 1-128.910571 0z" fill="#FF8472" p-id="2790"></path><path d="M510.8782 636.145644a75.6649 75.6649 0 0 1-75.6649-72.302016 11.209615 11.209615 0 0 1 11.209615-11.770096h128.910571a11.209615 11.209615 0 0 1 11.209614 11.770096 75.6649 75.6649 0 0 1-75.6649 72.302016z m-51.564228-61.652882a53.245671 53.245671 0 0 0 103.128457 0z" fill="" p-id="2791"></path><path d="M643.712136 568.327474a29.144999 29.144999 0 1 0 58.289998 0 29.144999 29.144999 0 1 0-58.289998 0Z" fill="#FF9218" p-id="2792"></path><path d="M485.096086 879.954767A360.389118 360.389118 0 0 1 124.706968 520.12613a356.465753 356.465753 0 0 1 33.068364-150.76932 22.564955 22.564955 0 1 1 40.915094 19.056345A312.187774 312.187774 0 0 0 169.545427 520.12613a315.550659 315.550659 0 0 0 543.105841 218.027009 22.41923 22.41923 0 0 1 32.507883 30.826441A357.026234 357.026234 0 0 1 485.096086 879.954767z m284.163737-155.813646a22.41923 22.41923 0 0 1-19.056345-34.749806 313.308736 313.308736 0 0 0 34.189325-71.741536 22.41923 22.41923 0 0 1 42.596536 14.012019 358.707676 358.707676 0 0 1-38.673171 81.830189 22.41923 22.41923 0 0 1-19.056345 10.649134z m53.245671-182.156242a22.41923 22.41923 0 0 1-22.41923-22.41923 315.550659 315.550659 0 0 0-314.990178-314.429697l-30.26596 1.681442a22.531326 22.531326 0 1 1-4.483846-44.838459l34.749806-1.681442a360.389118 360.389118 0 0 1 360.389118 359.828637 22.41923 22.41923 0 0 1-22.97971 22.41923zM227.274944 323.95787a22.41923 22.41923 0 0 1-16.814422-36.991729 362.631041 362.631041 0 0 1 65.015766-59.97144 22.475278 22.475278 0 0 1 26.342595 36.431248 317.232101 317.232101 0 0 0-57.169036 52.68519 22.41923 22.41923 0 0 1-17.374903 7.846731z m121.06384-90.2374a22.41923 22.41923 0 0 1-8.967691-43.157017l30.82644-11.209615a22.508907 22.508907 0 0 1 14.5725 42.596536l-27.463557 10.088654a22.41923 22.41923 0 0 1-8.967692 1.681442z" fill="" p-id="2793"></path><path d="M272.673884 568.327474a29.144999 29.144999 0 1 0 58.289997 0 29.144999 29.144999 0 1 0-58.289997 0Z" fill="#FF9218" p-id="2794"></path><path d="M555.156179 1023.998319a16.814422 16.814422 0 0 1-16.814422-14.012019l-8.967692-50.443267a16.814422 16.814422 0 0 1 33.068364-5.604807l8.967691 50.443267a16.814422 16.814422 0 0 1-13.451537 19.616826z m-334.607004-83.511631a16.814422 16.814422 0 0 1-14.572499-25.221634l25.782114-44.838459a16.825632 16.825632 0 1 1 29.144998 16.814422l-25.782114 44.83846a16.814422 16.814422 0 0 1-14.572499 8.407211z m644.552855-67.257689a16.814422 16.814422 0 0 1-10.649134-3.923366l-39.233652-33.068364a16.898494 16.898494 0 1 1 21.858749-25.782114l39.233652 33.068364a16.814422 16.814422 0 0 1-10.649134 29.70548zM18.215626 661.367277a16.814422 16.814422 0 0 1-5.604807-32.507883l48.201344-17.374903a16.814422 16.814422 0 0 1 11.770096 31.386922L23.820434 660.246316z m936.002842-103.128456a16.814422 16.814422 0 0 1 0-33.628845h51.564229a16.814422 16.814422 0 0 1 0 33.628845H954.218468zM91.078123 334.607004l-5.604807-1.120962-48.761825-17.374903a16.814422 16.814422 0 0 1 11.209615-31.386921l48.761825 17.374903a16.814422 16.814422 0 0 1-5.604808 32.507883z m780.189195-75.10442a16.814422 16.814422 0 0 1-10.649134-29.705479l39.233652-33.068364a16.898494 16.898494 0 0 1 21.858749 25.782114l-39.233652 33.068364a16.814422 16.814422 0 0 1-11.209615 3.923365z m-563.283147-145.724993a16.814422 16.814422 0 0 1-14.572499-8.407211l-25.782115-44.277979a16.825632 16.825632 0 1 1 29.144999-16.814422l25.782114 44.277978a16.814422 16.814422 0 0 1-14.572499 25.221634z m308.264409-29.705479h-2.802404a16.814422 16.814422 0 0 1-13.451538-19.616826l8.967692-50.443267a16.814422 16.814422 0 0 1 33.068364 5.604807l-8.967692 50.443267a16.814422 16.814422 0 0 1-16.814422 14.012019z" fill="" p-id="2795"></path></svg>
+        <br>
+        <svg t="1608937543125" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5577" width="40px" height="40px"><path d="M768 699.733333H256c-51.694933 0-96.529067-18.619733-133.239467-55.3472C86.596267 608.221867 68.266667 563.677867 68.266667 512c0-51.6096 18.295467-96.4096 54.391466-133.137067C159.5904 342.562133 204.3904 324.266667 256 324.266667h512c51.694933 0 96.238933 18.3296 132.386133 54.493866C937.1136 415.470933 955.733333 460.305067 955.733333 512c0 51.746133-18.653867 96.341333-55.4496 132.488533C864.3584 681.0624 819.7632 699.733333 768 699.733333z m-3.8912-34.133333H768c42.871467 0 78.2336-14.7968 108.1344-45.243733C906.8032 590.2336 921.6 554.8544 921.6 512c0-42.9056-14.830933-78.592-45.346133-109.1072C846.318933 372.957867 810.922667 358.4 768 358.4h-4.0448c-41.3184 1.0752-75.7248 15.6672-105.147733 44.5952C628.974933 433.322667 614.4 469.0432 614.4 512c0 42.9056 14.557867 78.301867 44.4928 108.253867 29.457067 29.474133 63.880533 44.305067 105.216 45.346133zM256 358.4c-42.9568 0-78.677333 14.592-109.2096 44.5952C116.992 433.322667 102.4 469.0432 102.4 512c0 42.9056 14.557867 78.301867 44.4928 108.253867C177.408 650.769067 213.0944 665.6 256 665.6h403.626667a199.936 199.936 0 0 1-24.866134-21.213867C598.596267 608.221867 580.266667 563.677867 580.266667 512c0-51.626667 18.295467-96.4096 54.408533-133.137067 7.7312-7.611733 15.837867-14.4384 24.285867-20.462933H256z m256.853333 256c-6.331733 0-12.288-3.5328-15.240533-9.3696L443.733333 498.3296V597.333333a17.066667 17.066667 0 1 1-34.133333 0V426.666667a17.066667 17.066667 0 0 1 32.3072-7.697067L495.786667 525.653333V426.666667a17.066667 17.066667 0 0 1 34.133333 0v170.666666a17.066667 17.066667 0 0 1-17.066667 17.066667zM298.666667 614.4a58.5728 58.5728 0 0 1-42.786134-17.800533C244.6336 585.3696 238.933333 571.255467 238.933333 554.666667v-85.333334c0-16.366933 5.563733-30.6176 16.554667-42.359466 12.561067-11.810133 26.811733-17.373867 43.178667-17.373867 16.5888 0 30.702933 5.700267 41.9328 16.9472A58.641067 58.641067 0 0 1 358.4 469.333333v85.333334c0 16.571733-6.2976 31.214933-18.210133 42.3424-10.308267 11.093333-24.951467 17.390933-41.5232 17.390933z m0-170.666667c-7.645867 0-13.704533 2.338133-19.063467 7.355734-4.1984 4.539733-6.536533 10.5984-6.536533 18.244266v85.333334c0 7.406933 2.2016 13.073067 6.946133 17.800533 5.3248 5.307733 11.246933 7.799467 18.653867 7.799467 7.2704 0 12.629333-2.286933 17.390933-7.389867 5.9392-5.5808 8.209067-10.939733 8.209067-18.210133v-85.333334a24.917333 24.917333 0 0 0-7.799467-18.653866c-4.744533-4.744533-10.3936-6.946133-17.800533-6.946134z" p-id="5578"></path></svg>
+      </div>
+      <div onclick=setDarkMode(false) id="lightBtn" style="font-size: 20px; cursor: pointer; display: none;">
+        <!-- 🌙 Off  -->
+        <svg t="1608934974290" viewBox="0 0 1052 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2939" width="40px" height="40px"><path d="M475.216752 26.735953a461.193207 461.193207 0 0 0 434.025216 610.948473 458.542671 458.542671 0 0 0 115.960936-14.577946 459.205305 459.205305 0 1 1-549.986152-596.370527z" fill="#FACD00" p-id="2940"></path><path d="M591.840321 959.061876A487.03593 487.03593 0 0 1 468.590413 0.893231a26.505357 26.505357 0 0 1 31.806428 34.456963 434.68785 434.68785 0 0 0 408.845127 575.828875 432.699948 432.699948 0 0 0 109.334597-13.915312 26.505357 26.505357 0 0 1 31.806428 34.456964 485.710662 485.710662 0 0 1-458.542672 327.341155zM436.121351 67.156622a434.025216 434.025216 0 1 0 546.010348 591.732089 489.023832 489.023832 0 0 1-72.889731 5.301071 487.698564 487.698564 0 0 1-473.120617-597.03316z" fill="#FACD00" p-id="2941"></path><path d="M425.519208 79.746667a441.314189 441.314189 0 0 0 416.1341 585.105749 439.326288 439.326288 0 0 0 111.322499-14.577946A439.988922 439.988922 0 1 1 425.519208 79.746667z" fill="#FAF400" p-id="2942"></path><path d="M536.841706 974.302456A467.819546 467.819546 0 0 1 418.892869 53.903944a26.505357 26.505357 0 0 1 31.806428 34.456964 414.146199 414.146199 0 0 0 494.987537 536.733473 26.505357 26.505357 0 0 1 31.806428 34.456964A466.494278 466.494278 0 0 1 536.841706 974.302456zM386.423807 120.167336a414.146199 414.146199 0 1 0 522.818161 565.889366 467.819546 467.819546 0 0 1-522.818161-565.889366z" fill="#FAF400" p-id="2943"></path><path d="M497.746305 762.259602s33.131696-26.505357 43.733839-56.323883 7.288973-45.059106 7.288973-45.059106 100.057722 92.106115-51.022812 101.382989z" fill="#FF8472" p-id="2944"></path><path d="M497.746305 772.199111a9.939509 9.939509 0 0 1-5.963705-17.891116s31.143794-25.180089 40.420669-52.348079 7.288973-39.758035 7.288973-40.420669a9.939509 9.939509 0 0 1 5.301071-10.602143 9.939509 9.939509 0 0 1 11.264777 1.325268c4.638437 4.638437 45.72174 43.733839 33.131696 78.853436-8.614241 23.854821-38.432767 37.107499-90.780847 40.420669z m59.637053-86.805043a169.634283 169.634283 0 0 1-6.62634 23.854821 125.237811 125.237811 0 0 1-25.180088 40.420669c25.180089-4.638437 40.420669-12.590044 44.396472-23.854821s-3.31317-28.493258-12.590044-40.420669z" fill="" p-id="2945"></path><path d="M270.462871 552.867284a13.252678 13.252678 0 0 1-13.252678-12.590044c-1.325268-27.830625 14.577946-83.491874 83.491873-94.75665a13.252678 13.252678 0 0 1 3.975804 25.842722c-62.950222 9.939509-60.96232 64.938124-60.962321 66.926026a13.252678 13.252678 0 0 1-12.590044 13.915312z" fill="" p-id="2946"></path><path d="M485.818894 1024a487.03593 487.03593 0 0 1-409.507761-748.776327 26.505357 26.505357 0 1 1 44.396473 28.493258 433.362582 433.362582 0 0 0 642.092266 566.552c10.602143-8.614241 20.541651-17.891116 29.818526-27.830625a26.505357 26.505357 0 1 1 37.770134 37.1075c-10.602143 10.602143-21.866919 21.204285-33.79433 31.143794a485.048028 485.048028 0 0 1-310.775308 113.3104z m371.737628-190.175934a26.505357 26.505357 0 0 1-21.204285-41.745937 433.362582 433.362582 0 0 0 40.420669-68.251294 487.03593 487.03593 0 0 1-546.672982-591.732089 430.049413 430.049413 0 0 0-86.805044 45.721741 26.505357 26.505357 0 1 1-29.818526-43.733839A481.734858 481.734858 0 0 1 362.568986 65.831354a26.505357 26.505357 0 0 1 31.806428 34.456964 433.362582 433.362582 0 0 0 518.179724 561.913563 26.505357 26.505357 0 0 1 31.806428 34.456963 485.710662 485.710662 0 0 1-66.263392 126.563079 26.505357 26.505357 0 0 1-20.541652 10.602143zM135.948186 265.284164a26.505357 26.505357 0 0 1-19.879018-43.733839 491.674367 491.674367 0 0 1 35.782232-37.770133 26.505357 26.505357 0 1 1 36.444865 38.432767 438.00102 438.00102 0 0 0-31.806428 33.79433 26.505357 26.505357 0 0 1-20.541651 9.276875z" fill="" p-id="2947"></path><path d="M291.667156 711.236791a41.083303 41.083303 0 1 0 82.166606 0 41.083303 41.083303 0 1 0-82.166606 0Z" fill="#FFA11F" p-id="2948"></path></svg>
+        <br>
+        <svg t="1608937639614" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5917" width="40px" height="40px"><path d="M889.173333 633.173333C855.620267 666.1632 815.240533 682.666667 768 682.666667H260.266667c45.5168-1.1264 84.48-17.629867 116.906666-49.493334 31.863467-31.829333 48.349867-70.229333 49.493334-115.2V512c0-47.223467-16.503467-87.330133-49.493334-120.32-32.426667-32.426667-71.389867-49.2032-116.906666-50.346667H768c47.240533 0 87.620267 16.776533 121.173333 50.346667C922.1632 424.669867 938.666667 464.776533 938.666667 512c0 47.240533-16.503467 87.620267-49.493334 121.173333zM836.266667 506.026667h-51.2V597.333333v-91.306666h51.2zM853.333333 426.666667h-68.266666v79.36V426.666667h68.266666z m-290.133333 128v-85.333334c0-11.946667-4.266667-22.186667-12.8-30.72-7.970133-7.970133-17.92-11.946667-29.866667-11.946666s-22.186667 3.976533-30.72 11.946666c-7.970133 8.533333-11.946667 18.773333-11.946666 30.72v85.333334c0 11.946667 3.976533 21.896533 11.946666 29.866666 8.533333 8.533333 18.773333 12.8 30.72 12.8s21.896533-4.266667 29.866667-12.8c8.533333-7.970133 12.8-17.92 12.8-29.866666 0 11.946667-4.266667 21.896533-12.8 29.866666-7.970133 8.533333-17.92 12.8-29.866667 12.8s-22.186667-4.266667-30.72-12.8c-7.970133-7.970133-11.946667-17.92-11.946666-29.866666v-85.333334c0-11.946667 3.976533-22.186667 11.946666-30.72 8.533333-7.970133 18.773333-11.946667 30.72-11.946666s21.896533 3.976533 29.866667 11.946666c8.533333 8.533333 12.8 18.773333 12.8 30.72v85.333334z m136.533333-42.666667h-51.2v85.333333-85.333333h51.2z m17.066667-85.333333h-68.266667v85.333333-85.333333h68.266667z" p-id="5918"></path><path d="M785.066667 614.4a17.066667 17.066667 0 0 1-17.066667-17.066667V426.666667a17.066667 17.066667 0 0 1 17.066667-17.066667h68.266666a17.066667 17.066667 0 1 1 0 34.133333h-51.2v45.226667h34.133334a17.066667 17.066667 0 1 1 0 34.133333h-34.133334V597.333333a17.066667 17.066667 0 0 1-17.066666 17.066667z m-136.533334 0a17.066667 17.066667 0 0 1-17.066666-17.066667V426.666667a17.066667 17.066667 0 0 1 17.066666-17.066667h68.266667a17.066667 17.066667 0 1 1 0 34.133333h-51.2v51.2h34.133333a17.066667 17.066667 0 1 1 0 34.133334h-34.133333v68.266666a17.066667 17.066667 0 0 1-17.066667 17.066667z m-128 0a58.5728 58.5728 0 0 1-42.786133-17.800533C466.500267 585.3696 460.8 571.255467 460.8 554.666667v-85.333334c0-16.366933 5.563733-30.6176 16.554667-42.359466 12.561067-11.810133 26.811733-17.373867 43.178666-17.373867 16.5888 0 30.702933 5.700267 41.9328 16.964267A58.504533 58.504533 0 0 1 580.266667 469.333333v85.333334c0 16.571733-6.2976 31.214933-18.210134 42.3424-10.308267 11.093333-24.951467 17.390933-41.5232 17.390933z m0-170.666667c-7.645867 0-13.704533 2.338133-19.063466 7.355734-4.1984 4.539733-6.536533 10.5984-6.536534 18.244266v85.333334c0 7.406933 2.2016 13.073067 6.946134 17.800533 5.3248 5.307733 11.246933 7.799467 18.653866 7.799467 7.2704 0 12.629333-2.286933 17.390934-7.389867 5.922133-5.5808 8.209067-10.939733 8.209066-18.210133v-85.333334c0-7.406933-2.491733-13.329067-7.799466-18.653866-4.727467-4.744533-10.3936-6.946133-17.800534-6.946134z" fill="#ffffff" p-id="5919" data-spm-anchor-id="a313x.7781069.0.i8" class="selected"></path><path d="M768 699.733333H256c-51.694933 0-96.238933-18.3296-132.386133-54.493866C86.8864 608.529067 68.266667 563.712 68.266667 512c0-51.7632 18.653867-96.341333 55.466666-132.488533C159.658667 342.920533 204.2368 324.266667 256 324.266667h512c51.712 0 96.529067 18.619733 133.239467 55.3472C937.403733 415.761067 955.733333 460.305067 955.733333 512c0 51.6608-18.295467 96.443733-54.408533 133.137067l-0.2048 0.2048C864.426667 681.437867 819.643733 699.733333 768 699.733333z m-402.926933-34.133333H768c42.922667 0 78.609067-14.557867 109.1072-44.4928C907.042133 590.609067 921.6 554.939733 921.6 512c0-42.9056-14.557867-78.318933-44.4928-108.2368C846.592 373.230933 810.922667 358.4 768 358.4H364.373333c8.669867 6.229333 16.964267 13.294933 24.8832 21.213867C425.403733 415.761067 443.733333 460.305067 443.733333 512v5.973333c-1.245867 49.698133-19.575467 92.381867-54.493866 127.266134A204.8 204.8 0 0 1 365.073067 665.6zM256 358.4c-42.8544 0-78.2336 14.7968-108.1344 45.243733C117.1968 433.7664 102.4 469.1456 102.4 512c0 42.922667 14.830933 78.592 45.346133 109.1072C177.681067 651.042133 213.0944 665.6 256 665.6h4.0448c41.3184-1.058133 75.7248-15.6672 105.1648-44.5952 28.8256-28.808533 43.383467-62.6688 44.407467-103.458133L409.6 512c0-42.9056-14.557867-78.318933-44.4928-108.253867-29.422933-29.44-63.7952-44.270933-105.0624-45.346133H256z" p-id="5920" data-spm-anchor-id="a313x.7781069.0.i9" class="selected" fill="#ffffff"></path></svg>
+      </div> 
+      <script >
+      if (localStorage.getItem('preferredTheme') == 'dark') {
+        setDarkMode(true)
+      }
+      function setDarkMode(isDark) {
+        var darkBtn = document.getElementById('darkBtn')
+        var lightBtn = document.getElementById('lightBtn')
+        if (isDark) {
+        lightBtn.style.display = "block"
+        darkBtn.style.display = "none"
+        localStorage.setItem('preferredTheme', 'dark');
+        } else {
+        lightBtn.style.display = "none"
+        darkBtn.style.display = "block"
+        localStorage.removeItem('preferredTheme');
+        }
+        document.body.classList.toggle("darkmode");
+      }
+      </script>
+    </div>
+  </div>
+  <div class="avatar">
+    <!-- 头像取消懒加载，添加no-lazy -->
+    
+      <img src="/images/isle_icon.png" alt="">
+    
+    <div class="nickname">Yanghao Wang</div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/research/">
+          <a href="/research/">Research</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Posts</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">How to Use Class Objects in Python</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2021-08-10
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Python/" title="Python">
+                    <b>#</b> Python
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>I am used to statistical programming and use self-defined functions a
+lot in R. In my research work, a self-defined function works well in
+most cases since the scalability and flexibility of codes are less of
+concern. However, as using more Python and reading more source codes of
+Python packages, I find <code>class</code> is an important object and
+deserves a brief study on it.</p>
+<p>A class is a prototype for an object, from which new instances can be
+created. An instance is a copy of the class with actual values.</p>
+<h2 id="class-object">Class Object</h2>
+<p>A given class object consists of two components:</p>
+<ul>
+<li>State: Attributes/properties of an object</li>
+<li>Behavior: Methods of an object</li>
+</ul>
+<p>All the instances share the attributes and the methods of the class.
+But the values of attributes are unique for each instance. Let's see an
+example as follows.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define a python class named 'makecake'</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">makecake</span>:</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Define class variables</span></span><br><span class="line">    cook = <span class="string">'Sharon'</span></span><br><span class="line">    price_lb = <span class="number">5</span>    <span class="comment"># unit price; dollars per lb</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Initialize</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, weight</span>):</span><br><span class="line">        <span class="comment"># Define instance variables</span></span><br><span class="line">        self.weight = weight</span><br><span class="line">       </span><br><span class="line">    <span class="comment"># Define a method for an instance</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">price</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.weight*self.price_lb</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>makecake</code> is the class name.</p>
+<p><code>cook</code> and <code>price_lb</code> are the class attributes,
+representing the cook and the unit price of a cake.</p>
+<p><code>price()</code> is the class method used to calculate the cake
+price.</p>
+<p><code>__init__</code> method is a preserved method for a class
+object, used to initializing its state. The <code>__init__</code> method
+is executed at the time the class is instantiated (i.e., the creation of
+an instance).</p>
+<p><code>self</code> is a must-have parameter in each class method,
+though it might take no arguments. When we call a method of an object as
+<code>myobject.method(arg1, arg2)</code>, it is equivalent to the
+command that <code>MyClass.method(myobject, arg1, arg2)</code>.</p>
+</blockquote>
+<p>Also, note that <code>weight</code> is a variable <em>unique to each
+instance</em>, while <code>cook</code>, <code>price_lb</code>,
+<code>price()</code> are <em>class variables</em> shared by all
+instances of the class.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cake = makecake(weight=<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span>(cake.cook)</span><br><span class="line"><span class="built_in">print</span>(cake.price_lb)</span><br><span class="line">cake.price()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Sharon</span><br><span class="line">5</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+<h2 id="inheritance">Inheritance</h2>
+<p>Inheritance allows us to define a class that inherits all the methods
+and properties from another class. For example, inherited from
+<code>makecake</code>, I declare a new class <code>ordercake</code> as
+follows.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define a python class based on 'makecake'</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ordercake</span>(<span class="title class_ inherited__">makecake</span>):</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Initialize</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, weight, tax_rate=<span class="literal">None</span></span>):</span><br><span class="line">        <span class="comment"># Define instance variables</span></span><br><span class="line">        self.weight = weight</span><br><span class="line">        self.tax_rate = tax_rate <span class="keyword">if</span> tax_rate <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="number">0.06</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">checkout</span>(<span class="params">self, tip=<span class="literal">None</span></span>):</span><br><span class="line">        <span class="keyword">if</span> tip <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            tip = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># self.price() is inherited from 'makecake'</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'Receipt'</span>, <span class="string">'\n--------------------'</span></span><br><span class="line">              <span class="string">'\nCake Price:'</span>, <span class="built_in">round</span>(self.price(), <span class="number">2</span>),</span><br><span class="line">              <span class="string">'\nTax:'</span>, <span class="built_in">round</span>(self.price()*self.tax_rate, <span class="number">2</span>),</span><br><span class="line">              <span class="string">'\nTips:'</span>, tip, <span class="string">'\n--------------------'</span>,</span><br><span class="line">              <span class="string">'\nTotal:'</span>, <span class="built_in">round</span>(self.price()*(<span class="number">1</span>+self.tax_rate)+tip, <span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myorder0 = ordercake(weight=<span class="number">2</span>)</span><br><span class="line">myorder0.checkout()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Receipt </span><br><span class="line">--------------------</span><br><span class="line">Cake Price: 10 </span><br><span class="line">Tax: 0.6 </span><br><span class="line">Tips: 0 </span><br><span class="line">-------------------- </span><br><span class="line">Total: 10.6</span><br></pre></td></tr></table></figure>
+<p>In addtion to the inherited attributes, I add another attribute
+<code>tax_rate</code> in the <code>ordercake</code> class to calculate
+the cake price after tax such that <span class="math display"><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -0.566ex;" xmlns="http://www.w3.org/2000/svg" width="63.218ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 27942.4 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mtext"><path data-c="43" d="M56 342Q56 428 89 500T174 615T283 681T391 705Q394 705 400 705T408 704Q499 704 569 636L582 624L612 663Q639 700 643 704Q644 704 647 704T653 705H657Q660 705 666 699V419L660 413H626Q620 419 619 430Q610 512 571 572T476 651Q457 658 426 658Q322 658 252 588Q173 509 173 342Q173 221 211 151Q232 111 263 84T328 45T384 29T428 24Q517 24 571 93T626 244Q626 251 632 257H660L666 251V236Q661 133 590 56T403 -21Q262 -21 159 83T56 342Z"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(722,0)"></path><path data-c="6B" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T97 124T98 167T98 217T98 272T98 329Q98 366 98 407T98 482T98 542T97 586T97 603Q94 622 83 628T38 637H20V660Q20 683 22 683L32 684Q42 685 61 686T98 688Q115 689 135 690T165 693T176 694H179V463L180 233L240 287Q300 341 304 347Q310 356 310 364Q310 383 289 385H284V431H293Q308 428 412 428Q475 428 484 431H489V385H476Q407 380 360 341Q286 278 286 274Q286 273 349 181T420 79Q434 60 451 53T500 46H511V0H505Q496 3 418 3Q322 3 307 0H299V46H306Q330 48 330 65Q330 72 326 79Q323 84 276 153T228 222L176 176V120V84Q176 65 178 59T189 49Q210 46 238 46H254V0H246Q231 3 137 3T28 0H20V46H36Z" transform="translate(1222,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(1750,0)"></path><path data-c="20" d="" transform="translate(2194,0)"></path><path data-c="50" d="M130 622Q123 629 119 631T103 634T60 637H27V683H214Q237 683 276 683T331 684Q419 684 471 671T567 616Q624 563 624 489Q624 421 573 372T451 307Q429 302 328 301H234V181Q234 62 237 58Q245 47 304 46H337V0H326Q305 3 182 3Q47 3 38 0H27V46H60Q102 47 111 49T130 61V622ZM507 488Q507 514 506 528T500 564T483 597T450 620T397 635Q385 637 307 637H286Q237 637 234 628Q231 624 231 483V342H302H339Q390 342 423 349T481 382Q507 411 507 488Z" transform="translate(2444,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(3125,0)"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(3517,0)"></path><path data-c="63" d="M370 305T349 305T313 320T297 358Q297 381 312 396Q317 401 317 402T307 404Q281 408 258 408Q209 408 178 376Q131 329 131 219Q131 137 162 90Q203 29 272 29Q313 29 338 55T374 117Q376 125 379 127T395 129H409Q415 123 415 120Q415 116 411 104T395 71T366 33T318 2T249 -11Q163 -11 99 53T34 214Q34 318 99 383T250 448T370 421T404 357Q404 334 387 320Z" transform="translate(3795,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(4239,0)"></path><path data-c="20" d="" transform="translate(4683,0)"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(4933,0)"></path><path data-c="66" d="M273 0Q255 3 146 3Q43 3 34 0H26V46H42Q70 46 91 49Q99 52 103 60Q104 62 104 224V385H33V431H104V497L105 564L107 574Q126 639 171 668T266 704Q267 704 275 704T289 705Q330 702 351 679T372 627Q372 604 358 590T321 576T284 590T270 627Q270 647 288 667H284Q280 668 273 668Q245 668 223 647T189 592Q183 572 182 497V431H293V385H185V225Q185 63 186 61T189 57T194 54T199 51T206 49T213 48T222 47T231 47T241 46T251 46H282V0H273Z" transform="translate(5433,0)"></path><path data-c="74" d="M27 422Q80 426 109 478T141 600V615H181V431H316V385H181V241Q182 116 182 100T189 68Q203 29 238 29Q282 29 292 100Q293 108 293 146V181H333V146V134Q333 57 291 17Q264 -10 221 -10Q187 -10 162 2T124 33T105 68T98 100Q97 107 97 248V385H18V422H27Z" transform="translate(5739,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(6128,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(6572,0)"></path><path data-c="20" d="" transform="translate(6964,0)"></path><path data-c="54" d="M36 443Q37 448 46 558T55 671V677H666V671Q667 666 676 556T685 443V437H645V443Q645 445 642 478T631 544T610 593Q593 614 555 625Q534 630 478 630H451H443Q417 630 414 618Q413 616 413 339V63Q420 53 439 50T528 46H558V0H545L361 3Q186 1 177 0H164V46H194Q264 46 283 49T309 63V339V550Q309 620 304 625T271 630H244H224Q154 630 119 601Q101 585 93 554T81 486T76 443V437H36V443Z" transform="translate(7214,0)"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(7936,0)"></path><path data-c="78" d="M201 0Q189 3 102 3Q26 3 17 0H11V46H25Q48 47 67 52T96 61T121 78T139 96T160 122T180 150L226 210L168 288Q159 301 149 315T133 336T122 351T113 363T107 370T100 376T94 379T88 381T80 383Q74 383 44 385H16V431H23Q59 429 126 429Q219 429 229 431H237V385Q201 381 201 369Q201 367 211 353T239 315T268 274L272 270L297 304Q329 345 329 358Q329 364 327 369T322 376T317 380T310 384L307 385H302V431H309Q324 428 408 428Q487 428 493 431H499V385H492Q443 385 411 368Q394 360 377 341T312 257L296 236L358 151Q424 61 429 57T446 50Q464 46 499 46H516V0H510H502Q494 1 482 1T457 2T432 2T414 3Q403 3 377 3T327 1L304 0H295V46H298Q309 46 320 51T331 63Q331 65 291 120L250 175Q249 174 219 133T185 88Q181 83 181 74Q181 63 188 55T206 46Q208 46 208 23V0H201Z" transform="translate(8436,0)"></path></g><g data-mml-node="mo" transform="translate(9241.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mtext" transform="translate(10297.6,0)"><path data-c="43" d="M56 342Q56 428 89 500T174 615T283 681T391 705Q394 705 400 705T408 704Q499 704 569 636L582 624L612 663Q639 700 643 704Q644 704 647 704T653 705H657Q660 705 666 699V419L660 413H626Q620 419 619 430Q610 512 571 572T476 651Q457 658 426 658Q322 658 252 588Q173 509 173 342Q173 221 211 151Q232 111 263 84T328 45T384 29T428 24Q517 24 571 93T626 244Q626 251 632 257H660L666 251V236Q661 133 590 56T403 -21Q262 -21 159 83T56 342Z"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(722,0)"></path><path data-c="6B" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T97 124T98 167T98 217T98 272T98 329Q98 366 98 407T98 482T98 542T97 586T97 603Q94 622 83 628T38 637H20V660Q20 683 22 683L32 684Q42 685 61 686T98 688Q115 689 135 690T165 693T176 694H179V463L180 233L240 287Q300 341 304 347Q310 356 310 364Q310 383 289 385H284V431H293Q308 428 412 428Q475 428 484 431H489V385H476Q407 380 360 341Q286 278 286 274Q286 273 349 181T420 79Q434 60 451 53T500 46H511V0H505Q496 3 418 3Q322 3 307 0H299V46H306Q330 48 330 65Q330 72 326 79Q323 84 276 153T228 222L176 176V120V84Q176 65 178 59T189 49Q210 46 238 46H254V0H246Q231 3 137 3T28 0H20V46H36Z" transform="translate(1222,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(1750,0)"></path><path data-c="20" d="" transform="translate(2194,0)"></path><path data-c="50" d="M130 622Q123 629 119 631T103 634T60 637H27V683H214Q237 683 276 683T331 684Q419 684 471 671T567 616Q624 563 624 489Q624 421 573 372T451 307Q429 302 328 301H234V181Q234 62 237 58Q245 47 304 46H337V0H326Q305 3 182 3Q47 3 38 0H27V46H60Q102 47 111 49T130 61V622ZM507 488Q507 514 506 528T500 564T483 597T450 620T397 635Q385 637 307 637H286Q237 637 234 628Q231 624 231 483V342H302H339Q390 342 423 349T481 382Q507 411 507 488Z" transform="translate(2444,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(3125,0)"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(3517,0)"></path><path data-c="63" d="M370 305T349 305T313 320T297 358Q297 381 312 396Q317 401 317 402T307 404Q281 408 258 408Q209 408 178 376Q131 329 131 219Q131 137 162 90Q203 29 272 29Q313 29 338 55T374 117Q376 125 379 127T395 129H409Q415 123 415 120Q415 116 411 104T395 71T366 33T318 2T249 -11Q163 -11 99 53T34 214Q34 318 99 383T250 448T370 421T404 357Q404 334 387 320Z" transform="translate(3795,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(4239,0)"></path><path data-c="20" d="" transform="translate(4683,0)"></path><path data-c="62" d="M307 -11Q234 -11 168 55L158 37Q156 34 153 28T147 17T143 10L138 1L118 0H98V298Q98 599 97 603Q94 622 83 628T38 637H20V660Q20 683 22 683L32 684Q42 685 61 686T98 688Q115 689 135 690T165 693T176 694H179V543Q179 391 180 391L183 394Q186 397 192 401T207 411T228 421T254 431T286 439T323 442Q401 442 461 379T522 216Q522 115 458 52T307 -11ZM182 98Q182 97 187 90T196 79T206 67T218 55T233 44T250 35T271 29T295 26Q330 26 363 46T412 113Q424 148 424 212Q424 287 412 323Q385 405 300 405Q270 405 239 390T188 347L182 339V98Z" transform="translate(4933,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(5489,0)"></path><path data-c="66" d="M273 0Q255 3 146 3Q43 3 34 0H26V46H42Q70 46 91 49Q99 52 103 60Q104 62 104 224V385H33V431H104V497L105 564L107 574Q126 639 171 668T266 704Q267 704 275 704T289 705Q330 702 351 679T372 627Q372 604 358 590T321 576T284 590T270 627Q270 647 288 667H284Q280 668 273 668Q245 668 223 647T189 592Q183 572 182 497V431H293V385H185V225Q185 63 186 61T189 57T194 54T199 51T206 49T213 48T222 47T231 47T241 46T251 46H282V0H273Z" transform="translate(5933,0)"></path><path data-c="6F" d="M28 214Q28 309 93 378T250 448Q340 448 405 380T471 215Q471 120 407 55T250 -10Q153 -10 91 57T28 214ZM250 30Q372 30 372 193V225V250Q372 272 371 288T364 326T348 362T317 390T268 410Q263 411 252 411Q222 411 195 399Q152 377 139 338T126 246V226Q126 130 145 91Q177 30 250 30Z" transform="translate(6239,0)"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(6739,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(7131,0)"></path><path data-c="20" d="" transform="translate(7575,0)"></path><path data-c="54" d="M36 443Q37 448 46 558T55 671V677H666V671Q667 666 676 556T685 443V437H645V443Q645 445 642 478T631 544T610 593Q593 614 555 625Q534 630 478 630H451H443Q417 630 414 618Q413 616 413 339V63Q420 53 439 50T528 46H558V0H545L361 3Q186 1 177 0H164V46H194Q264 46 283 49T309 63V339V550Q309 620 304 625T271 630H244H224Q154 630 119 601Q101 585 93 554T81 486T76 443V437H36V443Z" transform="translate(7825,0)"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(8547,0)"></path><path data-c="78" d="M201 0Q189 3 102 3Q26 3 17 0H11V46H25Q48 47 67 52T96 61T121 78T139 96T160 122T180 150L226 210L168 288Q159 301 149 315T133 336T122 351T113 363T107 370T100 376T94 379T88 381T80 383Q74 383 44 385H16V431H23Q59 429 126 429Q219 429 229 431H237V385Q201 381 201 369Q201 367 211 353T239 315T268 274L272 270L297 304Q329 345 329 358Q329 364 327 369T322 376T317 380T310 384L307 385H302V431H309Q324 428 408 428Q487 428 493 431H499V385H492Q443 385 411 368Q394 360 377 341T312 257L296 236L358 151Q424 61 429 57T446 50Q464 46 499 46H516V0H510H502Q494 1 482 1T457 2T432 2T414 3Q403 3 377 3T327 1L304 0H295V46H298Q309 46 320 51T331 63Q331 65 291 120L250 175Q249 174 219 133T185 88Q181 83 181 74Q181 63 188 55T206 46Q208 46 208 23V0H201Z" transform="translate(9047,0)"></path></g><g data-mml-node="mo" transform="translate(20094.8,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mo" transform="translate(21095,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mn" transform="translate(21484,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mo" transform="translate(22206.2,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mtext" transform="translate(23206.4,0)"><path data-c="54" d="M36 443Q37 448 46 558T55 671V677H666V671Q667 666 676 556T685 443V437H645V443Q645 445 642 478T631 544T610 593Q593 614 555 625Q534 630 478 630H451H443Q417 630 414 618Q413 616 413 339V63Q420 53 439 50T528 46H558V0H545L361 3Q186 1 177 0H164V46H194Q264 46 283 49T309 63V339V550Q309 620 304 625T271 630H244H224Q154 630 119 601Q101 585 93 554T81 486T76 443V437H36V443Z"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(722,0)"></path><path data-c="78" d="M201 0Q189 3 102 3Q26 3 17 0H11V46H25Q48 47 67 52T96 61T121 78T139 96T160 122T180 150L226 210L168 288Q159 301 149 315T133 336T122 351T113 363T107 370T100 376T94 379T88 381T80 383Q74 383 44 385H16V431H23Q59 429 126 429Q219 429 229 431H237V385Q201 381 201 369Q201 367 211 353T239 315T268 274L272 270L297 304Q329 345 329 358Q329 364 327 369T322 376T317 380T310 384L307 385H302V431H309Q324 428 408 428Q487 428 493 431H499V385H492Q443 385 411 368Q394 360 377 341T312 257L296 236L358 151Q424 61 429 57T446 50Q464 46 499 46H516V0H510H502Q494 1 482 1T457 2T432 2T414 3Q403 3 377 3T327 1L304 0H295V46H298Q309 46 320 51T331 63Q331 65 291 120L250 175Q249 174 219 133T185 88Q181 83 181 74Q181 63 188 55T206 46Q208 46 208 23V0H201Z" transform="translate(1222,0)"></path><path data-c="20" d="" transform="translate(1750,0)"></path><path data-c="52" d="M130 622Q123 629 119 631T103 634T60 637H27V683H202H236H300Q376 683 417 677T500 648Q595 600 609 517Q610 512 610 501Q610 468 594 439T556 392T511 361T472 343L456 338Q459 335 467 332Q497 316 516 298T545 254T559 211T568 155T578 94Q588 46 602 31T640 16H645Q660 16 674 32T692 87Q692 98 696 101T712 105T728 103T732 90Q732 59 716 27T672 -16Q656 -22 630 -22Q481 -16 458 90Q456 101 456 163T449 246Q430 304 373 320L363 322L297 323H231V192L232 61Q238 51 249 49T301 46H334V0H323Q302 3 181 3Q59 3 38 0H27V46H60Q102 47 111 49T130 61V622ZM491 499V509Q491 527 490 539T481 570T462 601T424 623T362 636Q360 636 340 636T304 637H283Q238 637 234 628Q231 624 231 492V360H289Q390 360 434 378T489 456Q491 467 491 499Z" transform="translate(2000,0)"></path><path data-c="61" d="M137 305T115 305T78 320T63 359Q63 394 97 421T218 448Q291 448 336 416T396 340Q401 326 401 309T402 194V124Q402 76 407 58T428 40Q443 40 448 56T453 109V145H493V106Q492 66 490 59Q481 29 455 12T400 -6T353 12T329 54V58L327 55Q325 52 322 49T314 40T302 29T287 17T269 6T247 -2T221 -8T190 -11Q130 -11 82 20T34 107Q34 128 41 147T68 188T116 225T194 253T304 268H318V290Q318 324 312 340Q290 411 215 411Q197 411 181 410T156 406T148 403Q170 388 170 359Q170 334 154 320ZM126 106Q126 75 150 51T209 26Q247 26 276 49T315 109Q317 116 318 175Q318 233 317 233Q309 233 296 232T251 223T193 203T147 166T126 106Z" transform="translate(2736,0)"></path><path data-c="74" d="M27 422Q80 426 109 478T141 600V615H181V431H316V385H181V241Q182 116 182 100T189 68Q203 29 238 29Q282 29 292 100Q293 108 293 146V181H333V146V134Q333 57 291 17Q264 -10 221 -10Q187 -10 162 2T124 33T105 68T98 100Q97 107 97 248V385H18V422H27Z" transform="translate(3236,0)"></path><path data-c="65" d="M28 218Q28 273 48 318T98 391T163 433T229 448Q282 448 320 430T378 380T406 316T415 245Q415 238 408 231H126V216Q126 68 226 36Q246 30 270 30Q312 30 342 62Q359 79 369 104L379 128Q382 131 395 131H398Q415 131 415 121Q415 117 412 108Q393 53 349 21T250 -11Q155 -11 92 58T28 218ZM333 275Q322 403 238 411H236Q228 411 220 410T195 402T166 381T143 340T127 274V267H333V275Z" transform="translate(3625,0)"></path></g><g data-mml-node="mo" transform="translate(27275.4,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(27664.4,0)"><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z"></path></g></g></g></svg></mjx-container></span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myorder1 = ordercake(weight=<span class="number">2</span>, tax_rate = <span class="number">0.08</span>)</span><br><span class="line">myorder1.checkout()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Receipt </span><br><span class="line">--------------------</span><br><span class="line">Cake Price: 10 </span><br><span class="line">Tax: 0.8 </span><br><span class="line">Tips: 0 </span><br><span class="line">-------------------- </span><br><span class="line">Total: 10.8</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myorder1.checkout(tip=2)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Receipt </span><br><span class="line">--------------------</span><br><span class="line">Cake Price: 10 </span><br><span class="line">Tax: 0.8 </span><br><span class="line">Tips: 2 </span><br><span class="line">-------------------- </span><br><span class="line">Total: 12.8</span><br></pre></td></tr></table></figure>
+<h2 id="use-self-defined-function-in-class">Use Self-defined Function in
+Class</h2>
+<p>To enhance the <code>ordercake</code> class, I add an additional
+function to determine the delivery fee as follows.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define a free-delivery function</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">free_delivery</span>(<span class="params">order_price</span>):</span><br><span class="line">    <span class="comment"># Define the delivery fee</span></span><br><span class="line">    delivery_fee = <span class="number">5</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Waive delivery fee if order price &gt;= 15 dollars</span></span><br><span class="line">    <span class="keyword">if</span> order_price &gt;= <span class="number">15</span>:</span><br><span class="line">        delivery_fee = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> delivery_fee</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define a python class based on 'makecake'</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ordercake_delivery</span>(<span class="title class_ inherited__">makecake</span>):</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, weight, delivery, tax_rate=<span class="literal">None</span></span>):</span><br><span class="line">        <span class="comment"># Define instance variables</span></span><br><span class="line">        self.weight = weight</span><br><span class="line">        self.delivery_fcn = delivery</span><br><span class="line">        self.tax_rate = tax_rate <span class="keyword">if</span> tax_rate <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="number">0.06</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">checkout</span>(<span class="params">self, tip=<span class="literal">None</span></span>):</span><br><span class="line">        d_fee = self.delivery_fcn(self.price())</span><br><span class="line">        <span class="keyword">if</span> tip <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            tip = <span class="number">0</span></span><br><span class="line">            </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">'Receipt'</span>, <span class="string">'\n--------------------'</span></span><br><span class="line">              <span class="string">'\nCake Price:'</span>, <span class="built_in">round</span>(self.price(), <span class="number">2</span>),</span><br><span class="line">              <span class="string">'\nTax:'</span>, <span class="built_in">round</span>(self.price()*self.tax_rate, <span class="number">2</span>),</span><br><span class="line">              <span class="string">'\nTips:'</span>, tip,</span><br><span class="line">              <span class="string">'\nDelivery:'</span>, d_fee, <span class="string">'\n--------------------'</span>,</span><br><span class="line">              <span class="string">'\nTotal:'</span>, <span class="built_in">round</span>(self.price()*(<span class="number">1</span>+self.tax_rate)+tip+d_fee, <span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<p>A delivery fee of 5 dollars is added to the receipt if the cake price
+is less than 15 dollars.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myorder2 = ordercake_delivery(weight=<span class="number">2</span>, delivery=free_delivery)</span><br><span class="line">myorder2.checkout()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Receipt </span><br><span class="line">--------------------</span><br><span class="line">Cake Price: 10 </span><br><span class="line">Tax: 0.6 </span><br><span class="line">Tips: 0 </span><br><span class="line">Delivery: 5 </span><br><span class="line">-------------------- </span><br><span class="line">Total: 15.6</span><br></pre></td></tr></table></figure>
+<p>In contrast, the delivery fee is waived if the cake price is 15
+dollars or above.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">myorder3 = ordercake_delivery(weight=<span class="number">3</span>, delivery=free_delivery)</span><br><span class="line">myorder3.checkout(tip=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Receipt </span><br><span class="line">--------------------</span><br><span class="line">Cake Price: 15 </span><br><span class="line">Tax: 0.9 </span><br><span class="line">Tips: 2 </span><br><span class="line">Delivery: 0 </span><br><span class="line">-------------------- </span><br><span class="line">Total: 17.9</span><br></pre></td></tr></table></figure>
+<h2 id="reference">Reference</h2>
+<p>Python Classes and Objects at GeeksforGeeks:
+https://www.geeksforgeeks.org/python-classes-and-objects/</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/posts/20210720-Path-to-Virtual-Drive" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2021-08-10
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Python/" title="Python">
+                        <b>#</b> Python
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/posts/20210916-Short-Notes-on-A-B-Testing" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div class="post-catalog" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#class-object"><span class="toc-text">Class Object</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#inheritance"><span class="toc-text">Inheritance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#use-self-defined-function-in-class"><span class="toc-text">Use Self-defined Function in
+Class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reference"><span class="toc-text">Reference</span></a></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+  <div id="disqus_thread">
+    <h2>
+      <a href="#" class="comment" onclick="loadDisqus();return false;">View / Make Comments</a>
+    </h2>
+  </div>
+
+  <script>
+    var disqus_config = function() {
+      this.page.url = 'http://yanghaowang.github.io/posts/20210810-How-to-Use-Class-Objects-in-Python.html';
+      this.page.identifier = 'posts/20210810-How-to-Use-Class-Objects-in-Python.html';
+      this.page.title = 'How to Use Class Objects in Python';
+    };
+
+    var is_disqus_loaded = false;
+
+    function loadDisqus() {
+      if (!is_disqus_loaded) {
+        is_disqus_loaded = true;
+
+        var d = document,
+          s = d.createElement('script');
+        s.src = 'https://https-yanghaowang-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+    }
+
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/in/yanghaowang">
+            <i class="iconfont icon-linkedin"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="mailto:wyangh90@gamil.com">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      <!-- <a href="">© 2022 Yanghao Wang. All Rights Reserved.</a> -->
+      
+        © 2022 Yanghao Wang. All Rights Reserved.
+            
+    </div>
+  
+  <div class="footer-more" style="text-align:center;">
+    Hosted by 
+    <a href="https://github.com/yanghaowang" target="_blank" style="text-decoration: none;" rel="noreferrer">
+      <svg class="img-hov" style="width: 15px;" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    </a> with Theme  
+    <a target="_blank" href="https://github.com/zchengsite/hexo-theme-oranges" style="text-decoration: none;" rel="noreferrer noopener">
+      <img class="img-hov" style="width: 15px;" src="/images/favicon.png">
+    </a> Powered by 
+    <a href="https://hexo.io/themes/#Oranges" target="_blank" style="text-decoration: none;" rel="noreferrer">
+      <svg class="img-hov" style="width: 15px; fill: #03adfc" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+    </a>.
+    <p><br></p>
+  </div>
+</div>
+
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)"> 
+    <p style="text-align: center;">Back to Top</p>
+    <p style="text-align: center;"><i class="iconfont icon-chevronup"></i></p>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+
+
+    </div>
+  </body>
+</html>

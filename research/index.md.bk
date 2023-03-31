@@ -1,0 +1,118 @@
+---
+title: Research
+date: 2022-07-05
+sitemap: true
+description: Paper(s) under Review, Working Paper(s), Refereed Publications 
+
+---
+
+<script type="text/javascript">
+function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if(e.style.display == 'block')
+        e.style.display = 'none';
+    else
+        e.style.display = 'block';
+}
+</script>
+
+## Working Paper
+
+<ol>
+    <li>
+    "Food Retail Competition in Local Markets." (with Metin Çakır and Timothy A. Park)
+    </li>
+</ol>
+
+## Refereed Publications
+
+
+<ol>
+    <li>
+        <p style="text-align: justify;">Çakır, Metin, Timothy K. M. Beatty, Michael A. Boland, Qingxiao Li, Timothy A. Park, and <strong>Yanghao Wang</strong>. 2022. "<a href="https://doi.org/10.1002/jaa2.7" target="_blank">An Index Number Approach to Estimating Organic Price Premia at Retail.</a>" <em>Journal of the Agricultural and Applied Economics Association</em> 1(1): 33-46.
+    <br>
+        <a href="#cakir_organic_abs" onclick="toggle_visibility('cakir_organic');">Abstract</a>
+        <div id="cakir_organic" style="display: none; text-align: justify; font-size: 90%;">
+            <blockquote>
+            A full understanding of the retail price premia commanded by organic foods is essential to production, marketing, and public policy decisions. But there is no systematic information on magnitudes of the premia and how they change over time and across space. This article uses index number methods to estimate spatially and temporally consistent retail price premia for organic fresh fruits and vegetables (FFV). The indices are constructed using weekly point-of-sale scanner data from grocery stores and mass merchandisers in 24 contiguous metropolitan statistical areas (MSA) between 2009 and 2017. Our main result is that the national average organic price premia in the FFV market are persistent, ranging between 58% and 92%, and trending upward over the study period. The differences in premia across MSAs are large, while they have slightly converged during the study period. The premia also differ substantially across products. Lastly, we construct the price indices and estimate the premia using alternative compositions of index baskets. We show that price premia are substantially overestimated if the price of the conventional product basket is not calculated with the same weights used to calculate the price of the organic basket.
+            </blockquote>
+        </div>
+    </li>
+    <li>
+        <p style="text-align: justify;"><strong>Wang, Yanghao</strong>, Wei Shi, and Zhenhua Chen. 2021. "<a href="https://authors.elsevier.com/a/1e0284rgZijMSn" target="_blank">Impact of Ride-hailing Usage on Vehicle Ownership in the United States.</a>" <em>Transportation Research Part D: Transport and Environment</em> 101: 103085.
+    <br>
+    <a href="#wang_ridehailing_abs" onclick="toggle_visibility('wang_ridehailing');">Abstract</a>
+        <div id="wang_ridehailing" style="display: none; text-align: justify; font-size: 90%;">
+            <blockquote>
+            Ride-hailing as an innovative urban mobility service has received increasing attention in the recent decade. Using data from the 2017 National Household Travel Survey, we investigate the relationship between ride-hailing usage and household vehicle ownership from 42 metropolitan areas across the United States. Previous studies have shown mixed findings on this relationship. Our study contributes to the literature by estimating a bivariate ordered probit model with considerations of the recursive effect between ride-hailing usage and household vehicle ownership. We find that compared to occasional users, regular and active users are more likely to own fewer vehicles. Also, we find no significant difference in possessing vehicles between regular and active users.
+            </blockquote>
+        </div>
+    </li>
+    <li>
+        <p style="text-align: justify;">Zhang, Jun, <strong>Yanghao Wang</strong>, and Steven T. Yen. 2021. "<a href="https://doi.org/10.3390/ijerph18063178" target="_blank">Does Supplemental Nutrition Assistance Program Reduce Food Insecurity among Households with Children? Evidence from the Current Population Survey.</a>" <em>International Journal of Environmental Research and Public Health</em>  18(6): 3178.
+        <br>
+        <a href="#zhang_snap_fi_abs" onclick="toggle_visibility('zhang_snap_fi');">Abstract</a>
+            <div id="zhang_snap_fi" style="display: none; text-align: justify; font-size: 90%;">
+                <blockquote>
+                The Supplemental Nutrition Assistance Program (SNAP) is designed to improve household diet and food security—a pressing problem confronting low-income families in the United States. Previous studies on the issue often ignored the methodological issue of endogenous program participation. We revisit this important issue by estimating a simultaneous equation system with ordinal household food insecurity. Data are drawn from the 2009–2011 Current Population Survey Food Security Supplement (CPS-FSS), restricted to SNAP-eligible households with children. Our results add to the stocks of empirical findings that SNAP participation ameliorates food insecurity among adults only, but increases the probabilities of low and very low food security among children. These contradictory results indicate that our selection approach with a single cross section is only partially successful, and that additional efforts are needed in further analyses of this complicated issue, perhaps with longitudinal data. Socio-demographic variables are found to affect food-secure households and food-insecure households differently, but affect SNAP nonparticipants and participants in the same direction. The state policy tools, such as broad-based categorical eligibility (BBCE) and simplified reporting, can encourage SNAP participation and thus ameliorate food insecurity. Our findings can inform policy deliberations.
+                </blockquote>
+            </div>
+        </p>
+    </li>
+    <li>
+        <p style="text-align: justify;"><strong>Wang, Yanghao</strong> and Metin Çakır. 2021. "<a href="https://doi.org/10.1111/agec.12614" target="_blank">Welfare Impacts of Increasing Teff Prices on Ethiopian Consumers.</a>" <em>Agricultural Economics</em>  52(2): 195-213.
+        <br>
+        <a href="#wang_teff_abs" onclick="toggle_visibility('wang_teff');">Abstract</a>
+            <div id="wang_teff" style="display: none; text-align: justify; font-size: 90%;">
+                <blockquote>
+                Teff is an ancient grain primarily produced in Ethiopia and providing more than 10% of the total calories consumed in the country. The grain is considered as “super grain” due to its nutritional qualities, and it has seen an increase in its demand and price in recent years. These trends raise public concerns about the affordability of the grain and the prevalence of food insecurity in Ethiopia. Therefore, we investigate the impacts of increasing teff prices on consumers’ welfare by regions. Using data from two waves of the Ethiopia Socioeconomic Survey 2013–2014 and 2015–2016, we examine the consumption patterns of cereals in Ethiopia and estimate a two‐stage structural demand system. We find that teff is the most own‐price inelastic grain in Ethiopia and an increase of 10% in teff prices will reduce consumer welfare by 0.81, 1.29, and 1.73 Birrs per week for the average rural, town, and urban consumers, respectively. These estimates correspond to 1.64, 2.31, and 2.46% of their weekly food budgets. We also find the negative effects of an increase in teff prices are smaller for the lower‐income groups as they have relatively lower expenditures on teff. Additionally, we analyze the effects of simultaneous changes in wheat and teff prices to measure the extent to which Ethiopia's food policy of distributing subsidized wheat could offset the consumer welfare loss due to an increase in teff prices.
+                </blockquote>
+            </div>
+        </p>
+    </li>
+    <li>
+        <p style="text-align: justify;"><strong>Wang, Yanghao</strong> and Metin Çakır. 2020. "<a href="https://doi.org/10.1111/agec.12564" target="_blank">Welfare Impacts of New Demand-Enhancing Agricultural Products: The Case of Honeycrisp Apples.</a>" <em>Agricultural Economics</em> 51(3): 445-457.
+        <br>
+        <a href="#wang_apple_abs" onclick="toggle_visibility('wang_apple');">Abstract</a>
+            <div id="wang_apple" style="display: none; text-align: justify; font-size: 90%;">
+                <blockquote>
+                Agricultural research and development programs on new demand‐enhancing products have become increasingly important over the past decade. Large numbers of new agricultural products have been developed and commercialized in the United States to meet consumers’ increasingly diverse expectations for food quality. However, little is known about their economic benefits. Focusing on the apple market, we investigate the welfare impacts of the introduction of Honeycrisp apples in a market equilibrium framework. We use market data on apple sales from 61 cities across the United States between 2009 and 2015. We find the introduction of Honeycrisp increased consumer welfare, which is mainly explained by the increased number of total apple varieties. We also find that the introduction of Honeycrisp apples has increased overall market size and total apple sales. To extrapolate our results to the entire U.S. apple market, we perform a back‐of‐the‐envelope analysis and find that the introduction of Honeycrisp apples has increased total consumer welfare by about 859 million dollars during the study period. This corresponds to approximately 19% of the annual average domestic expenditures on public food and agricultural R&D.
+                </blockquote>
+            </div>
+        </p>
+    </li>
+    <li>
+        <p style="text-align: justify;">Çakır, Metin, Timothy K.M. Beatty, Michael A. Boland, Timothy A. Park, Samantha Snyder, and <strong>Yanghao Wang</strong>. 2018. "<a href="https://doi.org/10.1093/ajae/aay002" target="_blank">Spatial and Temporal Variation in the Value of the WIC Programs Fruit and Vegetable Voucher.</a>" <em>American Journal of Agricultural Economics</em> 100(3): 691-706.
+        <br>
+        <a href="#cakir_FV_CPI_abs" onclick="toggle_visibility('cakir_FV_CPI');">Abstract</a>
+            <div id="cakir_FV_CPI" style="display: none; text-align: justify; font-size: 90%;">
+                <blockquote>
+                Increasing the consumption of fresh fruits and vegetables among children and low-income households is a public health policy priority in the United States. We investigate temporal and spatial price patterns for fresh fruits and vegetables to evaluate the extent to which the value of the fruit and vegetable Cash-Value-Voucher (CVV) of the Special Supplemental Nutrition Program for Women, Infants, and Children (WIC) may be affected by unequal price levels and changes in price levels across the United States. Our findings show that price differences over space and time have real and consequential impacts on the purchasing power of the CVV. A WIC Program participant in the highest-cost Metropolitan Statistical Area (MSA) can buy significantly fewer fruits and vegetables than a participant who receives the same benefit in the lowest-cost MSA. Further, we find that the value of the CVV has substantially declined across all MSAs since 2009. We discuss the nutritional implications of the variation in the value of the CVV and evaluate potential mechanisms that could be implemented to maintain equal CVV benefits across time and space.
+                </blockquote>
+            </div>
+        </p>
+    </li>
+    <li>
+        <p style="text-align: justify;">Çakır, Metin, Michael A. Boland, and <strong>Yanghao Wang</strong>. 2018. "<a href="https://doi.org/10.1093/aepp/ppx027" target="_blank">The Economic Impacts of 2015 Avian Influenza Outbreak on the U.S. Turkey Industry and the Loss Mitigating Role of Free Trade Agreements.</a>" <em>Applied Economic Perspectives and Policy</em> 40(2): 297-315.
+        <br>
+        <a href="#cakir_turkey_abs" onclick="toggle_visibility('cakir_turkey');">Abstract</a>
+            <div id="cakir_turkey" style="display: none; text-align: justify; font-size: 90%;">
+                <blockquote>
+                We investigate the economic impacts of the 2015 HPAI outbreak on turkey producers in Minnesota and the United States. Using a partial equilibrium model of the meat and poultry industry we find that the cost of the outbreak to U.S turkey producers was \$225 million; \$207 million of which were due to the loss in exports. However, it could have been worse if not for implementation of regional bans by trading partners who have negotiated free trade agreements with the United States. Our results show that for every percentage point of additional exports, U.S. turkey producers avoided a loss of about $6 million.
+                </blockquote>
+            </div>
+        </p>
+    </li>
+    <li>
+        <p style="text-align: justify;">Tan, Andrew K.G., <strong>Yanghao Wang</strong>, Steven T. Yen, and Mustapha I. Feisul. 2016. "<a href="https://doi.org/10.1093/aepp/ppv020" target="_blank">Physical Activity and Body Weight among Adults in Malaysia.</a>" <em>Applied Economic Perspectives and Policy</em> 38 (2): 318-33.
+        <br>
+        <a href="#tan_PA_abs" onclick="toggle_visibility('tan_PA');">Abstract</a>
+            <div id="tan_PA" style="display: none; text-align: justify; font-size: 90%;">
+                <blockquote>
+                The influence of sociodemographic and lifestyle factors on body weight conditional upon endogenous physical activity (PA) is examined for adults in Malaysia. We find an inverse link between body weight and PA at elevated PA levels. Vigorous PA with metabolic equivalent of task (MET) of 1500 minutes per
+                week and above is required for healthy changes in body weight. Older individuals and those with low education and a family history of illnesses are associated with higher body mass index (BMI) across PA levels. Individuals of Chinese and other ethnicity, males, smokers, and persons working long hours have lower BMI at all PA levels.
+                </blockquote>
+            </div>
+        </p>
+    </li>
+</ol>
