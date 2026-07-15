@@ -13,6 +13,26 @@ img.about-image {
   display: none;
 }
 
+/* Post listing: reduce title size and add breathing room */
+.quarto-post .listing-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+
+.quarto-post .listing-categories {
+  margin-top: 0.3rem;
+}
+
+.quarto-post {
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+}
+
+/* Remove extra bottom margin from listing container */
+#recent-posts .quarto-listing {
+  margin-bottom: -3.5rem;
+}
+
 /* Custom Sun/Moon Toggle Icons */
 /* Light mode (not alternate) — sun icon */
 .quarto-color-scheme-toggle:not(.alternate) .bi::before {
