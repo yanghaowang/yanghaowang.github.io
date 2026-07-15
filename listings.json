@@ -1,0 +1,62 @@
+[
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/posts/python-missing-data/index.html",
+      "/posts/compare-distributions/index.html",
+      "/posts/extreme-value-logit/index.html",
+      "/posts/conditional-prob-association-rules/index.html",
+      "/posts/sample-size-testing/index.html",
+      "/posts/sample-size-ab-testing/index.html",
+      "/posts/noncompliance-late-cace/index.html",
+      "/posts/iptw-doubly-robust/index.html",
+      "/posts/greedy-propensity-matching/index.html",
+      "/posts/observational-matching-overview/index.html",
+      "/posts/my-different-qingming/index.html",
+      "/posts/dags/index.html",
+      "/posts/causal-inference-econ-3/index.html",
+      "/posts/causal-inference-econ-2/index.html",
+      "/posts/causal-inference-econ-1/index.html",
+      "/posts/ab-testing-notes/index.html",
+      "/posts/python-class-objects/index.html",
+      "/posts/virtual-drive-path/index.html",
+      "/posts/github-basics/index.html",
+      "/posts/causal-inference-intro/index.html",
+      "/posts/sql-groupby-window-functions/index.html",
+      "/posts/sql-aggregate-filter/index.html",
+      "/posts/hypothesis-vs-ab-testing/index.html",
+      "/posts/error-types-measures/index.html",
+      "/posts/sql-joins/index.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/python-missing-data/index.html",
+      "/posts/compare-distributions/index.html",
+      "/posts/extreme-value-logit/index.html",
+      "/posts/conditional-prob-association-rules/index.html",
+      "/posts/sample-size-testing/index.html",
+      "/posts/sample-size-ab-testing/index.html",
+      "/posts/noncompliance-late-cace/index.html",
+      "/posts/iptw-doubly-robust/index.html",
+      "/posts/greedy-propensity-matching/index.html",
+      "/posts/observational-matching-overview/index.html",
+      "/posts/my-different-qingming/index.html",
+      "/posts/dags/index.html",
+      "/posts/causal-inference-econ-3/index.html",
+      "/posts/causal-inference-econ-2/index.html",
+      "/posts/causal-inference-econ-1/index.html",
+      "/posts/ab-testing-notes/index.html",
+      "/posts/python-class-objects/index.html",
+      "/posts/virtual-drive-path/index.html",
+      "/posts/github-basics/index.html",
+      "/posts/causal-inference-intro/index.html",
+      "/posts/sql-groupby-window-functions/index.html",
+      "/posts/sql-aggregate-filter/index.html",
+      "/posts/hypothesis-vs-ab-testing/index.html",
+      "/posts/error-types-measures/index.html",
+      "/posts/sql-joins/index.html"
+    ]
+  }
+]
