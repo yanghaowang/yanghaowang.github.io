@@ -1,0 +1,161 @@
+---
+title: Derivation of Sample Size for Two-group AB Testing
+date: 2022-08-30 22:12:20
+description: "A step-by-step mathematical derivation of the required sample size for conducting rigorous two-group A/B testing."
+categories:
+- A/B Testing
+- Hypothesis Testing
+- Sample Size
+mathjax: true
+---
+
+![](SampleSize_ABTesting.png)
+
+## Problem Settings
+
++ **Two independent** groups
+  
+  |                           | Control | Treatment |
+  | ------------------------- | ------- | --------- |
+  | Size                      | $n_0$   | $n1$      |
+  | Percentage<br>of Interest | $p_0$   | $p_1$     |
+
++ <mark>One-tailed</mark> hypothesis testing
+  
+  + $H_0: \space p_0=p_1$
+  
+  + $H_1: \space p_0<p_1$
+  
+  + Significance level (type I error): $\alpha$
+  
+  + Statistical power (1 - type II error): $1-\beta$
+  
+  + Percentage of Interest in sample: $\hat p_0$ and $\hat p_1$
+
+The sampling distribution of the difference, $\hat p_0-\hat p_1$, is given by
+
+$$
+\hat p_0 - \hat p_1 \sim N\left(p_0-p_1, 
+\frac{p_0(1-p_0)}{n_0}+\frac{p_1(1-p_1)}{n_1} \right).
+$$
+
+Therefore,
+
+$$
+Z=\frac{(\hat p_0-\hat p_1)-(p_0-p_1)}
+{\sqrt{\frac{p_0(1-p_0)}{n_0}+\frac{p_1(1-p_1)}{n_1}}}\sim N(0,1)
+$$
+
+## Type I Error in Testing
+
+$$
+\begin{align*}
+\Pr(H_0 \text{ is rejected}\mid H_0\text{ is true})&=\alpha \\
+\Pr(H_0 \text{ cannot be rejected}\mid H_0\text{ is true})&=1-\alpha \\
+\Pr(Z < z_{1-\alpha} \mid H_0\text{ is true})&=1-\alpha \\
+\Pr\left(\frac{(\hat p_0-\hat p_1)-(p_0-p_1)}
+{\sqrt{\frac{p_0(1-p_0)}{n_0}+\frac{p_1(1-p_1)}{n_1}}}<z_{1-\alpha}
+\mid  H_0\text{ is true}\right) &= 1 -\alpha \\
+\end{align*}
+$$
+
+Given $H_0$ is true, we have $p_0=p_1=p=\frac{n_0p_0+n_1p_1}{n_0+n_1}$. Hence, the conditional probability can be written as an unconditional probability, such that,
+
+$$
+\begin{align*}
+\Pr\left(\frac{(\hat p_0-\hat p_1)}
+{\sqrt{p(1-p)\left(\frac{1}{n_0}+\frac{1}{n_1}\right)}}<z_{1-\alpha}
+\right) &= 1 -\alpha \\
+\Pr\left(\hat p_0-\hat p_1
+<z_{1-\alpha} \sqrt{p(1-p)\left(\frac{1}{n_0}+\frac{1}{n_1}\right)}
+\right) &= 1 -\alpha.
+\end{align*}
+$$
+
+If we have <mark>two equal-size groups</mark>, i.e., $n_0=n_1=n$, then $\hat p=(\hat p_0+ \hat p_1)/2$ and 
+
+$$
+\Pr\left(\hat p_0-\hat p_1
+<z_{1-\alpha} \sqrt{\frac{\hat p_0+ \hat p_1}{2}(1-\frac{\hat p_0+ \hat p_1}{2})\frac{2}{n}} 
+\right) = 1 -\alpha.
+$$
+
+## Type II Error in Testing
+
+$$
+\begin{align*}
+\Pr(H_0 \text{ cannot be rejected}\mid H_1\text{ is true})&=\beta \\
+\Pr(H_0 \text{ is rejected}\mid H_1\text{ is true})&=1- \beta\\
+\Pr\left(\hat p_0-\hat p_1
+>z_{1-\alpha} \sqrt{\frac{\hat p_0+ \hat p_1}{2}(1-\frac{\hat p_0+ \hat p_1}{2})\frac{2}{n}} 
+\mid H_1\text{ is true}\right)&=1- \beta\\
+\end{align*}
+$$
+
+Since $H_1$ is true, we have $p_0<p_1$. In particular, let $p_0 - p_1 = \delta$. Then, we can rewrite the distribution to a standard normal distribution, such that,
+
+$$
+\begin{align*}
+\Pr\left(\frac{\hat p_0-\hat p_1 -{\delta}}
+{\sqrt{\frac{\hat p_0(1-\hat p_0)}{n}+\frac{\hat p_1(1-\hat p_1)}{n}}}
+>\frac{z_{1-\alpha} \sqrt{\frac{\hat p_0+ \hat p_1}{2}(1-\frac{\hat p_0+ \hat p_1}{2})\frac{2}{n}} 
+-{\delta}}
+{\sqrt{\frac{\hat p_0(1-\hat p_0)}{n}+\frac{\hat p_1(1-\hat p_1)}{n}}}\right)&=1- \beta\\
+\Pr\left(Z>\frac{z_{1-\alpha} \sqrt{\frac{\hat p_0+ \hat p_1}{2}(1-\frac{\hat p_0+ \hat p_1}{2})\frac{2}{n}} 
+-\delta}
+{\sqrt{\frac{\hat p_0(1-\hat p_0)}{n}+
+\frac{\hat p_1(1-\hat p_1)}{n}}}\right)&=1-\beta
+\end{align*}
+$$
+
+## Solve Equation for n
+
+$$
+\begin{align*}
+\frac{z_{1-\alpha} \sqrt{\frac{\hat p_0+ \hat p_1}{2}(1-\frac{\hat p_0+ \hat p_1}{2})\frac{2}{n}} 
+-\delta}
+{\sqrt{\frac{\hat p_0(1-\hat p_0)}{n}+
+\frac{\hat p_1(1-\hat p_1)}{n}}}= z_{\beta}=-z_{1-\beta} \\
+\frac{z_{1-\alpha} \sqrt{2\times\frac{\hat p_0+ \hat p_1}{2}(1-\frac{\hat p_0+ \hat p_1}{2})} 
+-\delta\sqrt{n}}
+{\sqrt{(\hat p_0(1-\hat p_0))+(\hat p_1(1-\hat p_1))}}= -z_{1-\beta} \\
+\end{align*}
+$$
+
+That is,
+
+$$
+\begin{align*}
+z_{1-\alpha} \sqrt{2\times\frac{\hat p_0+ \hat p_1}{2}(1-\frac{\hat p_0+ \hat p_1}{2})} 
+-\delta\sqrt{n}= -z_{1-\beta}\sqrt{(\hat p_0(1-\hat p_0))+(\hat p_1(1-\hat p_1))} \\
+\implies n = 
+\frac{\left(z_{1-\alpha} \sqrt{2\times\frac{\hat p_0+ \hat p_1}{2}(1-\frac{\hat p_0+ \hat p_1}{2})} 
++ z_{1-\beta}\sqrt{(\hat p_0(1-\hat p_0))+(\hat p_1(1-\hat p_1))}
+\right)^2}
+{\delta^2}.
+\end{align*}
+$$
+
++ <mark>n is the sample size for each group.</mark> In other words, the total sample size is $2n$.
+
++ <mark>$z_{1-\alpha}$</mark> is the critical value at the significance level of $\alpha$ in a <mark>one-tailed</mark> test.
+  
+  + $z_{1-\alpha}$ will be replaced with <mark>$z_{1-\alpha/2}$ in a two-tailed</mark> test.
+
+Suppose $\hat p_0$ and $\hat p_1$ are quite similar, we have
+
+$$
+\frac{\hat p_0+ \hat p_1}{2}\left(1-\frac{\hat p_0+ \hat p_1}{2}\right)
+\approx (\hat p_0(1-\hat p_0)) \approx (\hat p_1(1-\hat p_1)).
+$$
+
+Therefore,
+
+$$
+n\approx\frac{2\times\frac{\hat p_0+ \hat p_1}{2}(1-\frac{\hat p_0+ \hat p_1}{2})\left(z_\alpha 
++ z_{1-\beta}
+\right)^2}
+{\delta^2} = \frac{2\times\bar p(1-\bar p)\left(z_{1-\alpha}+ z_{1-\beta}
+\right)^2}
+{\delta^2}.
+$$

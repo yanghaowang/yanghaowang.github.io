@@ -1,0 +1,126 @@
+---
+title: IPTW Estimator and Doubly Robust Estimator
+date: 2022-07-16 22:53:12
+description: "An overview of Inverse Probability of Treatment Weighting (IPTW) and Doubly Robust Estimators in causal inference."
+categories:
+- Causal
+- Causal-IPW
+- Causal-DoublyRobust
+mathjax: true
+---
+### IPTW Estimator
+
+Under the assumption of exchangeability and positivity, we can estimate ${\rm E}(Y^1)$ as
+
+$$
+\frac{\sum^n_{i=1}I(A_i=1)\frac{Y_i}{\pi_i}}{\sum^n_{i=1}I(A_i=1)\frac{1}{\pi_i}}
+$$
+
+where $\pi_i=\Pr(A=1\mid X_i)$ is the propensity score.
+
++ Inverse Probability of Treatment Weighting (IPTW) uses the inverse of the probability of being treated as weight, that is, $1/\pi_i$ for individual $i$.
+
++ **IPTW uses the weight to create a pseudo-population where the numbers of subjects in the treatment and control groups are balanced.**
+
++ The numerator $\sum^n_{i=1}I(A_i=1)\frac{Y_i}{\pi_i}$ is the sum of the Y's in treated pseudo-population, while the denominator $\sum^n_{i=1}I(A_i=1)\frac{1}{\pi_i}$ is the number of subjects in treated pseudo-population. Overall, we have the average value of the outcome if treated, i.e., ${\rm E}(Y^1)$.
+
++ Exchangeability is another way of saying ignorability given X.
+
++ Positivity suggests $\pi_i\in(0,1)$ which is critical for this formula since $\pi_i$ is in the denominator position.
+
+Similarly, we can estimate ${\rm E}(Y^0)$ by
+
+$$
+\frac{\sum^n_{i=1}I(A_i=0)\frac{Y_i}{1-\pi_i}}{\sum^n_{i=1}I(A_i=0)\frac{1}{1-\pi_i}}.
+$$
+
+Then, an average causal effect estimator is obtained by
+
+$$
+{\rm E}(Y^1)-{\rm E}(Y^0).
+$$
+
+### Large Weight Problem
+
+When using IPTW estimation, the large weights can create a problem, i.e., large standard errors.
+
+> + Imagine one person has a weight of 10000, which means this person represents 10,000 people. So much is riding on this one person. That creates noise in a sense.
+> 
+> + [Further Intuition] We estimate the standard errors with bootstrapping. The value of our estimate in each of these bootstrap samples is going to depend a great deal on the inclusion/appearance of this one person. When this person is in, the parameter estimate will be pulled towards him, while when he is out, that is not going to happen. As a result, the parameter estimate is going to vary a lot in large part due to this one person.
+
+Check the distribution of weights in plots.
+
++ Density plot with tick marks on the bottom
+
++ Scatter plot for a sorted weight data series from the smallest to the largest
+
+### Remedies for Large Weights
+
+#### Trimming the Tails
+
++ Large weights occur at observations in the tails of the propensity score distribution
+
++ Trimming the tails can eliminate some of the extreme weights
+  
+  + A common strategy:
+    
+    + *Remove **treated** subjects* whose propensity scores are above *the 98th percentile from* the distribution among ***controls***
+    
+    + *Remove **control** subjects* whose propensity scores are below *the 2nd percentile from* the distribution among *<b>treated</b> subjects*
+
+#### Weight Truncation
+
+Truncation Steps:
+
+1. Determine a maximum allowable weight
+   
+   + Could be a specific value (e.g., 100)
+   
+   + Could be based on a percentile (e.g., 99th)
+
+2. If one weight is greater than the maximum allowable, set it to the maximum allowable value
+   
+   + For example, if your upper limit is 100, someone who weights 1000 will be set to 100 instead.
+
+Truncation changes the data and hence introduces bias. So there involves a bias-variance trade-off:
+
++ Truncation: Bias, smaller variance
+
++ No Truncation: Unbiased, larger variance
+
+Judge if the trade-off is worth based on the mean squared error. If truncating a small number of observations (not too many) that have extreme weights, you'll probably be better off in terms of mean squared error.
+
+### Doubly Robust Estimators
+
++ IPTW Estimator: We can estimate ${\rm E}(Y^1)$ given by
+  
+  $$
+  \frac{1}{n}\sum_{i=1}^n\frac{A_iY_i}{\pi_i(X_i)},
+  $$
+  
+  where $\pi_i(X_i)$ is the propensity score. This estimator is unbiased if $\pi_i(X_i)$ is correctly specified.
+  
+  + $\sum_{i=1}^n A_i$ counts the number of treated subjects.
+  
+  + $1/\pi_i(X_i)$ is **the weight used to constructing a pseudo-population**. For example, there are 9 out of 10 subjects treated in a randomized trial. The total number $n$ of subjects is 10 and the propensity score $\pi_i$ is 0.9 for any $i$. The IPTW estimator gives an expectation of $Y^1$.
+
++ Regression-based Estimator: We can estimate ${\rm E}(Y^1)$ given by
+  
+  $$
+  \frac{1}{n}\sum_{i=1}^n\left\{A_iY_i+(1-A_i)m_1(X_i)\right\}
+  $$
+  
+  where $m_1(X)={\rm E}(Y\mid A=1,X)$.
+  
+  + Instead of creating a pseudo-population, we use $m_1(X_i)$ to predict the value of $Y^1$ for subjects who are not treated.
+
++ Doubly Robust Estimator: It is an unbiased estimator if either the propensity score model or the outcome regression model are correctly specified.
+  
+  $$
+  \frac{1}{n}\sum_{i=1}^n\Bigg\{\underbrace{
+\frac{A_iY_i}{\pi_i(X_i)}}_{\rm IPTW}
+-\underbrace{
+\frac{A_i-\pi_i(X_i)}{\pi_i(X_i)}m_1(X_i)}_{\rm Augmentation}\Bigg\}
+  $$
+  
+  This doubly robust estimator is also known as **Augmented IPTW** (AIPTW) estimators. In general, AIPTW estimators should be *more efficient* than regular IPTW estimators.

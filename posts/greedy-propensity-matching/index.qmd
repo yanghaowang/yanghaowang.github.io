@@ -1,0 +1,246 @@
+---
+title: Greedy Matching and Propensity Score Matching
+date: 2022-07-09 13:28:39
+description: "Learn how to reduce selection bias using Greedy Matching and Propensity Score Matching techniques in observational studies."
+categories:
+- Causal
+- Causal-Matching
+mathjax: true
+---
+### Greedy (Nearest-neighbor) Matching
+
+#### Pair Matching
+
+Steps:
+
+1. Randomly order list of treated subjects and control subjects
+
+2. Start with the first treated subject. Match to the control with the smallest distance (this is greedy).
+
+3. Remove the matched control from the list of available matches.
+
+4. Move on to the next treated subject. Match to the control with the smallest distance.
+
+5. Repeat steps 3 and 4 until you have matched all treated subjects.
+
+| Advantage                                                                                                                                                                       | Disadvantage                                                                                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. Intuitive <br>2. Computationally fast<br>- Involves a series of simple algorithms (identifying minimum distance)<br>- Fast even for large data sets<br/>- R package: MatchIt | 1. Not invariant to initial order of list <br>2. Not optimal<br>- Always taking the smallest distance match does not minimize total distance<br>-Can lead to some bad matches (think of step3 above) |
+
+#### Many-to-one Matching
+
+For k:1 matching: After everyone has 1 match, go through the list again and find 2nd matches. Repeat until k matches.
+
+| Advantage                                                                                                                | Disadvantage                                                                                                                                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| End up *using more of the controls and a large sample size*. It suggests a more efficient estimate of the causal effect. | Adding a new treated subject to your data set would be more of an efficiency gain than adding another control to a matched set. So there is some power gain, some efficiency gain, but it's not very large. The many-to-one matching should lead to *a little more bias, but smaller variance*. |
+
+#### Caliper
+
+A bad match can be defined using a *caliper* - maximum acceptable distance.
+
++ Only match a treated subject if the best match has a distance less than the caliper
+
++ Recall *positivity assumption*: Probability of each treatment given X should be non-zero, i.e., $\Pr(T\mid X)\in(0,1)\space\forall X$.
+  
+  + If no matches within the caliper, it is a sign that the positivity assumption would be violated
+  
+  + Excluding these subjects makes the assumption more realistic
+  
+  + Drawback: Hard to define
+
+### Optimal Matching
+
++ Minimize global distance (i.e., total distance)
+  
+  + Greedy matching is not necessarily optimal and usually is not in terms of minimizing the total distance. Because there might be times when you want to save a match for a later subject and accept a slightly less good match now.
+
++ Computationally demanding
+  
+  + R packages: `optmatch`, `rcbalance`
+
+### Balance Assessment
+
++ Covariate Balance
+  
+  + *Two sample t-tests* for continuous variables or *Chi-sqaure tests* for discrete variables
+    
+    + Two sample t-test (equal variance)
+      
+      $$
+      t=\frac{\bar X_1-\bar X_2}{s_p\sqrt{1/n_1+1/n_2}}
+      $$
+      
+      where $n_1$ and $n_2$ are sample sizes, $s_p$ is the population deviation such that  
+      
+      $$
+      s_p^2=\frac{(n_1-1)s_1^2+(n_2-1)s^2_2}{n_1+n_2-2}.
+      $$
+      
+      > When $n_1=n_2$, $s_p$ reduces to $(s^2_1+s^2_2)/2$.
+    
+    + Two sample t-test (unequal variance)
+      
+      $$
+      t=\frac{\bar X_1-\bar X_2}{\sqrt{s^2_1/n_1+s^2_2/n_2}}
+      $$
+    
+    + [Chi-Square Test of Independence | Introduction to Statistics | JMP](https://www.jmp.com/en_us/statistics-knowledge-portal/chi-square-test/chi-square-test-of-independence.html)
+    
+    + [Chi-Square Goodness of Fit Test | Introduction to Statistics | JMP](https://www.jmp.com/en_us/statistics-knowledge-portal/chi-square-test/chi-square-goodness-of-fit-test.html)
+  
+  + Drawback: p-values are dependent on the sample size. Particularly, small differences in means can be significant with a small p-value if the sample size is large. This is what we don't want.
+    
+    $$
+    smd=\frac{\bar{X}_\text{treatment}-\bar X_\text{control}}
+    {\sqrt{\frac{s^2_\text{treatment}+s^2_\text{control}}{2}}}
+    $$
+  
+  + Standardized (mean) differences
+    
+    $$
+    smd=\frac{\bar{X}_\text{treatment}-\bar X_\text{control}}
+    {\sqrt{\frac{s^2_\text{treatment}+s^2_\text{control}}{2}}}
+    $$
+    
+    | Values  | Balance           |
+    | ------- | ----------------- |
+    | <0.1    | Adequate balance  |
+    | 0.1-0.2 | Not too alarming  |
+    | >0.2    | Serious imbalance |
+
+### Randomization Tests
+
+Also known as **Permutation Tests** and **Exact Tests**
+
+Test Steps:
+
+1. Compute the test statistic from observed data
+
+2. Assume the null hypothesis of no treatment effect is true
+
+3. Randomly permute treatment assignment *within pairs* and re-compute test statistic
+
+4. Repeat many times and see how unusual the observed statistic is
+
+Notes:
+
++ When calculating a p-value, the intuition is to calculate the probability of something as extreme or more extreme than our particular value
+
++ This test is equivalent to the McNemar test for paired binary/discrete data and equivalent to paired t-test for paired continuous data
+
+### Sensitivity Analysis
+
++ Overt bias could occur if there was imbalance on observed covariates
+
++ There is no guarantee that matching will result in balance on variables that we did not match on (including unobserved variabels)
+  
+  + If these unobserved variables are confounders. then we have hidden bias and ignorability assumption violated (i.e., $Y_0,Y_1\perp T\mid X$)
+    
+    > Understanding of Ignorability: $Y=Y_0+(Y_1-Y_0)\times T$ where $T=1$ if treated, 0 otherwise. Ignorability says $T$ certainly affects observed outcome $Y$ by defination but does not relate to the values of $Y_0$ and $Y_1$.
+    > 
+    > Reference: [causality - Strong ignorability: confusion on the relationship between outcomes and treatment - Cross Validated](https://stats.stackexchange.com/questions/474616/strong-ignorability-confusion-on-the-relationship-between-outcomes-and-treatmen/474619#474619)
+
+#### Motivation
+
+If there is hidden bias, how severe it would have to be to change conclusions.
+
++ Let $\pi_j$ and $\pi_k$ be the probability that person $j$ and $k$ receive treatment
+
++ Suppose person $j$ and $k$ are perfectly matched so that their observed covariates $X_j$ and $X_k$ are the same.
+
++ Inequality
+  
+  $$
+  \frac{1}{\Gamma}\le\frac{\frac{\pi_j}{1-\pi_j}}{\frac{\pi_k}{1-\pi_k}}\le\Gamma
+  $$
+  
+  where $\Gamma$ is odds ratio.
+  
+  + If $\pi_j=\pi_k$, then $\Gamma=1$, suggesting no hidden bias
+  
+  + $\Gamma>1$ implies hidden bias
+  
+  + $\frac{\pi_j}{1-\pi_j}$ is the odds of treatment for person $j$
+
+### Propensity Score
+
+The propensity score is the probability of receiving treatment rather than control, given covariates X:
+
+$$
+\pi_i=\Pr(A=1\mid X) \text{ where }A=1 \text{ for treatment and 0 for control.}
+$$
+
+#### Balancing Score
+
+Formally,
+
+$$
+\Pr(X=x\mid \pi(X)=p,A=1)=\Pr(X=x\mid \pi(X)=p,A=0)
+$$
+
+where $\Pr(X=x)$ represents the distributions of covariates $X$ at every value $x$ and the propensity score function $\pi(X)$ generates the value of $p$.
+
+Implication: If we match according to the propensity score, we should achieve balance.
+
+#### Estimated Propensity Score
+
+Estimate $\Pr(A=1\mid X)$ to obtain $\hat p$
+
++ The outcome is A, which is binary
+
++ Estimate the propensity score using logistic regression
+  
+  1. Fit a logistic regression model: outcome A and covariates X
+  
+  2. From that model, get the predicted probability (fitted value) for each subject, which is the estimated propensity score, $\hat p$
+
+> In the randomized control trials, the propensity score is 0.5 by design, since given X subjects are randomly assigned to the treatment or the control group.
+
+### Propensity Score Matching
+
+The propensity score is a scalar. The matching problem is simplified, in that we are only matching on one variable.
+
+#### Trimming Tails
+
+Remove subjects who have extreme values of the propensity scores
+
++ Control subjects whose propensity score is less than the minimum in the treatment group
+
++ Treated subjects whose propensity score is greater than the maximum in the control group
+
+Trimming the tails makes the positivity assumption more reasonable and prevents extrapolation.
+
+#### Matching
+
+Compute a distance between the propensity score for each treated subject with every control. Then use the nearest neighbor (i.e., greedy mathcing) or optimal matching as before.
+
+In practice, **logit (log-odds) of the propensity score is often used**, rather than the propensity score itself.
+
++ The propensity score is bounded between 0 and 1, making many values similar
+
++ Logit of the propensity score is unbounded -- this transformation essentially **stretches the distribution, while preserving ranks**.
+
++ Match on ${\rm logit}(\pi)=\log(\pi/(1-\pi))$ rather than $\pi$
+
+#### Caliper
+
+In practice, a common choice for a caliper (i.e., *the maximum distance we are willing to tolerate in matching*) is 0.2 times the standard deviation of the logit of the propensity score.
+
+1. Estimate the propensity score using logistic regression
+
+2. logit-transform the propensity score
+
+3. Take the standard deviation of this transformed variable
+
+4. Set the caliper to 0.2 times the value from step 3
+
+> A smaller caliper suggests less bias but more variance.
+
+#### Post-matching
+
+The outcome analysis methods can be the same as those that would be used if matching directly on covariates. For example,
+
++ Randomization tests
+
++ Conditional logistic regression, GEE, Stratified Cox Model

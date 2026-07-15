@@ -1,0 +1,127 @@
+---
+title: 'Sample Size: Testing or Survey'
+date: 2022-09-02 00:17:55
+description: "A practical guide to calculating the optimal sample size for statistical testing, A/B tests, and survey research."
+categories:
+- A/B Testing
+- Hypothesis Testing
+- Sample Size
+mathjax: true
+---
+![](SampleSizePieChart.jpeg)
+
+This is a summary note on calculating sample size for different purposes. The detailed derivation of the sample size for an AB testing with two-independent groups can be found [here](https://yanghaowang.github.io/posts/20220830-Derivation-of-Sample-Size-for-Two-group-AB-Testing).
+
+## AB Testing
+
+Let the test statistic be significant at $\alpha$ with a statistical power of $1-\beta$. **The sample size formula for each group** is given by
+
+$$
+n\approx\frac{r+1}{r}
+\frac{\bar p(1-\bar p)(z_{1-\alpha}+z_{1-\beta})^2}{\delta^2}
+$$
+
+where $r$ is the size ratio of the larger group over the smaller group.
+
++ **Two Independent Groups**
+  
+  Suppose the proportion rate $p_1$ in the treatment group is not much different from the proportion rate $p_0$ in the control group. Then, we have $\bar p =(p_0+p_1)/2$, and $\delta=p_0-p_1$. The total sample size including the treatment and the control is $2n$.
+  
+  + **One-tailed**
+    
+    + $z_{1-\alpha}$ is the critical value
+    
+    > Here is a link to an [Online Calculator at DataSciencEgenie.](https://datasciencegenie.com/how-to-calculate-the-sample-size-for-an-a-b-testing-including-calculator-derivation/)
+  
+  + **Two-tailed**
+    
+    + $z_{1-\alpha/2}$ is used rather than $z_{1-\alpha}$
+    
+    > Here are links to [Online Calculator at ClinCalc](https://clincalc.com/Stats/SampleSize.aspx) and [Evan's Awesome A/B Tools.](https://www.evanmiller.org/ab-testing/sample-size.html)
+  
+  + **Two equal-size groups**
+    
+    + $r=1$
+    $$
+    n\approx 2\times\frac{\bar p(1-\bar p)(z_{1-\alpha}+z_{1-\beta})^2}{\delta^2}
+    $$
+
++ **Population v.s. One Study Group**
+  
+  Suppose the population proportion is known at $\bar p$. We have $\delta=p_{\text{study group}}-\bar p$ and $\lim_{r\rightarrow\infty}(r+1)/r=1$. The sample size of the study group is $n$.
+  
+  $$
+  n\approx \frac{\bar p(1-\bar p)(z_{1-\alpha}+z_{1-\beta})^2}{\delta^2}
+  $$
+
+  > Here is a link to an [Online Calculator at ClinCalc.](https://clincalc.com/Stats/SampleSize.aspx)
+
+## Survey
+
+In a survey, we care about the result representativeness, that is, if the sample mean from the survey can represent the population mean.
+
+Ideally, we would like our survey proportion $p'$ to be the same as the true proportion $p$ from the population. In fact, we allow the survey estimate $\hat p'$ is close to the true proportion within a margin of error less than $\delta$ at a confidence level of $1-\alpha$. This problem can be set up in a hypothesis test as below:
+
+$$
+\begin{align*}
+H_0&: p = p', \\
+H_1&: p \neq p'.
+\end{align*}
+$$
+
+The sampling distribution of the difference, $\hat p'-p$, is given by
+
+$$
+\hat p' - p \sim N\left(p'-p, 
+\frac{p'(1-p')}{n} \right).
+$$
+
+Therefore,
+
+$$
+Z=\frac{(\hat p'-p)-(p'-p)}
+{\sqrt{\frac{p'(1-p')}{n}}}\sim N(0,1).
+$$
+
+The confidence level suggests
+
+$$
+\begin{align*}
+\Pr(H_0 \text{ cannot be rejected}\mid H_0\text{ is true})&=1-\alpha \\
+\Pr(Z \ge  z_{\alpha/2} \mid H_0\text{ is true})&=1-\alpha/2 \\
+\Pr\left(\frac{(\hat p'-p)-(p'-p)}
+{\sqrt{\frac{p'(1-p')}{n}}}\ge z_{\alpha/2}
+\mid  H_0\text{ is true}\right) &= 1 -\alpha/2 \\
+\Pr\left(\frac{(\hat p'-p)}
+{\sqrt{\frac{p(1-p)}{n}}}\ge z_{\alpha/2}\right) &= 1 -\alpha/2
+\end{align*}
+$$
+
+where $p'=p$ if $H_0$ is true. Since we allow our estimate $\hat p'$ to be close to $p$ within a distance of $\delta$, we have
+
+$$
+\begin{align*}
+&\frac{\delta}{\sqrt{\frac{p(1-p)}{n}}}\ge\frac{(\hat p'-p)}{\sqrt{\frac{p(1-p)}{n}}}\ge z_{\alpha/2}
+ \\
+&\delta^2 \ge z_{\alpha/2}^2\times\frac{p(1-p)}{n} \implies 
+n\ge \frac{z_{\alpha/2}^2\times p(1-p)}{\delta^2}.
+\end{align*}
+$$
+
+The minimal survey size is given by
+
+$$
+\frac{z_{\alpha/2}^2\times p(1-p)}{\delta^2}.
+$$
+
+> Here is a link to an [Online Calculator at Calculator.](https://www.calculator.net/sample-size-calculator.html)
+
+## Z Critical Values
+The following table presents a list of commonly used Z scores (also known as critical values) in practice.
+
+| $\alpha$ | $z_{1-\alpha}$ (Right-tailed) | $z_{1-\alpha/2}$ (Two-tailed) |
+| -------- |:-----------------------------:|:-----------------------------:|
+| 0.01     | 2.326                         | +/-2.576                    |
+| 0.05     | 1.645                         | +/-1.960                    |
+| 0.10     | 1.282                         | +/-1.645                    |
+| 0.20     | 0.842                         | +/-1.282                    |

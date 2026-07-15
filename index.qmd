@@ -1,0 +1,50 @@
+---
+title: "Homepage"
+toc: false
+about:
+  id: hero-heading
+  template: trestles
+  image: images/YWang_jmphoto_76kb.jpg
+  image-width: 10em
+  image-shape: round
+  links:
+    # - icon: github
+    #   text: Github
+    #   href: https://github.com/yanghaowang
+    #   target: _blank
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/yanghaowang/
+      target: _blank
+    - icon: envelope
+      text: Email
+      href: mailto:wyangh90@gmail.com
+      target: _blank
+listing:
+  id: recent-posts
+  contents: posts
+  sort: "date desc"
+  type: default
+  max-items: 5
+  fields: [date, title, categories]
+  sort-ui: false
+  filter-ui: false
+  categories: false
+---
+
+:::{#hero-heading}
+I am an Applied Economist working in the tech and retail space, exploring the intersection of data science and customer behavior.
+
+Specializing in structural modeling and causal inference, I build robust empirical tools to solve real-world challenges. Currently, my work centers on developing marketing measurement solutions, such as Media Mix Models (MMM) and Multi-Touch Attribution (MTA), and designing rigorous experiments that empower data-driven business decisions.
+:::
+
+<br>
+
+## Recent Posts
+:::{#recent-posts}
+:::
+<hr style="border: none; border-top: 1px solid #dee2e6; opacity: 1;">
+
+<div style="text-align: right; margin-top: 20px;">
+  <a href="blog.qmd" class="btn btn-primary" role="button">>> More Posts</a>
+</div>

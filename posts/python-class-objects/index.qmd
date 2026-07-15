@@ -1,0 +1,217 @@
+---
+title: How to Use Class Objects in Python
+date: 2021-08-10 22:50:09
+description: "A practical tutorial on Object-Oriented Programming (OOP) in Python, focusing on how to define and use class objects effectively."
+categories:
+- Python
+mathjax: true
+---
+
+I am used to statistical programming and use self-defined functions a lot in R. In my research work, a self-defined function works well in most cases since the scalability and flexibility of codes are less of concern. However, as using more Python and reading more source codes of Python packages, I find `class` is an important object and deserves a brief study on it.
+
+A class is a prototype for an object, from which new instances can be created. An instance is a copy of the class with actual values.
+
+## Class Object
+
+A given class object consists of two components:
+
++ State: Attributes/properties of an object
++ Behavior: Methods of an object
+
+All the instances share the attributes and the methods of the class. But the values of attributes are unique for each instance. Let's see an example as follows.
+
+```python
+# Define a python class named 'makecake'
+class makecake:
+    
+    # Define class variables
+    cook = 'Sharon'
+    price_lb = 5    # unit price; dollars per lb
+    
+    # Initialize
+    def __init__(self, weight):
+        # Define instance variables
+        self.weight = weight
+       
+    # Define a method for an instance
+    def price(self):
+        return self.weight*self.price_lb
+```
+
+> `makecake` is the class name.
+>
+> `cook` and `price_lb` are the class attributes, representing the cook and the unit price of a cake.
+>
+> `price()` is the class method used to calculate the cake price.
+>
+> `__init__` method is a preserved method for a class object, used to initializing its state. The `__init__` method is executed at the time the class is instantiated (i.e., the creation of an instance).
+>
+> `self` is a must-have parameter in each class method, though it might take no arguments. When we call a method of an object as `myobject.method(arg1, arg2)`, it is equivalent to the command that `MyClass.method(myobject, arg1, arg2)`.
+
+Also, note that `weight` is a variable *unique to each instance*, while `cook`, `price_lb`, `price()` are *class variables* shared by all instances of the class.
+
+```python
+cake = makecake(weight=2)
+print(cake.cook)
+print(cake.price_lb)
+cake.price()
+```
+
+```
+Sharon
+5
+10
+```
+
+## Inheritance
+
+Inheritance allows us to define a class that inherits all the methods and properties from another class. For example, inherited from `makecake`, I declare a new class `ordercake` as follows.
+
+```python
+# Define a python class based on 'makecake'
+class ordercake(makecake):
+    
+    # Initialize
+    def __init__(self, weight, tax_rate=None):
+        # Define instance variables
+        self.weight = weight
+        self.tax_rate = tax_rate if tax_rate is not None else 0.06
+    
+    def checkout(self, tip=None):
+        if tip is None:
+            tip = 0
+        
+        # self.price() is inherited from 'makecake'
+        print('Receipt', '\n--------------------'
+              '\nCake Price:', round(self.price(), 2),
+              '\nTax:', round(self.price()*self.tax_rate, 2),
+              '\nTips:', tip, '\n--------------------',
+              '\nTotal:', round(self.price()*(1+self.tax_rate)+tip, 2))
+```
+
+```python
+myorder0 = ordercake(weight=2)
+myorder0.checkout()
+```
+
+```
+Receipt 
+--------------------
+Cake Price: 10 
+Tax: 0.6 
+Tips: 0 
+-------------------- 
+Total: 10.6
+```
+
+In addtion to the inherited attributes, I add another attribute `tax_rate` in the `ordercake` class to calculate the cake price after tax such that
+$$
+\text{Cake Price after Tax}=\text{Cake Price before Tax}\times(1+\text{Tax Rate}).
+$$
+
+```python
+myorder1 = ordercake(weight=2, tax_rate = 0.08)
+myorder1.checkout()
+```
+
+```
+Receipt 
+--------------------
+Cake Price: 10 
+Tax: 0.8 
+Tips: 0 
+-------------------- 
+Total: 10.8
+```
+
+```pytho
+myorder1.checkout(tip=2)
+```
+
+```
+Receipt 
+--------------------
+Cake Price: 10 
+Tax: 0.8 
+Tips: 2 
+-------------------- 
+Total: 12.8
+```
+
+## Use Self-defined Function in Class
+
+To enhance the `ordercake` class, I add an additional function to determine the delivery fee as follows.
+
+```python
+# Define a free-delivery function
+def free_delivery(order_price):
+    # Define the delivery fee
+    delivery_fee = 5
+    
+    # Waive delivery fee if order price >= 15 dollars
+    if order_price >= 15:
+        delivery_fee = 0
+    
+    return delivery_fee
+
+# Define a python class based on 'makecake'
+class ordercake_delivery(makecake):
+        
+    def __init__(self, weight, delivery, tax_rate=None):
+        # Define instance variables
+        self.weight = weight
+        self.delivery_fcn = delivery
+        self.tax_rate = tax_rate if tax_rate is not None else 0.06
+        
+    def checkout(self, tip=None):
+        d_fee = self.delivery_fcn(self.price())
+        if tip is None:
+            tip = 0
+            
+        print('Receipt', '\n--------------------'
+              '\nCake Price:', round(self.price(), 2),
+              '\nTax:', round(self.price()*self.tax_rate, 2),
+              '\nTips:', tip,
+              '\nDelivery:', d_fee, '\n--------------------',
+              '\nTotal:', round(self.price()*(1+self.tax_rate)+tip+d_fee, 2))
+```
+
+A delivery fee of 5 dollars is added to the receipt if the cake price is less than 15 dollars.
+
+```python
+myorder2 = ordercake_delivery(weight=2, delivery=free_delivery)
+myorder2.checkout()
+```
+
+```
+Receipt 
+--------------------
+Cake Price: 10 
+Tax: 0.6 
+Tips: 0 
+Delivery: 5 
+-------------------- 
+Total: 15.6
+```
+
+In contrast, the delivery fee is waived if the cake price is 15 dollars or above.
+
+```python
+myorder3 = ordercake_delivery(weight=3, delivery=free_delivery)
+myorder3.checkout(tip=2)
+```
+
+```
+Receipt 
+--------------------
+Cake Price: 15 
+Tax: 0.9 
+Tips: 2 
+Delivery: 0 
+-------------------- 
+Total: 17.9
+```
+
+## Reference
+
+Python Classes and Objects at GeeksforGeeks: https://www.geeksforgeeks.org/python-classes-and-objects/

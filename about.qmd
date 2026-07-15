@@ -1,0 +1,21 @@
+---
+title: "About Me"
+description: "Get to know Yanghao Wang: his educational journey in Economics, his career in tech, and his family heritage in Guankeng."
+body-classes: hide-title-block
+---
+
+<p style="text-align: justify;">
+My first name, Yanghao (pronounced "Young How" in English), means "vast oceans" in Chinese. It was given by my parents with sincere wishes that I would grow up to be a broad-minded man.
+<br><br>
+My interest in Economics inspired me to cross the Pacific Ocean. After obtaining my bachelor's degree at <a href="http://www.jxufe.edu.cn/">Jiangxi University of Finance and Economics</a>, I came to the United States for graduate school. I received my Master's degree from <a href="https://utk.edu/">the University of Tennessee, Knoxville</a>, and subsequently earned my Ph.D. from <a href="https://twin-cities.umn.edu/">the University of Minnesota, Twin Cities</a>.
+<br><br>
+I started my career in 2018 as an Analytical Scientist on a data science team at Ford Motor Company. In 2022, I joined Amazon (Whole Foods Market) as a Data Scientist and Economist. When I am not glued to my desk, I try my hardest not to be the worst badminton player on the court, and I love spending time with my family exploring the wilderness, visiting local parks, and traveling to new cities.
+<br><br>
+My extended family is rooted in the village of Guankeng, nestled in a valley within the northeastern mountains of <a href="https://en.wikivoyage.org/wiki/Wuyuan">Wuyuan</a> (Google Maps <a style="text-decoration: none; outline: none; border: 0px none transparent;" href="https://www.google.com/maps/place/Wuyuan"><img class="img-hov" src="/images/googlemaps.png" style="width: 12px; display: inline;"></a>), an area famous for its picturesque countryside views in Spring when vibrant rapeseed flowers bloom alongside ancient residential houses from the Ming and Qing Dynasties. Dating back to the late <a href="https://en.wikipedia.org/wiki/Tang_dynasty">Tang Dynasty</a>, Guankeng was established in 783 and named to honor the residence of a general.
+<br><br>
+My paternal grandfather spent his entire life in Guankeng, and my aunt's family still lives there today. Every year, my extended family gathers for a warm and wonderful reunion in Guankeng to celebrate the <a href="https://en.wikipedia.org/wiki/Chinese_New_Year">Spring Festival</a>. The pictures below showcase the lovely winter views of Guankeng, as well as the women in my family making traditional green rice buns for our annual reunion dinner.
+</p>
+<p style="text-align: center; ">
+    <img src="/images/wuyuan/2016snow1_orig.jpg" alt="snow2016" style="max-width:47.5%; max-height:47.5%; display: inline;">
+    <img src="/images/wuyuan/2017springfestival_1_orig.jpg" alt="springfestival2017" style="max-width:47.5%; max-height:47.5%; display: inline;">
+</p>

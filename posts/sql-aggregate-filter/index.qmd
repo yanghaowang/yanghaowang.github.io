@@ -1,0 +1,86 @@
+---
+title: Aggregating and Filtering at One Time in SQL
+date: 2021-04-06 21:37:57
+description: "A comprehensive guide to performing data aggregation and filtering simultaneously in SQL for optimized query performance."
+categories:
+- SQL
+---
+
+When it comes to reporting some statistics by group in SQL, we will think of using the aggregate functions and, if needed, the `WHERE` clause for filtering. However, the `WHERE` clause doesn't allow you to filter on aggregate columns. To complete the query at one time without subqueries, we need the help of the `HAVING` clause.
+
+
+
+## Aggregate Functions
+
+There are four popular aggregate functions in SQL:
+
+- `COUNT` counts the number of non-`NULL` rows in a column
+
+  - `COUNT(DISTINCT price)` counts the number of the distinct non-`NULL` values in `price`.
+
+- `SUM` adds together all the values in a numeric column
+
+  - `NULL` is treated as `0`. 
+
+- `MIN` and `MAX` return the lowest and highest values in a numeric column, respectively
+
+- `AVG` calculates the average of a group of selected values
+
+  - It can ONLY be used on numerical columns.
+
+  - `NULL` is ignored in the calculation.
+
+    ```sql
+    SELECT AVG(price)
+      FROM tutorial.storesales
+     WHERE price IS NOT NULL
+    ---- Equivalent Query ----
+    SELECT AVG(price)
+      FROM tutorial.storesales
+    ```
+
+
+
+### Aggregate by Group
+
+For example, you might want to count the number of entries for each year and month.
+
+```sql
+SELECT year,
+       month,
+       COUNT(*) AS count
+ FROM tutorial.storesales
+GROUP BY year, month
+ORDER BY month, year
+```
+
+
+
+## Filtering
+
+What if we are only interested in the months when the highest price is over 200.
+
+```sql
+SELECT year,
+       month,
+       MAX(price) AS month_high
+ FROM tutorial.storesales
+GROUP BY year, month
+HAVING MAX(price) > 200
+ORDER BY year, month
+---- Equivalent Query ----
+SELECT *
+FROM (
+      SELECT year,
+             month,
+             MAX(price) AS month_high
+        FROM tutorial.storesales
+       GROUP BY year, month
+      ) sub
+WHERE month_high > 200
+ORDER BY year, month
+```
+
++ Using the aggregate function and the `HAVING` clause at one time to filter on an aggregated column.
++ The `WHERE` clause does not work in this case.
+

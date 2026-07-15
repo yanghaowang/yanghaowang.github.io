@@ -1,0 +1,51 @@
+project:
+  type: website
+
+website:
+  site-url: "https://yanghaowang.github.io"
+  title: "Yanghao Wang"
+  google-analytics: "G-HQF7RSRVHX"
+  favicon: images/isle_icon.png
+  description: "Personal website and blog of Yanghao Wang, an Applied Economist, covering topics in causal inference and structural modeling."
+  page-footer: "Copyright 2026, Yanghao Wang"
+  # reader-mode: true
+  twitter-card: true
+  back-to-top-navigation: true
+  navbar:
+    pinned: true
+    # logo: images/isle_icon.png
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "About Me"
+        href: about.qmd
+      - text: "Research"  
+        href: research.qmd
+      - text: "Blog"
+        href: blog.qmd
+    right:
+      # - icon: github
+      #   href: https://github.com/yanghaowang
+      #   target: _blank
+      - icon: linkedin
+        href: https://www.linkedin.com/in/yanghaowang/
+        target: _blank
+      - icon: envelope
+        href: mailto:wyangh90@gmail.com
+        target: _blank
+    
+format:
+  html:
+    theme:
+      light: [cosmo]
+      dark: [cosmo, theme-dark.scss]
+    respect-user-color-scheme: true
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    toc-float: true
+    link-external-newwindow: true
+
+# language:
+#   listing-page-field-categories: "Tags"
+#   listing-page-category-all: "All Tags"

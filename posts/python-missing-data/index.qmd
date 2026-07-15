@@ -1,0 +1,73 @@
+---
+title: Process Missing Data in Python
+date: 2023-03-19 23:56:27
+description: "Learn essential techniques and best practices for identifying, handling, and imputing missing data in Python using Pandas."
+categories:
+- Python
+- Missing Data
+---
+
+![](missingdata.jpg)
+
+## Detect Missing Values
+Missing data can be filled with values like `'NA'`, `'NaN'`, `'-'`, or `'.'` etc. To detect these values, we can 
+
+1. use [`pandas.Series.unique()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.unique.html) to find unique values and then check the first and the last element from the sorted list of unique values by [`numpy.sort()`](https://numpy.org/doc/stable/reference/generated/numpy.sort.html);
+2. use [`pandas.DataFrame.info()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.info.html) to check if there are default missing values, `'NA'`s or `'NaN'`s, in a pandas DataFrame by columns;
+    > check numeric variables further if they are reported as `object` with no missing values since a numeric variable will be treated as an `object` (a string variable) if numeric values are mixed with `'NA'`s or `'NaN'`s
+3. use [`pandas.DataFrame.describe()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html) to check descriptive statistics of variables and their counts of non-missing values
+
+Once missing values have been identified, we can reload data using [`pandas.read_csv()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html) with specified `na_value` argument.
+
+We can either fill missing values by imputation or delete them using [`pandas.DataFrame.dropna()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html).
+
+## Detect Types of Missing
+
+Reference: [https://en.wikipedia.org/wiki/Missing_data#Types](https://en.wikipedia.org/wiki/Missing_data#Types)
+
++ Missing Completely at Random (MCAR)
++ Missing at Random (MAR)
+    
+    > There is a systematic relationship between missing value and other observed data, but not the variable itself. Since MAR is an assumption that is *impossible* to verify statistically, we must rely on its substantive reasonableness. **Wikipedia Example**: Males are less likely to fill in a depression survey but this has nothing to do with their level of depression, after accounting for maleness.
+
++ Missing not at Random (MNAR)
+    
+    > To extend the previous example, this would occur if men failed to fill in a depression survey because of their level of depression. This also raises another concern of [*selection bias*](https://en.wikipedia.org/wiki/Selection_bias).
+
+`missingno.heatmap()`, `missingno.dendrogram()`, and `missingno.matrix()` in Python package [`missingno`](https://github.com/ResidentMario/missingno) can help us visualize the patterns of missing values.
+
+## Impute Values
++ Impute with mean, median, mode, and a constant using [`sklearn.impute.SimpleImputer()`](https://scikit-learn.org/stable/modules/generated/sklearn.impute.SimpleImputer.html) with specified `strategy` argument.
+
++ Impute with lead or lag values in a *time-series* data frame using [`pandas.DataFrame.fillna()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html) with specified `method` (`='bfill', 'ffill'` and etc.) argument or [`pandas.DataFrame.interpolate()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.interpolate.html) with specified `method` (`='linear', 'nearest', 'quadratic'` and etc.) argument.
+
+```python
+# Set nrows to 3 and ncols to 1
+fig, axes = plt.subplots(3, 1, figsize=(30, 20))
+# Create a dictionary of interpolated DataFrames for looping 
+interpolations = {'Linear Interpolation': linear, 
+                    'Quadratic Interpolation': quadratic, 
+                    'Nearest Interpolation': nearest}
+# Loop over axes and interpolations
+for ax, df_key in zip(axes, interpolations):
+# Select and also set the title for a DataFrame
+    interpolations[df_key].Ozone.plot(color='red', marker='o', linestyle='dotted', ax=ax)
+    airquality.Ozone.plot(title=df_key + ' - Ozone', marker='o', ax=ax)
+plt.show()
+```
+
++ Impute with advanced models
+
+    References: [https://scikit-learn.org/stable/modules/impute.html](https://scikit-learn.org/stable/modules/impute.html) and 
+    
+    [https://github.com/iskandr/fancyimpute](https://github.com/iskandr/fancyimpute)
+
+    + Nearest neighbors (KNN) imputation
+        
+        > When imputing missing values for a categorical variable, we firstly transform the categorical variable to a numerical variable using [`OrdinalEncoder().fit_transform(X)`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html), then apply the imputation method, and lastly transform the imputed encoded variable back to the categorical using `OrdinalEncoder().inverse_transform(X)`.
+        
+    + Multivariate feature imputation
+        
+        > This method iteratively estimates a regression of every feature with missing values on other features, and uses regression predicts for imputation. It is very robust. However, we should keep an eye on the concern of information leakage if the dependent/target variable (or the dependent/target-related variables) of the final model is (are) used in the imputation.
+
+**Takeaway**: The best imputation solution might vary by data sets. We can select the solution by comparing the final model performance using data sets processed by different imputation methods.
