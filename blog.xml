@@ -10,7 +10,77 @@
 <atom:link href="https://yanghaowang.github.io/blog.xml" rel="self" type="application/rss+xml"/>
 <description>Practical tutorials and methodological deep dives into A/B testing, causal inference, SQL, and Python from the perspective of an applied economist.</description>
 <generator>quarto-1.9.38</generator>
-<lastBuildDate>Mon, 20 Mar 2023 06:56:27 GMT</lastBuildDate>
+<lastBuildDate>Thu, 16 Jul 2026 07:00:00 GMT</lastBuildDate>
+<item>
+  <title>Static Demand with Customer-level Data: Mixed Logit</title>
+  <link>https://yanghaowang.github.io/posts/static-demand-mix-logit/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>Market demand for any product category is driven by millions of individual consumer choices across a set of differentiated products. Imagine you only know the product attributes and observe aggregate market shares from different markets. How do you infer the underlying demand? The seminal works of BLP (1995) and Nevo (2001) tackle this problem by developing a structural framework that models unobserved individual demand as discrete choices, aggregates them, and matches the resulting probabilities to observed market shares.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://yanghaowang.github.io/posts/static-demand-mix-logit/auto-ford.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="border-radius: 10px;;width:90.0%"></p>
+</figure>
+</div>
+<p>However, in today’s data-rich environment, what if we <em>actually observe</em> customer-level choices? The game changes. We can bypass the bottom-up aggregation procedure and estimate individual demand directly. While the standard logit model provides a simple starting point, it fails to capture the diversity of consumer tastes and is fundamentally limited by the overly restrictive substitution patterns of the IIA (Independence of Irrelevant Alternatives) assumption. To account for customer heterogeneity and allow for more flexible substitution patterns, we turn to the <strong>mixed logit model</strong>. By allowing preferences to vary with customer demographics and unobservable random components, the mixed logit overcomes the limitations of its simpler counterpart and paints a much richer picture of consumer decision-making.</p>
+<section id="model-setup" class="level2">
+<h2 class="anchored" data-anchor-id="model-setup">Model Setup</h2>
+<p>The choice model starts with the utility specification of customer <img src="https://latex.codecogs.com/png.latex?i"> choosing product <img src="https://latex.codecogs.com/png.latex?j"> at period <img src="https://latex.codecogs.com/png.latex?t"> from a choice set <img src="https://latex.codecogs.com/png.latex?%5Cmathcal%7BJ%7D">: <img src="https://latex.codecogs.com/png.latex?%0Au_%7Bijt%7D%20=%20%5Cbeta_i'%20x_%7Bjt%7D%20-%20%5Calpha_i%20p_%7Bjt%7D%20+%20%5Cepsilon_%7Bijt%7D%0A"></p>
+<ul>
+<li><img src="https://latex.codecogs.com/png.latex?x_%7Bjt%7D,%20p_%7Bjt%7D"> are product features and product price in period <img src="https://latex.codecogs.com/png.latex?t"></li>
+<li><img src="https://latex.codecogs.com/png.latex?%5Cbeta_i,%20%5Calpha_i"> are conformable coefficients that vary with demographics <img src="https://latex.codecogs.com/png.latex?d_i"> and random components <img src="https://latex.codecogs.com/png.latex?v_i"></li>
+</ul>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Calpha_i%20=%20%5Calpha_0%20+%20%5Cgamma_%5Calpha'%20d_i%20+%20%5Csigma_%5Calpha%20v_i%5E%7B%5Calpha%7D,%20%5Cquad%20v_i%5E%7B%5Calpha%7D%20%5Csim%20N(0,1)%0A"></p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbeta_i%20=%20%5Cbeta_0%20+%20%5Cgamma_%5Cbeta'%20d_i%20+%20%5Csigma_%5Cbeta%20v_i%5E%7B%5Cbeta%7D,%20%5Cquad%20v_i%5E%7B%5Cbeta%7D%20%5Csim%20N(0,1)%0A"></p>
+<ul>
+<li><img src="https://latex.codecogs.com/png.latex?%5Cepsilon_%7Bijt%7D"> is the idiosyncratic taste shock (Type I extreme value for logit)</li>
+</ul>
+<p>Given the Type I extreme value assumption on <img src="https://latex.codecogs.com/png.latex?%5Cepsilon_%7Bijt%7D">, the probability that customer <img src="https://latex.codecogs.com/png.latex?i"> chooses product <img src="https://latex.codecogs.com/png.latex?j"> in period <img src="https://latex.codecogs.com/png.latex?t"> takes the logit form: <img src="https://latex.codecogs.com/png.latex?%0AP(y_%7Bit%7D%20=%20j%20%5Cmid%20%5Calpha_i,%20%5Cbeta_i)%20=%20%5Cfrac%7B%5Cexp(%5Cbeta_i'%20x_%7Bjt%7D%20-%20%5Calpha_i%20p_%7Bjt%7D)%7D%7B%5Csum_%7Bk%20%5Cin%20%5Cmathcal%7BJ%7D%7D%20%5Cexp(%5Cbeta_i'%20x_%7Bkt%7D%20-%20%5Calpha_i%20p_%7Bkt%7D)%7D%0A"></p>
+<p>In practice, <img src="https://latex.codecogs.com/png.latex?t"> is used for market index, implying observations from different periods are treated as outcomes from different markets. To simplify the notation, we suppress <img src="https://latex.codecogs.com/png.latex?t"> in the following discussion.</p>
+</section>
+<section id="statistical-identification-of-random-coefficients" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-identification-of-random-coefficients">Statistical Identification of Random Coefficients</h2>
+<p><strong>Why cross-sectional data alone fails for random coefficients:</strong> For customers with identical observables <img src="https://latex.codecogs.com/png.latex?d_i">, different choices could reflect: 1. Different unobserved preferences (e.g., <img src="https://latex.codecogs.com/png.latex?%5Calpha_i"> differs due to <img src="https://latex.codecogs.com/png.latex?%5Csigma_%5Calpha%20v_i%5E%5Calpha">) 2. Different idiosyncratic shocks (i.e., <img src="https://latex.codecogs.com/png.latex?%5Cepsilon_%7Bij%7D"> differs)</p>
+<p>With one observation per person, the likelihood cannot separate persistent heterogeneity from transitory shocks.</p>
+<p><strong>Alternative without random coefficients:</strong> If we set <img src="https://latex.codecogs.com/png.latex?%5Csigma_%5Calpha%20=%20%5Csigma_%5Cbeta%20=%200">, preferences become fully determined by observables: <img src="https://latex.codecogs.com/png.latex?%5Calpha_i%20=%20%5Calpha_0%20+%20%5Cgamma_%5Calpha'%20d_i,%20%5Cquad%20%5Cbeta_i%20=%20%5Cbeta_0%20+%20%5Cgamma_%5Cbeta'%20d_i"></p>
+<p>It reduces to a conditional logit which can be identified through cross-sectional data, assuming all preference heterogeneity is explained by <img src="https://latex.codecogs.com/png.latex?d_i">.</p>
+<p><strong>Key challenge:</strong> Price and features are bundled in each option. Separating price sensitivity from feature preferences requires either variation in prices holding features fixed (e.g., fee changes over time) or strong functional form assumptions. Therefore, it is ideal to have panel data with temporal variation in prices.</p>
+</section>
+<section id="estimation" class="level2">
+<h2 class="anchored" data-anchor-id="estimation">Estimation</h2>
+<p><strong>Random components data:</strong> The random components <img src="https://latex.codecogs.com/png.latex?v_i%5E%5Calpha,%20v_i%5E%5Cbeta%20%5Csim%20N(0,1)"> are latent. For tractability, we assume they are varying across customers but fixed within each <img src="https://latex.codecogs.com/png.latex?i">. They capture persistent unobserved heterogeneity.</p>
+<p><strong>Simulated MLE procedure:</strong> For illustration purpose, we only consider the random coefficient on price, <img src="https://latex.codecogs.com/png.latex?%5Calpha_i">, and assume <img src="https://latex.codecogs.com/png.latex?%5Cbeta_i%20=%20%5Cbeta_0">. For each simulation draw <img src="https://latex.codecogs.com/png.latex?r%20=%201,%20%5Cldots,%20R">:</p>
+<ol type="1">
+<li>Draw <img src="https://latex.codecogs.com/png.latex?v_i%5E%7B(r)%7D%20%5Csim%20N(0,1)"> for each customer (same draw for all of customer <img src="https://latex.codecogs.com/png.latex?i">’s observations)</li>
+<li>Compute <img src="https://latex.codecogs.com/png.latex?%5Calpha_i%5E%7B(r)%7D%20=%20%5Calpha_0%20+%20%5Cgamma_%5Calpha'%20d_i%20+%20%5Csigma_%5Calpha%20v_i%5E%7B(r)%7D"></li>
+<li>Compute probability of customer <img src="https://latex.codecogs.com/png.latex?i">’s full choice sequence: <img src="https://latex.codecogs.com/png.latex?L_i%5E%7B(r)%7D%20=%20%5Cprod_%7Bt%7D%20P(y_%7Bit%7D%20%7C%20%5Calpha_i%5E%7B(r)%7D)"></li>
+</ol>
+<p>Average across draws: <img src="https://latex.codecogs.com/png.latex?%5Chat%7BL%7D_i%20=%20%5Cfrac%7B1%7D%7BR%7D%20%5Csum_r%20L_i%5E%7B(r)%7D"></p>
+<p>Maximize total simulated log-likelihood: <img src="https://latex.codecogs.com/png.latex?%5Csum_i%20%5Clog%20%5Chat%7BL%7D_i"></p>
+<p><strong>Intuition:</strong> Each draw represents one possible realization of unobserved heterogeneity. Averaging across draws integrates out the latent <img src="https://latex.codecogs.com/png.latex?v_i"> terms.</p>
+<p><strong>Halton sequences for simulation draws:</strong> Instead of pseudo-random draws, use Halton sequences which are deterministic, low-discrepancy sequences that cover the integration space more evenly.</p>
+<ol type="1">
+<li>Generate Halton sequence <img src="https://latex.codecogs.com/png.latex?%5C%7Bh_1,%20%5Cldots,%20h_%7BN%20%5Ctimes%20R%7D%5C%7D"> in <img src="https://latex.codecogs.com/png.latex?%5B0,1%5D"> using prime bases (base 2 for <img src="https://latex.codecogs.com/png.latex?v%5E%5Calpha">, base 3 for <img src="https://latex.codecogs.com/png.latex?v%5E%5Cbeta">, base 5/7/11/… if there are more random components)</li>
+<li>Assign draws to customers: customer <img src="https://latex.codecogs.com/png.latex?i"> gets <img src="https://latex.codecogs.com/png.latex?h_%7B(i-1)R+1%7D,%20%5Cldots,%20h_%7BiR%7D"></li>
+<li>Transform to standard normal: <img src="https://latex.codecogs.com/png.latex?v_i%5E%7B(r)%7D%20=%20%5CPhi%5E%7B-1%7D(h_%7B(i-1)R%20+%20r%7D)"></li>
+<li>Proceed with simulated MLE as before</li>
+</ol>
+<p><strong>Benefit:</strong> Better approximation of the integral with fewer draws. Typical usage: <img src="https://latex.codecogs.com/png.latex?R%20=%20100">–<img src="https://latex.codecogs.com/png.latex?500"> Halton draws vs.&nbsp;<img src="https://latex.codecogs.com/png.latex?R%20=%201000">+ pseudo-random.</p>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Structural Modeling</category>
+  <category>Logit</category>
+  <guid>https://yanghaowang.github.io/posts/static-demand-mix-logit/</guid>
+  <pubDate>Thu, 16 Jul 2026 07:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Process Missing Data in Python</title>
   <link>https://yanghaowang.github.io/posts/python-missing-data/</link>
@@ -1178,6 +1248,7 @@ font-style: inherit;">1</span>]))</span>
 
 <a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
   <category>Probability</category>
+  <category>Logit</category>
   <guid>https://yanghaowang.github.io/posts/extreme-value-logit/</guid>
   <pubDate>Tue, 03 Jan 2023 07:17:54 GMT</pubDate>
 </item>
@@ -7355,197 +7426,6 @@ font-style: inherit;">"G:\My Drive"</span></span></code></pre></div></div>
   <category>Work Efficiency</category>
   <guid>https://yanghaowang.github.io/posts/github-basics/</guid>
   <pubDate>Tue, 15 Jun 2021 19:06:00 GMT</pubDate>
-</item>
-<item>
-  <title>Brief Introduction of Essential Methods in Causal Inference</title>
-  <link>https://yanghaowang.github.io/posts/causal-inference-intro/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-
-<p>Running an AB test becomes a generic solution when we are interested in the causal impacts of a new feature on the product sales or performance. What if we cannot set up the environment of an experiment because of market regulation?</p>
-<p>In this post, we turn back to some essential methods in causal inference. These methods are briefly covered by the Coursera Project, titled “<a href="https://www.coursera.org/projects/essential-causal-inference-for-data-science">Essential Causal Inference Techniques for Data Science</a>.”</p>
-<section id="idea-behind-causal-inference" class="level2">
-<h2 class="anchored" data-anchor-id="idea-behind-causal-inference">Idea behind Causal Inference</h2>
-<p>Try to control for all possible confounders and <strong>look for “natural sources” of variation that can split our data into quasi random groups</strong> and mimic the randomization we would get from an AB test.</p>
-<p>In other words, removing the effects of all the potential confounders, we believe that testing groups are randomly split and comparable.</p>
-</section>
-<section id="essential-methods" class="level2">
-<h2 class="anchored" data-anchor-id="essential-methods">Essential Methods</h2>
-<section id="controlled-regression" class="level3">
-<h3 class="anchored" data-anchor-id="controlled-regression">Controlled Regression</h3>
-<ul>
-<li><p>We have Y =&gt; usage as measured by completing the 2nd week of a course</p></li>
-<li><p>and X =&gt; First Week NPS (net promoter score) which is a satisfaction rating on a 1-10 scale</p></li>
-<li><p>Univariate regression of Y (usage) on X (product quality)</p></li>
-<li><p>Multiple regression of Y (usage) on X (product quality) and a set of controls</p></li>
-</ul>
-<p>If</p>
-<ol type="1">
-<li><p>the R squared in the multiple regression increases “a lot” from that in the univariate regression</p></li>
-<li><p>coefficient on X is similar in the two models</p></li>
-</ol>
-<p>then by the theory of controlled regression, we can use it as the causal impact.</p>
-<blockquote class="blockquote">
-<p>Sources of Error</p>
-<ul>
-<li><p>Omitted Variable Bias</p>
-<p>Look at the R squared in the multiple regression with controls and how large it is (if R<sup>2</sup> is not close to 100% we know there are a lot of omitted variables in our regression)</p></li>
-<li><p>Included Variable Bias</p>
-<p>This is the opposite of omitted variable bias and involves the inclusion of too many controls. No direct way to identify this problem but generally can leave out controls that are not determined at time observe X. In the ML context, it is the information leakage (e.g., target encoding), that is, using future to predict the past.</p></li>
-</ul>
-</blockquote>
-<p>Controlled regression can be a bit of art form and a bit of random. People nowadays prefer the other causal inference techniques that are considered to be more rigorous and reliable.</p>
-</section>
-<section id="regression-discontinuity" class="level3">
-<h3 class="anchored" data-anchor-id="regression-discontinuity">Regression Discontinuity</h3>
-<p>Focus on cut-off point that can be thought of as local randomized experiment.</p>
-<p><img src="https://yanghaowang.github.io/posts/causal-inference-intro/RD.png" class="img-fluid"></p>
-<blockquote class="blockquote">
-<p>Arbitrarily assigned cutoff point randomly splits the sample into two comparable groups around the cutoff point.</p>
-</blockquote>
-<ul>
-<li><p>Y: Revenue or course enrollment</p></li>
-<li><p>X: Advertisement (advertised, e.g., via email, if the percentage of subtitled materials in a course is greater than 80%)</p></li>
-<li><p>Assumption</p>
-<ol type="1">
-<li><p>Courses below and above the 80% subtitle threshold are similar to one another, so the discontinuity point effectively randomizes the sample.</p>
-<blockquote class="blockquote">
-<p>Check:</p>
-<ol type="1">
-<li>Sample size similar below and above cutoff (i.e., roughly balanced)</li>
-<li>Sample below and above cutoff are similar on observable/confounders</li>
-</ol>
-</blockquote></li>
-<li><p>Advertising available or not is assumed to be the only differentiator between courses at the 70% subtitle value and the 90% subtitle value.</p>
-<blockquote class="blockquote">
-<p>Check:</p>
-<p>Conduct placebo tests, that is, run regression discontinuity at points other than the cutoff and check for no effect (e.g., run regression discontinuity at 20%, 30%, and 40% and we shouldn’t find any significant difference at these levels)</p>
-</blockquote></li>
-</ol></li>
-</ul>
-<p>Using regression discontinuity design (RDD), we estimate a linear regression with a term of the X variable with the discontinuity, an indicator for the discontinuity (which is a function of the X variable being above or below the cutoff point), and the interaction of the X variable and the discontinuity indicator. <img src="https://latex.codecogs.com/png.latex?%0Ay=%5Cbeta_0+%5Cbeta_1%20%5Ccdot%20x+%5Cbeta_2%20%5Ccdot%20I(x%5Cge%20c)+%5Cbeta_3%5Ccdot%20x%20%5Ccdot%20I(x%5Cge%20c),%0A"> where <img src="https://latex.codecogs.com/png.latex?x"> is the variable with the discontinuity, <img src="https://latex.codecogs.com/png.latex?I(%5Ccdot)"> is an indicator function, and <img src="https://latex.codecogs.com/png.latex?c"> is the randomly assigned cutoff point.</p>
-<blockquote class="blockquote">
-<p>Note this regression fits two linear models (with different coefficients) below and above the cutoff point. When <img src="https://latex.codecogs.com/png.latex?x%3Cc">, the intercept and the coefficient of the X variable are <img src="https://latex.codecogs.com/png.latex?%5Cbeta_0"> and <img src="https://latex.codecogs.com/png.latex?%5Cbeta_1">. In contrast, when <img src="https://latex.codecogs.com/png.latex?x%5Cge%20c">, the intercept and the coefficient become <img src="https://latex.codecogs.com/png.latex?%5Cbeta_0+%5Cbeta_2"> and <img src="https://latex.codecogs.com/png.latex?%5Cbeta_1+%5Cbeta_3">.</p>
-<p>This change in the model structure is analog to the formulation of the Chow test for examining the structural break.</p>
-</blockquote>
-<p>Comparing pre and post the discontinuity, we obtain the causal effect given by <img src="https://latex.codecogs.com/png.latex?%0A%5Cbeta_2%20+%20%5Cbeta_3%5Ctimes%20c.%0A"></p>
-</section>
-<section id="difference-in-difference" class="level3">
-<h3 class="anchored" data-anchor-id="difference-in-difference">Difference-in-Difference</h3>
-<p><img src="https://yanghaowang.github.io/posts/causal-inference-intro/DID.png" class="img-fluid"></p>
-<ul>
-<li><p>Y: Revenue</p></li>
-<li><p>X: Price change</p></li>
-<li><p>Assumption: Parallel Trends</p>
-<p>Check revenue in control country with no price change was similar and highly correlated with revenue in treatment country with price change (ensure control can serve as counterfactual)</p>
-<ol type="1">
-<li>Graph control and treatment groups in the pre period and see if highly correlated</li>
-<li>Build a regression model to check whether trends are identical (hypotheses testing if there is no difference in slopes between two groups)</li>
-</ol></li>
-<li><p>Extension: <strong>Synthetic Control</strong></p>
-<ul>
-<li>Problem with regular DID: Picking a single control group that satisfies parallel trends can be arbitrary</li>
-<li>Synthetic control creates a synthetic control group that is a weighted average of many control groups
-<ol type="1">
-<li>Choose weights to minimize tracking error with treatment group pre intervention (parallel trends)</li>
-<li>Causal estimate is difference post intervention between treatment and “synthetic control”</li>
-</ol></li>
-<li>R packages: <a href="https://cran.r-project.org/web/packages/Synth/index.html"><code>Synth</code></a>; <a href="https://cran.r-project.org/web/packages/CausalImpact/"><code>CausalImpact</code></a> (Bayesian Version)</li>
-</ul></li>
-</ul>
-</section>
-<section id="instrumental-variables" class="level3">
-<h3 class="anchored" data-anchor-id="instrumental-variables">Instrumental Variables</h3>
-<ul>
-<li><p>Assumptions</p>
-<ol type="1">
-<li><p>Strong First Stage: Instruments are strong predictors for the X variable</p>
-<p>Hypothesis tests for weak instruments</p></li>
-<li><p>Exclusion Restriction: Instruments have an impact on the Y variable only through their impact on the X variable</p>
-<p>There is no test for this assumption. We need to use logic to strengthen the validity of this assumption. In a <strong>randomized encouragement trial</strong> (i.e., a RCT used for product promotion campaign; think of email notification) where we create the instrument as a randomly assigned nudge that prompts the X variable, we can ensure exclusion restriction through random assignment.</p></li>
-</ol></li>
-</ul>
-</section>
-<section id="machine-learning-ml-causal-inference" class="level3">
-<h3 class="anchored" data-anchor-id="machine-learning-ml-causal-inference">Machine Learning (ML) + Causal Inference</h3>
-<ul>
-<li><p>Weakness of classic causal approaches</p>
-<ul>
-<li>Fail with many covariates</li>
-<li>Model selection unprincipled</li>
-<li>Linear relationships and no interactions</li>
-</ul></li>
-<li><p>Benefits of ML</p>
-<ul>
-<li>Handle high dimensionality</li>
-<li>Principled ways to choose model</li>
-<li>Nonlinear model using higher order features</li>
-</ul></li>
-<li><p>ML form controlled regression</p>
-<ul>
-<li><p>Use ML models to control for many potential confounders and/or nonlinear effects.</p>
-<blockquote class="blockquote">
-<p>Standard controlled regression steps</p>
-<ul>
-<li>Regress Y on X and a set of controls C to identify coefficient of interest on X</li>
-<li>Be wary of omitted and included variable biases</li>
-</ul>
-</blockquote></li>
-<li><p>There are two types of ML form controlled regressions:</p>
-<ul>
-<li>Double Selection (LASSO)</li>
-<li>Double Debiased (Generic ML models)</li>
-</ul>
-<blockquote class="blockquote">
-<p>Double Selection on AB test data:</p>
-<ul>
-<li>Reduce the noises and increase statistical power (give smaller confidence intervals in a shorter experiment period)</li>
-<li>Good for small samples and small effect sizes (i.e., small expected difference between A and B groups)</li>
-</ul>
-</blockquote></li>
-<li><p>Steps</p>
-<ul>
-<li><p>Define outcome Y, treatment indicator X, and high dimensional set of controls C</p></li>
-<li><p>Split data into two sets: Training and Testing (this can be generalized to k-folds)</p></li>
-<li><p><strong>Fit</strong> two Lassos of X~C and Y~C <strong>on the training</strong> data set</p>
-<blockquote class="blockquote">
-<p>Use <a href="https://stats.stackexchange.com/questions/138569/why-is-lambda-within-one-standard-error-from-the-minimum-is-a-recommended-valu">the one standard error rule</a> to choose the optimal <img src="https://latex.codecogs.com/png.latex?%5Clambda"> (i.e., the shrinkage parameter) for the LASSO regression</p>
-<p>The final set of controls is a union of controls from the LASSO regression X~C and Y~C</p>
-</blockquote></li>
-<li><p>Take fitted models and <strong>apply to the testing</strong> data set</p></li>
-<li><p>Get all nonzero variables in C and use as controls in controlled regression of Y on X</p></li>
-</ul></li>
-</ul></li>
-<li><p>Causal Trees/Forests</p>
-<ul>
-<li>Previous models assume homogeneous treatment effects. However, <strong>causal trees/forests estimates heterogeneous treatment effects</strong> where impact differs on observed criteria
-<ul>
-<li>Use trees (or forests) to identify partition of the demographic space that maximizes observed difference of Y between treatment and control while balancing overfitting</li>
-</ul></li>
-<li>Steps
-<ul>
-<li>Split data into two halves</li>
-<li>Fit trees/forests on one half (i.e., the splitting subsample) and apply to second half (i.e., the estimating subsample) to estimate treatment effects</li>
-<li>Heterogeneous treatment effects from difference in Y in leaf nodes (i.e., the treatment effect conditioned on C attributes in leaf nodes)</li>
-<li>Optimization criteria set up to find the best fit given the splitting subsample</li>
-<li>Forest is an average of a collection of trees with sampling</li>
-</ul></li>
-</ul></li>
-</ul>
-
-
-</section>
-</section>
-
-<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
-  <category>Causal</category>
-  <category>Machine Learning</category>
-  <guid>https://yanghaowang.github.io/posts/causal-inference-intro/</guid>
-  <pubDate>Fri, 07 May 2021 03:30:32 GMT</pubDate>
 </item>
 </channel>
 </rss>

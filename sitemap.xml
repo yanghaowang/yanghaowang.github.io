@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>https://yanghaowang.github.io/posts/extreme-value-logit/index.html</loc>
-    <lastmod>2026-07-15T04:06:56.314Z</lastmod>
+    <lastmod>2026-07-17T04:23:25.657Z</lastmod>
   </url>
   <url>
     <loc>https://yanghaowang.github.io/posts/conditional-prob-association-rules/index.html</loc>
@@ -41,40 +41,44 @@
     <lastmod>2026-07-15T04:06:56.316Z</lastmod>
   </url>
   <url>
-    <loc>https://yanghaowang.github.io/posts/python-missing-data/index.html</loc>
-    <lastmod>2026-07-15T04:06:56.320Z</lastmod>
+    <loc>https://yanghaowang.github.io/posts/static-demand-mix-logit/index.html</loc>
+    <lastmod>2026-07-18T06:39:17.518Z</lastmod>
   </url>
   <url>
-    <loc>https://yanghaowang.github.io/posts/causal-inference-intro/index.html</loc>
-    <lastmod>2026-07-15T04:06:56.293Z</lastmod>
-  </url>
-  <url>
-    <loc>https://yanghaowang.github.io/posts/dags/index.html</loc>
-    <lastmod>2026-07-15T04:06:56.312Z</lastmod>
-  </url>
-  <url>
-    <loc>https://yanghaowang.github.io/posts/error-types-measures/index.html</loc>
-    <lastmod>2026-07-15T04:06:56.314Z</lastmod>
-  </url>
-  <url>
-    <loc>https://yanghaowang.github.io/research.html</loc>
-    <lastmod>2026-07-15T04:06:56.328Z</lastmod>
-  </url>
-  <url>
-    <loc>https://yanghaowang.github.io/posts/causal-inference-econ-2/index.html</loc>
-    <lastmod>2026-07-15T04:06:56.284Z</lastmod>
-  </url>
-  <url>
-    <loc>https://yanghaowang.github.io/posts/ab-testing-notes/index.html</loc>
-    <lastmod>2026-07-15T04:06:56.279Z</lastmod>
+    <loc>https://yanghaowang.github.io/posts/compare-distributions/index.html</loc>
+    <lastmod>2026-07-15T04:06:56.299Z</lastmod>
   </url>
   <url>
     <loc>https://yanghaowang.github.io/posts/causal-inference-econ-3/index.html</loc>
     <lastmod>2026-07-15T04:06:56.287Z</lastmod>
   </url>
   <url>
-    <loc>https://yanghaowang.github.io/posts/compare-distributions/index.html</loc>
-    <lastmod>2026-07-15T04:06:56.299Z</lastmod>
+    <loc>https://yanghaowang.github.io/posts/ab-testing-notes/index.html</loc>
+    <lastmod>2026-07-15T04:06:56.279Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yanghaowang.github.io/posts/causal-inference-econ-2/index.html</loc>
+    <lastmod>2026-07-15T04:06:56.284Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yanghaowang.github.io/research.html</loc>
+    <lastmod>2026-07-15T04:06:56.328Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yanghaowang.github.io/posts/error-types-measures/index.html</loc>
+    <lastmod>2026-07-15T04:06:56.314Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yanghaowang.github.io/posts/dags/index.html</loc>
+    <lastmod>2026-07-15T04:06:56.312Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yanghaowang.github.io/posts/causal-inference-intro/index.html</loc>
+    <lastmod>2026-07-15T04:06:56.293Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yanghaowang.github.io/posts/python-missing-data/index.html</loc>
+    <lastmod>2026-07-15T04:06:56.320Z</lastmod>
   </url>
   <url>
     <loc>https://yanghaowang.github.io/posts/sql-joins/index.html</loc>

@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2022-03-10">
-<meta name="description" content="Understand Directed Acyclic Graphs (DAGs) and their crucial role in causal inference and identifying confounding variables.">
+<meta name="dcterms.date" content="2026-07-16">
+<meta name="description" content="Explore how to model static demand with customer-level data using mixed logit. Learn about the statistical identification of random components and estimation via simulated MLE.">
 
-<title>Directed Acyclic Graphs (DAGs) – Yanghao Wang</title>
+<title>Static Demand with Customer-level Data: Mixed Logit – Yanghao Wang</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -117,11 +117,11 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../../styles.css">
-<meta name="twitter:title" content="Directed Acyclic Graphs (DAGs) – Yanghao Wang">
-<meta name="twitter:description" content="Understand Directed Acyclic Graphs (DAGs) and their crucial role in causal inference and identifying confounding variables.">
-<meta name="twitter:image" content="https://yanghaowang.github.io/posts/dags/DAG_01.png">
-<meta name="twitter:image-height" content="84">
-<meta name="twitter:image-width" content="176">
+<meta name="twitter:title" content="Static Demand with Customer-level Data: Mixed Logit – Yanghao Wang">
+<meta name="twitter:description" content="Explore how to model static demand with customer-level data using mixed logit. Learn about the statistical identification of random components and estimation via simulated MLE.">
+<meta name="twitter:image" content="https://yanghaowang.github.io/posts/static-demand-mix-logit/auto-ford.png">
+<meta name="twitter:image-height" content="384">
+<meta name="twitter:image-width" content="1536">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -353,15 +353,15 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Directed Acyclic Graphs (DAGs)</h1>
+      <h1 class="title">Static Demand with Customer-level Data: Mixed Logit</h1>
                   <div>
         <div class="description">
-          Understand Directed Acyclic Graphs (DAGs) and their crucial role in causal inference and identifying confounding variables.
+          Explore how to model static demand with customer-level data using mixed logit. Learn about the statistical identification of random components and estimation via simulated MLE.
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">Causal</div>
-                <div class="quarto-category">Causal-DAG</div>
+                <div class="quarto-category">Structural Modeling</div>
+                <div class="quarto-category">Logit</div>
               </div>
                   </div>
   </div>
@@ -373,7 +373,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">March 10, 2022</p>
+        <p class="date">July 16, 2026</p>
       </div>
     </div>
     
@@ -389,13 +389,9 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#causal-graphs" id="toc-causal-graphs" class="nav-link active" data-scroll-target="#causal-graphs">Causal Graphs</a></li>
-  <li><a href="#relationship-with-probability-distributions" id="toc-relationship-with-probability-distributions" class="nav-link" data-scroll-target="#relationship-with-probability-distributions">Relationship with Probability Distributions</a></li>
-  <li><a href="#paths-and-associations" id="toc-paths-and-associations" class="nav-link" data-scroll-target="#paths-and-associations">Paths and Associations</a></li>
-  <li><a href="#conditional-independence-d-separation" id="toc-conditional-independence-d-separation" class="nav-link" data-scroll-target="#conditional-independence-d-separation">Conditional Independence (d-separation)</a></li>
-  <li><a href="#confounding-revisited" id="toc-confounding-revisited" class="nav-link" data-scroll-target="#confounding-revisited">Confounding Revisited</a></li>
-  <li><a href="#backdoor-path-criterion" id="toc-backdoor-path-criterion" class="nav-link" data-scroll-target="#backdoor-path-criterion">Backdoor Path Criterion</a></li>
-  <li><a href="#disjunctive-cause-criterion" id="toc-disjunctive-cause-criterion" class="nav-link" data-scroll-target="#disjunctive-cause-criterion">Disjunctive Cause Criterion</a></li>
+  <li><a href="#model-setup" id="toc-model-setup" class="nav-link active" data-scroll-target="#model-setup">Model Setup</a></li>
+  <li><a href="#statistical-identification-of-random-coefficients" id="toc-statistical-identification-of-random-coefficients" class="nav-link" data-scroll-target="#statistical-identification-of-random-coefficients">Statistical Identification of Random Coefficients</a></li>
+  <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation">Estimation</a></li>
   </ul>
 </nav>
     </div>
@@ -407,330 +403,66 @@ window.Quarto = {
 
 
 
-<section id="causal-graphs" class="level3">
-<h3 class="anchored" data-anchor-id="causal-graphs">Causal Graphs</h3>
+<p>Market demand for any product category is driven by millions of individual consumer choices across a set of differentiated products. Imagine you only know the product attributes and observe aggregate market shares from different markets. How do you infer the underlying demand? The seminal works of BLP (1995) and Nevo (2001) tackle this problem by developing a structural framework that models unobserved individual demand as discrete choices, aggregates them, and matches the resulting probabilities to observed market shares.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="auto-ford.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="border-radius: 10px;;width:90.0%"></p>
+</figure>
+</div>
+<p>However, in today’s data-rich environment, what if we <em>actually observe</em> customer-level choices? The game changes. We can bypass the bottom-up aggregation procedure and estimate individual demand directly. While the standard logit model provides a simple starting point, it fails to capture the diversity of consumer tastes and is fundamentally limited by the overly restrictive substitution patterns of the IIA (Independence of Irrelevant Alternatives) assumption. To account for customer heterogeneity and allow for more flexible substitution patterns, we turn to the <strong>mixed logit model</strong>. By allowing preferences to vary with customer demographics and unobservable random components, the mixed logit overcomes the limitations of its simpler counterpart and paints a much richer picture of consumer decision-making.</p>
+<section id="model-setup" class="level2">
+<h2 class="anchored" data-anchor-id="model-setup">Model Setup</h2>
+<p>The choice model starts with the utility specification of customer <span class="math inline">\(i\)</span> choosing product <span class="math inline">\(j\)</span> at period <span class="math inline">\(t\)</span> from a choice set <span class="math inline">\(\mathcal{J}\)</span>: <span class="math display">\[
+u_{ijt} = \beta_i' x_{jt} - \alpha_i p_{jt} + \epsilon_{ijt}
+\]</span></p>
 <ul>
-<li><p>Directed Graph (A affects Y)</p>
+<li><span class="math inline">\(x_{jt}, p_{jt}\)</span> are product features and product price in period <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(\beta_i, \alpha_i\)</span> are conformable coefficients that vary with demographics <span class="math inline">\(d_i\)</span> and random components <span class="math inline">\(v_i\)</span></li>
+</ul>
+<p><span class="math display">\[
+\alpha_i = \alpha_0 + \gamma_\alpha' d_i + \sigma_\alpha v_i^{\alpha}, \quad v_i^{\alpha} \sim N(0,1)
+\]</span></p>
+<p><span class="math display">\[
+\beta_i = \beta_0 + \gamma_\beta' d_i + \sigma_\beta v_i^{\beta}, \quad v_i^{\beta} \sim N(0,1)
+\]</span></p>
 <ul>
-<li><p>A and Y are known as nodes or vertices (variables)</p></li>
-<li><p>The link (edge) between A and Y is an arrow, which means there is a direction (directed path)</p></li>
-<li><p>Variables connected by an edge are adjacent</p></li>
+<li><span class="math inline">\(\epsilon_{ijt}\)</span> is the idiosyncratic taste shock (Type I extreme value for logit)</li>
 </ul>
-<p><img src="DAG_01.png" class="img-fluid"></p></li>
-<li><p>Undirected Graph (Association between A and Y)</p>
-<p><img src="DAG_02.png" class="img-fluid"></p></li>
-<li><p>Directed Acyclic Graph (DAG)</p>
-<ul>
-<li>No undirected paths</li>
-<li>No cycles</li>
-</ul>
-<p><img src="DAG_03.png" class="img-fluid"></p></li>
-<li><p>Terminology</p>
-<ul>
-<li><p>A is Z’s <strong>parent</strong></p></li>
-<li><p>B is a <strong>child</strong> of Z</p></li>
-<li><p>D is a <strong>decendant</strong> of A</p></li>
-<li><p>Z is an <strong>ancestor</strong> of D</p></li>
-<li><p>D has two <strong>parents</strong>, B and Z</p></li>
-</ul>
-<p><img src="DAG_04.png" class="img-fluid"></p>
-<p>We use DAGs to help us determine the set of variables that we need to control in order to achieve ignorability.</p></li>
-</ul>
+<p>Given the Type I extreme value assumption on <span class="math inline">\(\epsilon_{ijt}\)</span>, the probability that customer <span class="math inline">\(i\)</span> chooses product <span class="math inline">\(j\)</span> in period <span class="math inline">\(t\)</span> takes the logit form: <span class="math display">\[
+P(y_{it} = j \mid \alpha_i, \beta_i) = \frac{\exp(\beta_i' x_{jt} - \alpha_i p_{jt})}{\sum_{k \in \mathcal{J}} \exp(\beta_i' x_{kt} - \alpha_i p_{kt})}
+\]</span></p>
+<p>In practice, <span class="math inline">\(t\)</span> is used for market index, implying observations from different periods are treated as outcomes from different markets. To simplify the notation, we suppress <span class="math inline">\(t\)</span> in the following discussion.</p>
 </section>
-<section id="relationship-with-probability-distributions" class="level3">
-<h3 class="anchored" data-anchor-id="relationship-with-probability-distributions">Relationship with Probability Distributions</h3>
-<p>DAGs encode assumptions about dependencies between nodes.</p>
-<section id="example-1" class="level5">
-<h5 class="anchored" data-anchor-id="example-1">Example 1</h5>
-<p><img src="DAG_05.png" class="img-fluid"></p>
-<ul>
-<li><p><span class="math inline">\(\Pr(C\mid A,B,D)=\Pr(C)\)</span> i.e., C is independent of all variables</p></li>
-<li><p><span class="math inline">\(\Pr(B\mid A,C,D)=\Pr(B\mid A)\)</span> i.e.,$ BD$, <span class="math inline">\(C \mid A\)</span></p></li>
-<li><p><span class="math inline">\(\Pr(B\mid D)\neq\Pr(B)\)</span>, because B and D are marginally dependent</p></li>
-<li><p><span class="math inline">\(\Pr(D\mid A, B, C)=\Pr(D\mid A)\)</span></p></li>
-</ul>
+<section id="statistical-identification-of-random-coefficients" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-identification-of-random-coefficients">Statistical Identification of Random Coefficients</h2>
+<p><strong>Why cross-sectional data alone fails for random coefficients:</strong> For customers with identical observables <span class="math inline">\(d_i\)</span>, different choices could reflect: 1. Different unobserved preferences (e.g., <span class="math inline">\(\alpha_i\)</span> differs due to <span class="math inline">\(\sigma_\alpha v_i^\alpha\)</span>) 2. Different idiosyncratic shocks (i.e., <span class="math inline">\(\epsilon_{ij}\)</span> differs)</p>
+<p>With one observation per person, the likelihood cannot separate persistent heterogeneity from transitory shocks.</p>
+<p><strong>Alternative without random coefficients:</strong> If we set <span class="math inline">\(\sigma_\alpha = \sigma_\beta = 0\)</span>, preferences become fully determined by observables: <span class="math display">\[\alpha_i = \alpha_0 + \gamma_\alpha' d_i, \quad \beta_i = \beta_0 + \gamma_\beta' d_i\]</span></p>
+<p>It reduces to a conditional logit which can be identified through cross-sectional data, assuming all preference heterogeneity is explained by <span class="math inline">\(d_i\)</span>.</p>
+<p><strong>Key challenge:</strong> Price and features are bundled in each option. Separating price sensitivity from feature preferences requires either variation in prices holding features fixed (e.g., fee changes over time) or strong functional form assumptions. Therefore, it is ideal to have panel data with temporal variation in prices.</p>
 </section>
-<section id="example-2" class="level5">
-<h5 class="anchored" data-anchor-id="example-2">Example 2</h5>
-<p><img src="DAG_06.png" class="img-fluid"></p>
-<ul>
-<li><span class="math inline">\(\Pr(A\mid B,C, D)=\Pr(A\mid D)\)</span> i.e., <span class="math inline">\(A\perp B,C\mid D\)</span></li>
-<li><span class="math inline">\(\Pr(D\mid A, B,C)=\Pr(D\mid A,B)\)</span> i.e., <span class="math inline">\(D\perp C\mid B\)</span></li>
-</ul>
-</section>
-<section id="example-3" class="level5">
-<h5 class="anchored" data-anchor-id="example-3">Example 3</h5>
-<p><img src="DAG_07.png" class="img-fluid"></p>
-<ul>
-<li><span class="math inline">\(\Pr(A\mid B,C, D)=\Pr(A\mid C,D)\)</span> i.e., <span class="math inline">\(A \perp B \mid C, D\)</span></li>
-<li><span class="math inline">\(\Pr(D\mid A, B,C)=\Pr(D\mid A,B)\)</span> i.e., <span class="math inline">\(D\perp C\mid A, B\)</span></li>
-</ul>
-</section>
-<section id="decomposition-of-joint-distribution" class="level4">
-<h4 class="anchored" data-anchor-id="decomposition-of-joint-distribution">Decomposition of Joint Distribution</h4>
-<p>We can decompose the join distribution by sequential conditioning only on sets of parents.</p>
-<ul>
-<li><p>Start with roots (nodes with no parents)</p></li>
-<li><p>Proceed down the descendant line, always conditional on parents</p></li>
-</ul>
-<section id="example-1-1" class="level5">
-<h5 class="anchored" data-anchor-id="example-1-1">Example 1</h5>
-<p><img src="DAG_08.png" class="img-fluid"></p>
-<ul>
-<li>One root, D; two children of D, A and B</li>
-<li><span class="math inline">\(\Pr(A,B,C,D)=\Pr(D)\Pr(A\mid D)\Pr(B\mid D)\Pr(C\mid B)\)</span></li>
-</ul>
-</section>
-<section id="example-2-1" class="level5">
-<h5 class="anchored" data-anchor-id="example-2-1">Example 2</h5>
-<p><img src="DAG_09.png" class="img-fluid"></p>
-<ul>
-<li><span class="math inline">\(\Pr(A,B,C,D)=\Pr(D)\Pr(A\mid D)\Pr(B\mid D)\Pr(C\mid A, B)\)</span></li>
-</ul>
-</section>
-</section>
-</section>
-<section id="paths-and-associations" class="level3">
-<h3 class="anchored" data-anchor-id="paths-and-associations">Paths and Associations</h3>
-<section id="type-of-paths" class="level4">
-<h4 class="anchored" data-anchor-id="type-of-paths">Type of Paths</h4>
-<ul>
-<li><p>Fork</p>
-<p><img src="DAG_10.png" class="img-fluid"></p></li>
-<li><p>Chain</p>
-<p><img src="DAG_11.png" class="img-fluid"></p></li>
-<li><p>Inverted Fork</p>
-<ul>
-<li>E is a <strong>collider</strong></li>
-</ul>
-<p><img src="DAG_12.png" class="img-fluid"></p></li>
-</ul>
-</section>
-</section>
-<section id="conditional-independence-d-separation" class="level3">
-<h3 class="anchored" data-anchor-id="conditional-independence-d-separation">Conditional Independence (d-separation)</h3>
-<p>d-separation: “d” stands for dependence.</p>
-<section id="blocking" class="level4">
-<h4 class="anchored" data-anchor-id="blocking">Blocking</h4>
-<ul>
-<li><p>Paths and associations can be <em>blocked</em> by conditioning on nodes in the path.</p></li>
-<li><p>However, the opposite situation occurs in inverted paths if a collider is conditioned on.</p></li>
-</ul>
-</section>
-<section id="rules-of-d-separation" class="level4">
-<h4 class="anchored" data-anchor-id="rules-of-d-separation">Rules of d-separation</h4>
-<p>A path is d-separated by a set of nodes C if:</p>
-<ul>
-<li><p>It contains a chain (e.g., <span class="math inline">\(D\rightarrow E\rightarrow F\)</span>) and the middle part is in C (i.e., <span class="math inline">\(E\)</span>)</p>
-<blockquote class="blockquote">
-<p><a href="#example">Example</a> D is temperature, E is sidewalks are icy, and F is someone falls. If we restrict to situation where sidewalks are icy (condition on G), then temperature and falling are not associated via this path.</p>
-</blockquote></li>
-<li><p>It contains a fork (e.g., <span class="math inline">\(D\leftarrow E \rightarrow F\)</span>) and the middle part is in C (i.e., <span class="math inline">\(E\)</span>)</p>
-<blockquote class="blockquote">
-<p>In this path, D and F are dependent because of E. If E is given or fixed, E no longer affects D and F. Hence, they are independent (i.e., the path is blocked).</p>
-</blockquote></li>
-<li><p>It contains an inverted fork (e.g., <span class="math inline">\(D\rightarrow E\leftarrow F\)</span>) and the middle part is NOT in C, nor are any descendants of it. In other words, no need to control anything in this path where <span class="math inline">\(E\)</span> is collider and the relation between <span class="math inline">\(D\)</span> and <span class="math inline">\(F\)</span> is independent.</p>
-<blockquote class="blockquote">
-<p><a href="#example">Example</a> <span class="math inline">\(D\)</span> is the state of an ON/OFF switch, while <span class="math inline">\(F\)</span> is the state of another switch. Both switches control the same light. We decide the state of <span class="math inline">\(D\)</span> and <span class="math inline">\(F\)</span> by flipping a fair coin, respectively. <span class="math inline">\(E\)</span> is the event that the light is ON, where the light is ON if only if both switches are ON.</p>
-<p>Hence, <span class="math inline">\(D\)</span> and <span class="math inline">\(F\)</span> are independent if the information on <span class="math inline">\(E\)</span> is not known. In contrast, <span class="math inline">\(D\)</span> and <span class="math inline">\(F\)</span> are dependent if <span class="math inline">\(E\)</span> is given/controlled.</p>
-</blockquote></li>
-</ul>
-</section>
-</section>
-<section id="confounding-revisited" class="level3">
-<h3 class="anchored" data-anchor-id="confounding-revisited">Confounding Revisited</h3>
-<section id="confounders" class="level4">
-<h4 class="anchored" data-anchor-id="confounders">Confounders</h4>
-<p>A confounder is a variable that affects both the treatment and the outcome.</p>
-<section id="example" class="level5">
-<h5 class="anchored" data-anchor-id="example">Example</h5>
-<p><img src="DAG_13.png" class="img-fluid"></p>
-<ul>
-<li><p>V affects A directly and Y indirectly through W</p></li>
-<li><p>V is a confounder in the relation between A and Y</p></li>
-</ul>
-</section>
-</section>
-<section id="frontdoor-paths" class="level4">
-<h4 class="anchored" data-anchor-id="frontdoor-paths">Frontdoor Paths</h4>
-<p>A frontdoor path from A to Y is one that begins with an arrow emanating out of A.</p>
-</section>
-<section id="backdoor-paths" class="level4">
-<h4 class="anchored" data-anchor-id="backdoor-paths">Backdoor Paths</h4>
-<p>A backdoor path from treatment A to outcome Y is a path from A to Y that travels through arrows going into A.</p>
-<blockquote class="blockquote">
-<p><strong>Note</strong>: A path is a link between two variables regardless of arrow directions</p>
-</blockquote>
-<section id="example-4" class="level5">
-<h5 class="anchored" data-anchor-id="example-4">Example</h5>
-<p><img src="DAG_14.png" class="img-fluid"></p>
-<ul>
-<li><p>Frontdoor path: <span class="math inline">\(A\rightarrow Z\rightarrow Y\)</span></p>
-<p>Our interest is in the causal relationship between A and Y, where a part of this relationship is through the effect that A has on Z. It is not something we are concerned about at this point. We are interested in just how A affects Y regardless of what path it&nbsp;takes to get there.</p></li>
-<li><p>Backdoor path: <span class="math inline">\(A\leftarrow X \rightarrow Y\)</span></p>
-<p>This backdoor path does not involve any arrows coming out of A. So there’s no treatment effect involved there. But A and Y are still associated with each other through that path.&nbsp;So this is something we have to worry about. Because if we look at just marginal associations between A and Y,&nbsp;some of that association will be due to a causal effect of A and Y, while some of it also could be because X causes both A and Y. <em>Backdoor paths confound the relationship between A and Y and need to be blocked.</em></p></li>
-</ul>
-</section>
-</section>
-</section>
-<section id="backdoor-path-criterion" class="level3">
-<h3 class="anchored" data-anchor-id="backdoor-path-criterion">Backdoor Path Criterion</h3>
-<p>A set of variables X is sufficient to control for confounding if:</p>
+<section id="estimation" class="level2">
+<h2 class="anchored" data-anchor-id="estimation">Estimation</h2>
+<p><strong>Random components data:</strong> The random components <span class="math inline">\(v_i^\alpha, v_i^\beta \sim N(0,1)\)</span> are latent. For tractability, we assume they are varying across customers but fixed within each <span class="math inline">\(i\)</span>. They capture persistent unobserved heterogeneity.</p>
+<p><strong>Simulated MLE procedure:</strong> For illustration purpose, we only consider the random coefficient on price, <span class="math inline">\(\alpha_i\)</span>, and assume <span class="math inline">\(\beta_i = \beta_0\)</span>. For each simulation draw <span class="math inline">\(r = 1, \ldots, R\)</span>:</p>
 <ol type="1">
-<li><p>it blocks all backdoor paths from treatment to outcome</p></li>
-<li><p>it does not include any descendants of treatment.</p></li>
+<li>Draw <span class="math inline">\(v_i^{(r)} \sim N(0,1)\)</span> for each customer (same draw for all of customer <span class="math inline">\(i\)</span>’s observations)</li>
+<li>Compute <span class="math inline">\(\alpha_i^{(r)} = \alpha_0 + \gamma_\alpha' d_i + \sigma_\alpha v_i^{(r)}\)</span></li>
+<li>Compute probability of customer <span class="math inline">\(i\)</span>’s full choice sequence: <span class="math inline">\(L_i^{(r)} = \prod_{t} P(y_{it} | \alpha_i^{(r)})\)</span></li>
 </ol>
-<section id="example-5" class="level5">
-<h5 class="anchored" data-anchor-id="example-5">Example</h5>
-<p><img src="DAG_15.png" class="img-fluid"></p>
-<ul>
-<li><p>There is one backdoor path from A to Y, that is, <span class="math inline">\(A\leftarrow V\rightarrow M\leftarrow W\rightarrow Y\)</span></p>
-<ul>
-<li><p>It is blocked by a collider M</p></li>
-<li><p>No confounding (Information from V and W does not flow to Y and A because of M)</p></li>
-</ul></li>
-<li><p>Set of variables that are sufficient to control for confounding:</p>
-<ul>
-<li><p>Solutions: {},{V},{W},{M, W}, {M, V}, {M, V, W}</p></li>
-<li><p>Never only control {M} since it will open a path between A and Y that is not causal</p></li>
-</ul></li>
-</ul>
-<p><img src="DAG_16.png" class="img-fluid"></p>
-<ul>
-<li><p>There are two paths</p>
-<ul>
-<li><p><span class="math inline">\(A\leftarrow Z\leftarrow V\rightarrow Y\)</span></p>
-<ul>
-<li><p>No colliders</p></li>
-<li><p>Solutions: {Z}, {V}, or {Z, V}</p></li>
-</ul></li>
-<li><p><span class="math inline">\(A\leftarrow W\rightarrow Z\leftarrow V\rightarrow Y\)</span></p>
-<ul>
-<li><p>Z is a collider</p></li>
-<li><p>Solutions: {V}, or {Z, V}, {Z, W}, and {Z, V, W}</p>
-<p>Once we control for Z, we need to block the backdoor path by including V, or W, or V and W</p></li>
-</ul></li>
-</ul></li>
-</ul>
-</section>
-<section id="summary" class="level4">
-<h4 class="anchored" data-anchor-id="summary">Summary</h4>
-<p>To use the backdoor path criterion, we are required to know the <em>whole DAG</em>.</p>
-</section>
-</section>
-<section id="disjunctive-cause-criterion" class="level3">
-<h3 class="anchored" data-anchor-id="disjunctive-cause-criterion">Disjunctive Cause Criterion</h3>
-<p>We do not need to know the whole graph, but rather, the list of variables that affect exposure or outcome.</p>
-<section id="example-6" class="level5">
-<h5 class="anchored" data-anchor-id="example-6">Example</h5>
-<ul>
-<li><p>Observed pre-treatment variables: {M, W, V}</p></li>
-<li><p>Unobserved pre-treatment variables: {U1, U2}</p></li>
-<li><p>Suppose W and V are causes of A, Y, or both and M is not a cause of either A or Y</p></li>
-</ul>
-<p><strong>Solution 1</strong>: Use all pre-treatment covariates, i.e., {M, W, V}</p>
-<p><strong>Solution 2</strong>: Use variables <u>based on disjunctive cause criterion</u>, i.e., {W, V}</p>
-<p>Let’s check if these solutions fit in the DAG for <span class="math inline">\(A\rightarrow Y\)</span></p>
-<p><strong>Hypothetical DAG 1</strong></p>
-<p><img src="DAG_17.png" class="img-fluid"></p>
-<p><br></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th></th>
-<th style="text-align: center;">Satisfies Backdoor Path Criterion</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Solution 1&nbsp;{M, W, V}</td>
-<td style="text-align: center;">Yes</td>
-</tr>
-<tr class="even">
-<td>Solution 2&nbsp;{W, V}</td>
-<td style="text-align: center;">Yes</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Hypothetical DAG 2</strong></p>
-<p><img src="DAG_18.png" class="img-fluid"></p>
-<p><br></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th></th>
-<th style="text-align: center;">Satisfies Backdoor Path Criterion</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Solution 1&nbsp;{M, W, V}</td>
-<td style="text-align: center;">Yes</td>
-</tr>
-<tr class="even">
-<td>Solution 2&nbsp;{W, V}</td>
-<td style="text-align: center;">Yes</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Hypothetical DAG 3</strong></p>
-<p><img src="DAG_19.png" class="img-fluid"></p>
-<p><br></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th></th>
-<th style="text-align: center;">Satisfies Backdoor Path Criterion</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Solution 1&nbsp;{M, W, V}</td>
-<td style="text-align: center;">No (b/c M opens the backdoor path)</td>
-</tr>
-<tr class="even">
-<td>Solution 2&nbsp;{W, V}</td>
-<td style="text-align: center;">Yes</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Hypothetical DAG 4</strong></p>
-<p><img src="DAG_20.png" class="img-fluid"></p>
-<p><br></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th></th>
-<th style="text-align: center;">Satisfies Backdoor Path Criterion</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Solution 1&nbsp;{M, W, V}</td>
-<td style="text-align: center;">No (b/c W opens the backdoor path)</td>
-</tr>
-<tr class="even">
-<td>Solution 2&nbsp;{W, V}</td>
-<td style="text-align: center;">No (b/c W opens the backdoor path)</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="summary-1" class="level4">
-<h4 class="anchored" data-anchor-id="summary-1">Summary</h4>
-<p>The disjunctive cause criterion:</p>
-<ul>
-<li><p>does not always select the smallest set of variables to control for (e.g., if we only have one collider in the whole DAG, the smallest set is <span class="math inline">\(\empty\)</span>, that is, doing nothing)</p></li>
-<li><p>but is conceptually simpler (i.e., list variables that are causes of treatment or outcome or both)</p></li>
-<li><p>is guaranteed to select a set of variables that are sufficient to control for confounding if</p>
-<ul>
-<li><p>such a set exists</p></li>
-<li><p>all of the observed causes of A and Y are correctly identified (no need to know the whole DAG but do have to know about the relationship between observed variables)</p></li>
-</ul></li>
-</ul>
+<p>Average across draws: <span class="math inline">\(\hat{L}_i = \frac{1}{R} \sum_r L_i^{(r)}\)</span></p>
+<p>Maximize total simulated log-likelihood: <span class="math inline">\(\sum_i \log \hat{L}_i\)</span></p>
+<p><strong>Intuition:</strong> Each draw represents one possible realization of unobserved heterogeneity. Averaging across draws integrates out the latent <span class="math inline">\(v_i\)</span> terms.</p>
+<p><strong>Halton sequences for simulation draws:</strong> Instead of pseudo-random draws, use Halton sequences which are deterministic, low-discrepancy sequences that cover the integration space more evenly.</p>
+<ol type="1">
+<li>Generate Halton sequence <span class="math inline">\(\{h_1, \ldots, h_{N \times R}\}\)</span> in <span class="math inline">\([0,1]\)</span> using prime bases (base 2 for <span class="math inline">\(v^\alpha\)</span>, base 3 for <span class="math inline">\(v^\beta\)</span>, base 5/7/11/… if there are more random components)</li>
+<li>Assign draws to customers: customer <span class="math inline">\(i\)</span> gets <span class="math inline">\(h_{(i-1)R+1}, \ldots, h_{iR}\)</span></li>
+<li>Transform to standard normal: <span class="math inline">\(v_i^{(r)} = \Phi^{-1}(h_{(i-1)R + r})\)</span></li>
+<li>Proceed with simulated MLE as before</li>
+</ol>
+<p><strong>Benefit:</strong> Better approximation of the integral with fewer draws. Typical usage: <span class="math inline">\(R = 100\)</span>–<span class="math inline">\(500\)</span> Halton draws vs.&nbsp;<span class="math inline">\(R = 1000\)</span>+ pseudo-random.</p>
 
 
-</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->

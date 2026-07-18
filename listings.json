@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/static-demand-mix-logit/index.html",
       "/posts/python-missing-data/index.html",
       "/posts/compare-distributions/index.html",
       "/posts/extreme-value-logit/index.html",
@@ -32,6 +33,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/static-demand-mix-logit/index.html",
       "/posts/python-missing-data/index.html",
       "/posts/compare-distributions/index.html",
       "/posts/extreme-value-logit/index.html",
