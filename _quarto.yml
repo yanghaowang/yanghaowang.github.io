@@ -40,7 +40,7 @@ format:
       light: [cosmo]
       dark: [cosmo, theme-dark.scss]
     respect-user-color-scheme: true
-    mainfont: system-ui, sans-serif
+    mainfont: '"DM Sans", system-ui, sans-serif'
     css: styles.css
     toc: true
     toc-depth: 3
