@@ -1,0 +1,79 @@
+---
+title: "Static Demand with Customer-level Data: Mixed Logit"
+date: 2026-07-16
+description: "Explore how to model static demand with customer-level data using mixed logit. Learn about the statistical identification of random components and estimation via simulated MLE."
+categories:
+  - Structural Modeling
+  - Logit
+---
+
+Market demand for any product category is driven by millions of individual consumer choices across a set of differentiated products. Imagine you only know the product attributes and observe aggregate market shares from different markets. How do you infer the underlying demand? The seminal works of BLP (1995) and Nevo (2001) tackle this problem by developing a structural framework that models unobserved individual demand as discrete choices, aggregates them, and matches the resulting probabilities to observed market shares.
+
+![](auto-ford.png){width="90%" fig-align="center" style="border-radius: 10px;"}
+
+However, in today's data-rich environment, what if we *actually observe* customer-level choices? The game changes. We can bypass the bottom-up aggregation procedure and estimate individual demand directly. While the standard logit model provides a simple starting point, it fails to capture the diversity of consumer tastes and is fundamentally limited by the overly restrictive substitution patterns of the IIA (Independence of Irrelevant Alternatives) assumption. To account for customer heterogeneity and allow for more flexible substitution patterns, we turn to the **mixed logit model**. By allowing preferences to vary with customer demographics and unobservable random components, the mixed logit overcomes the limitations of its simpler counterpart and paints a much richer picture of consumer decision-making.
+
+## Model Setup
+The choice model starts with the utility specification of customer $i$ choosing product $j$ at period $t$ from a choice set $\mathcal{J}$:
+$$
+u_{ijt} = \beta_i' x_{jt} - \alpha_i p_{jt} + \epsilon_{ijt}
+$$
+
+- $x_{jt}, p_{jt}$ are product features and product price in period $t$
+- $\beta_i, \alpha_i$ are conformable coefficients that vary with demographics $d_i$ and random components $v_i$
+
+$$
+\alpha_i = \alpha_0 + \gamma_\alpha' d_i + \sigma_\alpha v_i^{\alpha}, \quad v_i^{\alpha} \sim N(0,1)
+$$
+
+$$
+\beta_i = \beta_0 + \gamma_\beta' d_i + \sigma_\beta v_i^{\beta}, \quad v_i^{\beta} \sim N(0,1)
+$$
+
+- $\epsilon_{ijt}$ is the idiosyncratic taste shock (Type I extreme value for logit)
+
+Given the Type I extreme value assumption on $\epsilon_{ijt}$, the probability that customer $i$ chooses product $j$ in period $t$ takes the logit form:
+$$
+P(y_{it} = j \mid \alpha_i, \beta_i) = \frac{\exp(\beta_i' x_{jt} - \alpha_i p_{jt})}{\sum_{k \in \mathcal{J}} \exp(\beta_i' x_{kt} - \alpha_i p_{kt})}
+$$
+
+In practice, $t$ is used for market index, implying observations from different periods are treated as outcomes from different markets. To simplify the notation, we suppress $t$ in the following discussion.
+
+## Statistical Identification of Random Coefficients
+
+**Why cross-sectional data alone fails for random coefficients:** For customers with identical observables $d_i$, different choices could reflect:
+1. Different unobserved preferences (e.g., $\alpha_i$ differs due to $\sigma_\alpha v_i^\alpha$)
+2. Different idiosyncratic shocks (i.e., $\epsilon_{ij}$ differs)
+
+With one observation per person, the likelihood cannot separate persistent heterogeneity from transitory shocks.
+
+**Alternative without random coefficients:** If we set $\sigma_\alpha = \sigma_\beta = 0$, preferences become fully determined by observables:
+$$\alpha_i = \alpha_0 + \gamma_\alpha' d_i, \quad \beta_i = \beta_0 + \gamma_\beta' d_i$$
+
+It reduces to a conditional logit which can be identified through cross-sectional data, assuming all preference heterogeneity is explained by $d_i$.
+
+**Key challenge:** Price and features are bundled in each option. Separating price sensitivity from feature preferences requires either variation in prices holding features fixed (e.g., fee changes over time) or strong functional form assumptions. Therefore, it is ideal to have panel data with temporal variation in prices.
+
+## Estimation
+**Random components data:** The random components $v_i^\alpha, v_i^\beta \sim N(0,1)$ are latent. For tractability, we assume they are varying across customers but fixed within each $i$. They capture persistent unobserved heterogeneity.
+
+**Simulated MLE procedure:** For illustration purpose, we only consider the random coefficient on price, $\alpha_i$, and assume $\beta_i = \beta_0$. For each simulation draw $r = 1, \ldots, R$:
+
+1. Draw $v_i^{(r)} \sim N(0,1)$ for each customer (same draw for all of customer $i$'s observations)
+2. Compute $\alpha_i^{(r)} = \alpha_0 + \gamma_\alpha' d_i + \sigma_\alpha v_i^{(r)}$
+3. Compute probability of customer $i$'s full choice sequence: $L_i^{(r)} = \prod_{t} P(y_{it} | \alpha_i^{(r)})$
+
+Average across draws: $\hat{L}_i = \frac{1}{R} \sum_r L_i^{(r)}$
+
+Maximize total simulated log-likelihood: $\sum_i \log \hat{L}_i$
+
+**Intuition:** Each draw represents one possible realization of unobserved heterogeneity. Averaging across draws integrates out the latent $v_i$ terms.
+
+**Halton sequences for simulation draws:** Instead of pseudo-random draws, use Halton sequences which are deterministic, low-discrepancy sequences that cover the integration space more evenly.
+
+1. Generate Halton sequence $\{h_1, \ldots, h_{N \times R}\}$ in $[0,1]$ using prime bases (base 2 for $v^\alpha$, base 3 for $v^\beta$, base 5/7/11/... if there are more random components)
+2. Assign draws to customers: customer $i$ gets $h_{(i-1)R+1}, \ldots, h_{iR}$
+3. Transform to standard normal: $v_i^{(r)} = \Phi^{-1}(h_{(i-1)R + r})$
+4. Proceed with simulated MLE as before
+
+**Benefit:** Better approximation of the integral with fewer draws. Typical usage: $R = 100$–$500$ Halton draws vs. $R = 1000$+ pseudo-random.
