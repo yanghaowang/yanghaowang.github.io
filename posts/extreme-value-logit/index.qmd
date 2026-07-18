@@ -4,6 +4,7 @@ date: 2023-01-02 23:17:54
 description: "Explore the connection between Extreme Value Distribution and Logit Regression for modeling choice probabilities in economics."
 categories:
 - Probability
+- Logit
 mathjax: true 
 ---
 
