@@ -4,7 +4,8 @@ date: 2026-07-16
 description: "Explore how to model static demand with customer-level data using mixed logit. Learn about the statistical identification of random components and estimation via simulated MLE."
 categories:
   - Structural Modeling
-  - Logit
+  - Discrete Choice
+  - Mixed Logit
 ---
 
 Market demand for any product category is driven by millions of individual consumer choices across a set of differentiated products. Imagine you only know the product attributes and observe aggregate market shares from different markets. How do you infer the underlying demand? The seminal works of BLP (1995) and Nevo (2001) tackle this problem by developing a structural framework that models unobserved individual demand as discrete choices, aggregates them, and matches the resulting probabilities to observed market shares.
