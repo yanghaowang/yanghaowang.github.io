@@ -10,7 +10,142 @@
 <atom:link href="https://yanghaowang.github.io/blog.xml" rel="self" type="application/rss+xml"/>
 <description>Practical tutorials and methodological deep dives into A/B testing, causal inference, SQL, and Python from the perspective of an applied economist.</description>
 <generator>quarto-1.9.38</generator>
-<lastBuildDate>Thu, 16 Jul 2026 07:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sat, 18 Jul 2026 07:00:00 GMT</lastBuildDate>
+<item>
+  <title>Dynamic Discrete Choice: Example of Bus Engine Replacement Problem</title>
+  <link>https://yanghaowang.github.io/posts/dynamic-discrete-choice/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>In the real world, choices are sequential, forward-looking, and dynamic. Every choice decision you make today alters the choice set available to you tomorrow. To study the sequence of an individual’s choices, economists turn to the <strong>Dynamic Discrete Choice</strong> framework.</p>
+<p>The classic entry point to study this framework is Rust (1987)’s <strong>Optimal Replacement of GMC Bus Engines</strong>.</p>
+<section id="bus-engine-dilemma" class="level2">
+<h2 class="anchored" data-anchor-id="bus-engine-dilemma">Bus Engine Dilemma</h2>
+<p>Harold Zurcher is a maintenance superintendent of the Madison Metropolitan Bus Company. Every month, Zurcher inspects the fleet of buses and faces a binary choice for each one: <strong>replace the engine now, or keep it running for another month?</strong></p>
+<ul>
+<li><strong>Replace the engine:</strong> It is expensive, incurring an upfront fixed cost (<img src="https://latex.codecogs.com/png.latex?RC">), but it resets the bus to like-new condition.</li>
+<li><strong>Keep it running:</strong> It is cheap today, but maintainance costs rise with mileage, and there is always a chance of engine failure.</li>
+</ul>
+<p>Zurcher is <strong>forward-looking</strong>. He wants to not only maintain a low cost today but also to minimize the expected <em>discounted stream</em> of all future costs. This tension between immediate expenses and future risks is the heart of dynamic optimization.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://yanghaowang.github.io/posts/dynamic-discrete-choice/bus-eng.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</section>
+<section id="model-setup" class="level2">
+<h2 class="anchored" data-anchor-id="model-setup">Model Setup</h2>
+<section id="state-and-control-variables" class="level3">
+<h3 class="anchored" data-anchor-id="state-and-control-variables">State and Control Variables</h3>
+<ul>
+<li><strong>State variable <img src="https://latex.codecogs.com/png.latex?x_t"></strong>: Cumulative mileage since last replacement (discretized into bins)
+<ul>
+<li>[Conditional Independence Assumption] Future cost only depends on the cumulative mileage ofthe current engine</li>
+</ul></li>
+<li><strong>Control variable <img src="https://latex.codecogs.com/png.latex?a_t%20%5Cin%20%5C%7B0,%201%5C%7D"></strong>: Binary decision at each month
+<ul>
+<li><img src="https://latex.codecogs.com/png.latex?a_t%20=%200">: keep the current engine</li>
+<li><img src="https://latex.codecogs.com/png.latex?a_t%20=%201">: replace the engine</li>
+</ul></li>
+</ul>
+</section>
+<section id="utility-function" class="level3">
+<h3 class="anchored" data-anchor-id="utility-function">Utility Function</h3>
+<p><img src="https://latex.codecogs.com/png.latex?%0Au(x_t,%20a_t,%20%5Ctheta)%20=%20%5Cbegin%7Bcases%7D%0A-c(x_t,%20%5Ctheta_1)%20&amp;%20%5Ctext%7Bif%20%7D%20a_t%20=%200%20%5Ctext%7B%20(keep)%7D%20%5C%5C%0A-%5BRC%20+%20c(0,%20%5Ctheta_1)%5D%20&amp;%20%5Ctext%7Bif%20%7D%20a_t%20=%201%20%5Ctext%7B%20(replace)%7D%0A%5Cend%7Bcases%7D%0A"></p>
+<ul>
+<li><img src="https://latex.codecogs.com/png.latex?c(x,%20%5Ctheta_1)">: Deterministic maintenance cost, increasing in mileage. Rust uses a simple linear form <img src="https://latex.codecogs.com/png.latex?c(x,%20%5Ctheta_1)%20=%20%5Ctheta_1%20x">. Thus, when <img src="https://latex.codecogs.com/png.latex?a=1">, <img src="https://latex.codecogs.com/png.latex?c(0,%20%5Ctheta_1)%20=%200"> and the utility is <img src="https://latex.codecogs.com/png.latex?-RC">.</li>
+</ul>
+<p>Moreover, Zurcher observes an additive <strong>private</strong> shock <img src="https://latex.codecogs.com/png.latex?%5Cvarepsilon_t(a)"> for each choice. The total per-period payoff is hence given by <img src="https://latex.codecogs.com/png.latex?u(x_t,%20a_t,%20%5Ctheta)%20+%20%5Cvarepsilon_t(a_t)">.</p>
+<ul>
+<li><img src="https://latex.codecogs.com/png.latex?%5Cvarepsilon_t(a)">: The private shock for the action <img src="https://latex.codecogs.com/png.latex?a"> at time <img src="https://latex.codecogs.com/png.latex?t"> is assumed to be an i.i.d. <strong>Gumbel</strong> (Type I extreme value) error, which the econometrician doesn’t observe.</li>
+</ul>
+</section>
+<section id="state-transition" class="level3">
+<h3 class="anchored" data-anchor-id="state-transition">State Transition</h3>
+<p>The transition process captures how buses accumulate mileage. It’s exogenous to the replacement decision.</p>
+<ul>
+<li>If <img src="https://latex.codecogs.com/png.latex?a_t%20=%200"> (keep): mileage increases stochastically. <img src="https://latex.codecogs.com/png.latex?x_%7Bt+1%7D%20%5Csim%20F(%5Ccdot%20%7C%20x_t,%20%5Ctheta_2)"></li>
+<li>If <img src="https://latex.codecogs.com/png.latex?a_t%20=%201"> (replace): mileage resets to 0, then increases. <img src="https://latex.codecogs.com/png.latex?x_%7Bt+1%7D%20%5Csim%20F(%5Ccdot%20%7C%200,%20%5Ctheta_2)"></li>
+</ul>
+<p>Rust discretizes mileage into bins and estimates the transition matrix <img src="https://latex.codecogs.com/png.latex?%5Ctheta_2"> directly from the data. This is a key simplification, <strong>separating</strong> <img src="https://latex.codecogs.com/png.latex?%5Ctheta_2"> from <img src="https://latex.codecogs.com/png.latex?%5Ctheta_1">.</p>
+</section>
+<section id="discount-factor" class="level3">
+<h3 class="anchored" data-anchor-id="discount-factor">Discount Factor</h3>
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbeta%20%5Cin%20(0,%201)">: how much Zurcher weights future costs relative to today. Typically fixed (e.g., <img src="https://latex.codecogs.com/png.latex?%5Cbeta%20=%200.966">) rather than estimated, because it’s weakly identified in practice.</p>
+<blockquote class="blockquote">
+<p><strong>Example</strong>: Anthropic subscription plan at $200 if billed up front for a year or $20 if billed monthly: <img src="https://latex.codecogs.com/png.latex?%0A20%5Ctimes%20(1%20+%20%5Cbeta%20+%5Cbeta%5E2%20+%20...%20+%20%5Cbeta%5E%7B11%7D)=20%5Ctimes%20%5Cfrac%7B1-%5Cbeta%5E%7B12%7D%7D%7B1-%5Cbeta%7D%20=%20200%20%5Cimplies%20%5Cbeta%20%5Capprox%200.966%0A"></p>
+</blockquote>
+</section>
+<section id="value-function" class="level3">
+<h3 class="anchored" data-anchor-id="value-function">Value Function</h3>
+<p>The <strong>value function</strong> <img src="https://latex.codecogs.com/png.latex?V(x_t,%20%5Cvarepsilon_t)"> captures the optimized total expected cost from state <img src="https://latex.codecogs.com/png.latex?(x_t,%20%5Cvarepsilon_t)"> onward:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AV(x_t,%20%5Cvarepsilon_t)%20=%20%5Cmax_%7B%7B%5C%7Ba_t%5C%7D%7D%5E%5Cinfty_%7Bt=0%7D%7D%20%5Cmathbb%7BE%7D%20%5Cleft%5B%20%5Csum_%7Bs=0%7D%5E%7B%5Cinfty%7D%20%5Cbeta%5Es%20%5CBig(%20u(x_%7Bt+s%7D,%20a_%7Bt+s%7D,%20%5Ctheta)%20+%20%5Cvarepsilon_%7Bt+s%7D(a_%7Bt+s%7D)%20%5CBig)%20%5C,%5CBig%7C%5C,%20x_t,%20%5Cvarepsilon_t%20%5Cright%5D%0A"></p>
+</section>
+</section>
+<section id="bellman-equation" class="level2">
+<h2 class="anchored" data-anchor-id="bellman-equation">Bellman Equation</h2>
+<p>The optimization problem with infinite-horizon can be rewritten as the following recursive definition in terms of value function, known as the <strong>Bellman equation</strong>:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AV(x_t,%20%5Cvarepsilon_t)%20=%20%5Cmax_%7Ba_t%20%5Cin%20%5C%7B0,1%5C%7D%7D%20%5Cleft%5C%7B%20u(x_t,%20a_t,%20%5Ctheta)%20+%20%5Cvarepsilon_t(a_t)%20+%20%5Cbeta%20%5Cmathbb%7BE%7D%5BV(x_%7Bt+1%7D,%20%5Cvarepsilon_%7Bt+1%7D)%20%7C%20x_t,%20a_t%5D%20%5Cright%5C%7D%0A"></p>
+<p><strong>Conditional Independence (CI) Assumption</strong> implies (1) <img src="https://latex.codecogs.com/png.latex?%5Cvarepsilon_%7Bt+1%7D"> is an i.i.d. error in each period, and (2) <img src="https://latex.codecogs.com/png.latex?x_%7Bt+1%7D"> depends only on <img src="https://latex.codecogs.com/png.latex?(x_t,%20a_t)">, not on <img src="https://latex.codecogs.com/png.latex?%5Cvarepsilon_t">. That is, <img src="https://latex.codecogs.com/png.latex?%0Ap(x_%7Bt+1%7D,%20%5Cvarepsilon_%7Bt+1%7D%20%7C%20x_t,%20%5Cvarepsilon_t,%20a_t)%20=%20p(%5Cvarepsilon_%7Bt+1%7D)%20%5Ccdot%20p(x_%7Bt+1%7D%20%7C%20x_t,%20a_t).%0A"></p>
+<p>This assumption allows us to integrate out <img src="https://latex.codecogs.com/png.latex?%5Cvarepsilon"> and work with a lower-dimensional object.</p>
+<section id="integrated-value-function" class="level3">
+<h3 class="anchored" data-anchor-id="integrated-value-function">Integrated Value Function</h3>
+<p>To compute the expected future value, we average over next period’s mileage (via the transition matrix) and next period’s shocks (via the Gumbel distribution).</p>
+<p>Define the <strong>expected value function</strong> (integrated over both <img src="https://latex.codecogs.com/png.latex?%5Cvarepsilon'"> and <img src="https://latex.codecogs.com/png.latex?x'">):</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AEV(x,%20a)%20=%20%5Csum_%7Bx'%7D%20%5Cmathbb%7BE%7D_%7B%5Cvarepsilon'%7D%20%5Cleft%5B%20V(x',%20%5Cvarepsilon')%20%5Cright%5D%20%5Ccdot%20F(x'%20%7C%20x,%20a)%0A"></p>
+<ul>
+<li>Since replacement always resets mileage to 0, <img src="https://latex.codecogs.com/png.latex?EV(x,%201)%20=%20EV(0,%200)"> for all <img src="https://latex.codecogs.com/png.latex?x">.</li>
+</ul>
+<p>Let <img src="https://latex.codecogs.com/png.latex?%5Cbar%7Bu%7D(x,%20a)%20%5Cequiv%20u(x,%20a,%20%5Ctheta)"> denote the deterministic part. Under the <strong>Gumbel</strong> assumption on <img src="https://latex.codecogs.com/png.latex?%5Cvarepsilon_t(a)">, the expectation over <img src="https://latex.codecogs.com/png.latex?%5Cvarepsilon"> has a closed-form (the log-sum formula):</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cmathbb%7BE%7D_%5Cvarepsilon%20%5Cleft%5B%20%5Cmax_a%20%5C%7B%20%5Cbar%7Bu%7D(x,%20a)%20+%20%5Cvarepsilon(a)%20+%20%5Cbeta%20%5C,%20EV(x,%20a)%20%5C%7D%20%5Cright%5D%20=%20%5Clog%20%5Cleft(%20%5Csum_a%20%5Cexp%5Cleft(%20%5Cbar%7Bu%7D(x,%20a)%20+%20%5Cbeta%20%5C,%20EV(x,%20a)%20%5Cright)%20%5Cright)%20+%20%5Cgamma_E%0A"></p>
+<p>where <img src="https://latex.codecogs.com/png.latex?%5Cgamma_E"> is Euler’s constant (~0.5772). This gives us a <strong>fixed-point equation in <img src="https://latex.codecogs.com/png.latex?EV"></strong>:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AEV(x,%20a)%20=%20%5Csum_%7Bx'%7D%20%5Cleft%5B%20%5Clog%20%5Cleft(%20%5Csum_%7Ba'%7D%20%5Cexp(%5Cbar%7Bu%7D(x',%20a')%20+%20%5Cbeta%20%5C,%20EV(x',%20a'))%20%5Cright)%20+%20%5Cgamma_E%20%5Cright%5D%20%5Ccdot%20F(x'%20%7C%20x,%20a)%0A"></p>
+<p><strong>Key:</strong> The Gumbel assumption not only simplifies the computation of <img src="https://latex.codecogs.com/png.latex?%5Cmathbb%7BE%7D_%7B%5Cvarepsilon%7D"> but also <strong>connects this dynamic problem to the choice probabilities</strong> we observe in the data. Particularly, the log-sum formula is the bridge between the value function and the choice probabilities.</p>
+</section>
+</section>
+<section id="choice-probabilities" class="level2">
+<h2 class="anchored" data-anchor-id="choice-probabilities">Choice Probabilities</h2>
+<p>Given the Gumbel shocks, the probability of replacing the engine at state <img src="https://latex.codecogs.com/png.latex?x_t"> is:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0AP(a_t%20=%201%20%7C%20x_t,%20%5Ctheta)%20=%20%5Cfrac%7B%5Cexp(%5Cbar%7Bu%7D(x_t,%201)%20+%20%5Cbeta%20%5C,%20EV(x_t,%201))%7D%7B%5Cexp(%5Cbar%7Bu%7D(x_t,%200)%20+%20%5Cbeta%20%5C,%20EV(x_t,%200))%20+%20%5Cexp(%5Cbar%7Bu%7D(x_t,%201)%20+%20%5Cbeta%20%5C,%20EV(x_t,%201))%7D%0A"></p>
+<p>This is a <strong>logit formula</strong>, similar to a static discrete choice model, except the inclusion of the continuation value <img src="https://latex.codecogs.com/png.latex?%5Cbeta%20%5C,%20EV(x,%20a)">.</p>
+<p><strong>Key:</strong> The dynamic problem reduces to a sequence of static logit choices, where the future is summarized by <img src="https://latex.codecogs.com/png.latex?EV">. The hard part is the estimation of <img src="https://latex.codecogs.com/png.latex?EV">.</p>
+</section>
+<section id="estimation---nested-fixed-point-nfxp" class="level2">
+<h2 class="anchored" data-anchor-id="estimation---nested-fixed-point-nfxp">Estimation - Nested Fixed Point (NFXP)</h2>
+<section id="outer-loop-maximum-likelihood" class="level3">
+<h3 class="anchored" data-anchor-id="outer-loop-maximum-likelihood">Outer Loop: Maximum Likelihood</h3>
+<p>The likelihood of the observed data <img src="https://latex.codecogs.com/png.latex?%5C%7Bx_t%5Ei,%20a_t%5Ei%5C%7D"> for bus <img src="https://latex.codecogs.com/png.latex?i"> over periods <img src="https://latex.codecogs.com/png.latex?t">:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cmathcal%7BL%7D(%5Ctheta)%20=%20%5Cprod_i%20%5Cprod_t%20P(a_t%5Ei%20%7C%20x_t%5Ei,%20%5Ctheta)%20%5Ccdot%20F(x_%7Bt+1%7D%5Ei%20%7C%20x_t%5Ei,%20a_t%5Ei,%20%5Ctheta_2)%0A"></p>
+<p>The optimizer proposes <img src="https://latex.codecogs.com/png.latex?%5Ctheta%20=%20(%5Ctheta_1,%20RC)">, evaluates the likelihood, and iterates.</p>
+</section>
+<section id="inner-loop-solve-the-fixed-point" class="level3">
+<h3 class="anchored" data-anchor-id="inner-loop-solve-the-fixed-point">Inner Loop: Solve the Fixed Point</h3>
+<p>For each candidate <img src="https://latex.codecogs.com/png.latex?%5Ctheta">, solve the Bellman equation to get <img src="https://latex.codecogs.com/png.latex?EV(%5Ccdot;%20%5Ctheta)">:</p>
+<ol type="1">
+<li>Start with an initial guess <img src="https://latex.codecogs.com/png.latex?EV%5E%7B(0)%7D(x)%20=%200"> for all <img src="https://latex.codecogs.com/png.latex?x">.</li>
+<li>Apply the contraction mapping: <img src="https://latex.codecogs.com/png.latex?%0AEV%5E%7B(k+1)%7D(x)%20=%20T(EV%5E%7B(k)%7D)(x)%20=%20%5Csum_%7Bx'%7D%20%5Cleft%5B%20%5Clog%20%5Csum_%7Ba'%7D%20%5Cexp(%5Cbar%7Bu%7D(x',%20a')%20+%20%5Cbeta%20%5C,%20%5Cwidetilde%7BEV%7D%5E%7B(k)%7D(x',%20a'))%20+%20%5Cgamma_E%20%5Cright%5D%20F(x'%20%7C%20x,%200)%0A"></li>
+<li>Repeat until <img src="https://latex.codecogs.com/png.latex?%5C%7C%20EV%5E%7B(k+1)%7D%20-%20EV%5E%7B(k)%7D%20%5C%7C%20%3C%20%5Ctext%7Btol%7D">.</li>
+<li>Compute choice probabilities from the converged <img src="https://latex.codecogs.com/png.latex?EV">.</li>
+</ol>
+<p><strong>Why we only solve for <img src="https://latex.codecogs.com/png.latex?EV(x,%200)">:</strong> As noted above, <img src="https://latex.codecogs.com/png.latex?EV(x,%201)%20=%20EV(0,%200)"> for all <img src="https://latex.codecogs.com/png.latex?x">. The future expected value, <img src="https://latex.codecogs.com/png.latex?EV(x,%200)"> (if “keep”) and <img src="https://latex.codecogs.com/png.latex?EV(0,%200)"> (if “replace”), can be denoted as <img src="https://latex.codecogs.com/png.latex?EV(x)">. So we only iterate on <img src="https://latex.codecogs.com/png.latex?EV(x)"> across the <img src="https://latex.codecogs.com/png.latex?K"> mileage states, that is,</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%7BEV%7D%5E%7B(k)%7D(x,%20a)%20=%20%5Cbegin%7Bcases%7D%0AEV%5E%7B(k)%7D(x)%20&amp;%20%5Ctext%7Bif%20%7D%20a%20=%200%20%5C%5C%0AEV%5E%7B(k)%7D(0)%20&amp;%20%5Ctext%7Bif%20%7D%20a%20=%201%0A%5Cend%7Bcases%7D.%0A"></p>
+<p><strong>Why “nested”:</strong> Every time the outer loop tries a new <img src="https://latex.codecogs.com/png.latex?%5Ctheta">, the inner loop must re-solve the entire dynamic programming problem from scratch. This is computationally expensive, as the inner loop runs to convergence for <em>each</em> likelihood evaluation.</p>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Structural Modeling</category>
+  <category>Discrete Choice</category>
+  <category>Dynamic Logit</category>
+  <guid>https://yanghaowang.github.io/posts/dynamic-discrete-choice/</guid>
+  <pubDate>Sat, 18 Jul 2026 07:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Static Demand with Customer-level Data: Mixed Logit</title>
   <link>https://yanghaowang.github.io/posts/static-demand-mix-logit/</link>
@@ -77,7 +212,8 @@
 
 <a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
   <category>Structural Modeling</category>
-  <category>Logit</category>
+  <category>Discrete Choice</category>
+  <category>Mixed Logit</category>
   <guid>https://yanghaowang.github.io/posts/static-demand-mix-logit/</guid>
   <pubDate>Thu, 16 Jul 2026 07:00:00 GMT</pubDate>
 </item>
@@ -1248,6 +1384,7 @@ font-style: inherit;">1</span>]))</span>
 
 <a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
   <category>Probability</category>
+  <category>Discrete Choice</category>
   <category>Logit</category>
   <guid>https://yanghaowang.github.io/posts/extreme-value-logit/</guid>
   <pubDate>Tue, 03 Jan 2023 07:17:54 GMT</pubDate>
@@ -7305,127 +7442,6 @@ font-style: inherit;">"G:\My Drive"</span></span></code></pre></div></div>
   <category>Work Efficiency</category>
   <guid>https://yanghaowang.github.io/posts/virtual-drive-path/</guid>
   <pubDate>Tue, 20 Jul 2021 18:54:41 GMT</pubDate>
-</item>
-<item>
-  <title>GitHub Authentication and Basic Functionalities</title>
-  <link>https://yanghaowang.github.io/posts/github-basics/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-
-<p>Recently, I share with colleagues my knowledge of Git/GitHub. I gave a presentation in a team meeting, which covers the authentication and the basic functionalities of GitHub.</p>
-<p class="twelve columns" style="text-align: center;">
-<img src="https://yanghaowang.github.io/posts/github-basics/Git_GitHub.png" class="img-fluid">
-</p>
-<p>The authentication setting of GitHub in Git is not as easy as that in the GitHub Desktop App. Most beginners are overwhelmed by large numbers of relevant posts. Therefore, I list the <em>only necessary official</em> references that you can follow step by step to set up the authentication. Moreover, from my perspectives, I list the basic functionalities of GitHub as well as the corresponding daily Git commands. Lastly, I share some rules of thumb for collaboration in GitHub.</p>
-<section id="authentication" class="level2">
-<h2 class="anchored" data-anchor-id="authentication">Authentication</h2>
-<p><em>You must authenticate before you can access certain resources on GitHub</em>. When you authenticate to GitHub, you supply or confirm credentials that are unique to you to prove that you are exactly who you declare to be. The most two popular ways to authenticate to GitHub are</p>
-<ol type="1">
-<li>A Combination of Username and Personal Access Token, and</li>
-<li>The SSH Protocol</li>
-</ol>
-<section id="username-and-token" class="level3">
-<h3 class="anchored" data-anchor-id="username-and-token">Username and Token</h3>
-<ol type="1">
-<li><p>Creating a personal access token: https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token</p></li>
-<li><p>Using a token on the command line: https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token#using-a-token-on-the-command-line</p></li>
-</ol>
-</section>
-<section id="ssh" class="level3">
-<h3 class="anchored" data-anchor-id="ssh">SSH</h3>
-<ol type="1">
-<li>Checking for existing SSH keys: https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/checking-for-existing-ssh-keys</li>
-<li>Generating a new SSH key and adding it to the ssh-agent: https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent</li>
-<li>Adding a new SSH key to your GitHub account: https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account</li>
-</ol>
-<p>With SSH keys, you can connect to GitHub without supplying your username and personal access token at each visit.</p>
-<p class="twelve columns" style="text-align: center;">
-<img src="https://yanghaowang.github.io/posts/github-basics/GitHubAuthentication.png" class="img-fluid">
-</p>
-</section>
-</section>
-<section id="basic-functionalities" class="level2">
-<h2 class="anchored" data-anchor-id="basic-functionalities">Basic Functionalities</h2>
-<section id="adding-an-existing-project-to-github" class="level3">
-<h3 class="anchored" data-anchor-id="adding-an-existing-project-to-github">Adding an existing project to GitHub</h3>
-<p>https://docs.github.com/en/github/importing-your-projects-to-github/importing-source-code-to-github/adding-an-existing-project-to-github-using-the-command-line</p>
-</section>
-<section id="cloning-a-repository" class="level3">
-<h3 class="anchored" data-anchor-id="cloning-a-repository">Cloning a repository</h3>
-<p>https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository</p>
-</section>
-<section id="branch-checkoutbranch" class="level3">
-<h3 class="anchored" data-anchor-id="branch-checkoutbranch">Branch: Checkout/Branch</h3>
-<ol type="1">
-<li>Create a new branch using <code>git branch &lt;branch_name&gt;</code>.</li>
-<li>Switch to the new branch using <code>git checkout &lt;branch_name&gt;</code>.</li>
-</ol>
-<p>Execute two command lines in one: <code>git checkout -b &lt;branch_name&gt;</code></p>
-</section>
-<section id="adding-a-file-to-a-repository" class="level3">
-<h3 class="anchored" data-anchor-id="adding-a-file-to-a-repository">Adding a file to a repository</h3>
-<p>https://docs.github.com/en/github/managing-files-in-a-repository/managing-files-using-the-command-line/adding-a-file-to-a-repository-using-the-command-line</p>
-</section>
-<section id="remove-files-from-the-working-directory" class="level3">
-<h3 class="anchored" data-anchor-id="remove-files-from-the-working-directory">Remove files from the working directory</h3>
-<ol type="1">
-<li>Remove files (e.g.&nbsp;trash.txt) from local directory manually.</li>
-<li><code>git rm trash.txt</code> in Git Bash.</li>
-<li>Commit the change using <code>git commit -m "Remove trash.txt"</code>.</li>
-</ol>
-</section>
-<section id="pull-and-push" class="level3">
-<h3 class="anchored" data-anchor-id="pull-and-push">Pull and Push</h3>
-<ol type="1">
-<li>Check the target remote repository on GitHub using <code>git remote -v</code>.</li>
-<li>Pull the latest changes from GitHub with <code>git pull</code>.</li>
-<li>Push your work to GitHub with <code>git push origin &lt;branch_name&gt;"</code> where <code>origin</code> is referred to as the target remote repository.</li>
-</ol>
-</section>
-<section id="merge" class="level3">
-<h3 class="anchored" data-anchor-id="merge">Merge</h3>
-<p>Merge code changes in two different branches (target branch and to be merged branch)</p>
-<ol type="1">
-<li>Checkout the target branch using <code>git checkout &lt;target_bread&gt;</code>.</li>
-<li>Merge the changes from to-be-merged-branch into the target branch using <code>git merge &lt;to_be_merged_branch&gt;</code>.</li>
-</ol>
-</section>
-<section id="revert-and-reset" class="level3">
-<h3 class="anchored" data-anchor-id="revert-and-reset">Revert and Reset</h3>
-<p><code>git revert &lt;commit_ID&gt;</code> will undo the changes in a particular commit.</p>
-<ul>
-<li><p><code>git reset</code></p></li>
-<li><p><code>git commit --amend</code></p></li>
-</ul>
-</section>
-</section>
-<section id="best-practices-for-collaboration" class="level2">
-<h2 class="anchored" data-anchor-id="best-practices-for-collaboration">Best Practices for Collaboration</h2>
-<ol type="1">
-<li>Always synchronize your branches before starting any work on your own.</li>
-<li>Make changes that are self-contained.</li>
-<li>Avoid having very large changes that modify a lot of different things. (Try to make changes as small as possible as long as they’re self-contained.)</li>
-<li>When working on a big change, it makes sense to have a separate feature branch.</li>
-<li>Regularly merge changes made on the master branch back onto the feature branch.</li>
-<li>Have the latest version of the project in the master branch, and the stable version of the project on a separate branch.</li>
-<li>You shouldn’t rebase changes that have been pushed to remote repos.</li>
-<li>Write commit messages.</li>
-<li>Only edit the same branch when necessary after submitting a pull request.</li>
-</ol>
-
-
-</section>
-
-<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
-  <category>Git</category>
-  <category>Github</category>
-  <category>Work Efficiency</category>
-  <guid>https://yanghaowang.github.io/posts/github-basics/</guid>
-  <pubDate>Tue, 15 Jun 2021 19:06:00 GMT</pubDate>
 </item>
 </channel>
 </rss>

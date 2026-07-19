@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/dynamic-discrete-choice/index.html",
       "/posts/static-demand-mix-logit/index.html",
       "/posts/python-missing-data/index.html",
       "/posts/compare-distributions/index.html",
@@ -33,6 +34,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/dynamic-discrete-choice/index.html",
       "/posts/static-demand-mix-logit/index.html",
       "/posts/python-missing-data/index.html",
       "/posts/compare-distributions/index.html",
