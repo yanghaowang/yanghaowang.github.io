@@ -1,7 +1,7 @@
 ---
 title: "Dynamic Discrete Choice: Example of Bus Engine Replacement Problem"
 date: 2026-07-18
-description: "Introduce dynamic discrete choice models using the classic example of a bus engine replacement problem."
+description: "Walk through the dynamic discrete choice framework using Rust (1987)'s bus engine replacement problem, from Bellman equation and integration over Gumbel errors to nested fixed-point (NFXP) estimation."
 categories:
   - Structural Modeling
   - Discrete Choice
